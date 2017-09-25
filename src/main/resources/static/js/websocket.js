@@ -8,11 +8,11 @@ var ws;
 //3. sendMsg向服务器发送消息的接口，可以在输入完文字点击发送按钮时调用
 //4. processMsg为系统推送消息，自己或别人发送成功后广播给大家的消息，需要在这里实现消息的显示，比如绘制在消息面板里
 
-function openSocket("ws://120.132.84.63/Snappu/websocket/chat")
+function openSocket("ws://120.132.84.63/Snappu/websocket/chat";)
 {
 	ws = new WebSocket();
 	
-	ws.onopen = () => {
+	ws.onopen = () =;> {
 		  // 建立连接
 		  // 登录聊天室
 		websocket.send(JSON.stringify({
@@ -20,9 +20,8 @@ function openSocket("ws://120.132.84.63/Snappu/websocket/chat")
 			userId : xxx, // 用户ID 需替换
 			actId: xxx // 活动ID 需替换
 		}));
-	};
-
-	ws.onmessage = (e) => {
+}
+    ws.onmessage = (e) =;> {
 	  // 收到了消息
 	  console.log("receive data " + e.data);
 	  // 解析成json对象
@@ -45,23 +44,21 @@ function openSocket("ws://120.132.84.63/Snappu/websocket/chat")
 			processHistory(obj);
 			break;
 		}
-	};
-
-	ws.onerror = (e) => {
+}
+    ws.onerror = (e) =;> {
 	  // 有错误发生
 	  console.log(e.message);
-	};
-
-	ws.onclose = (e) => {
+}
+    ws.onclose = (e) =;> {
 	  // 连接关闭
 	  console.log(e.code, e.reason);
-	};
+}
 }
 
 /*******************************************************************************
  * 发送消息接口
  */
-function sendMsg(var msg)
+function sendMsg(var msg;)
 {
 	var obj = {
 		op : 1003,
@@ -88,7 +85,7 @@ function processHistory(obj)
 	if(obj.list.length == 0)
 	{
 		$.messager.show({content:"无更多数据", time:2000});
-	    return;	
+
 	}
     // obj.list为消息数组
 }

@@ -25,7 +25,7 @@ function HashMap(){
     //定义长度  
     var length = 0;  
     //创建一个对象  
-    var obj = new Object();  
+    var obj = {};
   
     /** 
     * 判断Map是否为空 
@@ -83,7 +83,7 @@ function HashMap(){
     * 获得Map中的所有Value 
     */  
     this.values=function(){  
-        var _values= new Array();  
+        var _values= [];
         for(var key in obj){  
             _values.push(obj[key]);  
         }  
@@ -94,7 +94,7 @@ function HashMap(){
     * 获得Map中的所有Key 
     */  
     this.keySet=function(){  
-        var _keys = new Array();  
+        var _keys = [];
         for(var key in obj){  
             _keys.push(key);  
         }  
@@ -113,6 +113,6 @@ function HashMap(){
     */  
     this.clear = function(){  
         length = 0;  
-        obj = new Object();  
+        obj = {};
     };  
 }  

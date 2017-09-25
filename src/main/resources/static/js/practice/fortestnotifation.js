@@ -28,17 +28,17 @@ function daojishi() {
 		$("#seconds").html("0");
 		$("#minutes").html("0");
 		$("#hours").html("0");
-		$("#otime").html("考试开始，请点击考试通知右侧的“进入考试”按钮参加考试！")
+		$("#otime").html("考试开始，请点击考试通知右侧的“进入考试”按钮参加考试！");
 		$("#otime").css("color", "#008000");
-		$("#otime")
-		$("div.btn-enter").css("background-image", "none")
-		$("div.btn-enter").css("background-color", "#FF8000")
+		$("#otime");
+		$("div.btn-enter").css("background-image", "none");
+		$("div.btn-enter").css("background-color", "#FF8000");
 		$("div.btn-enter").css("color", "#FFFFFF");
 		$("div.btn-enter").css("cursor", "pointer");
 		$("div.btn-enter").attr("id", "entertest");
 		$("p.middle-tishi-p").css("display", "none");
 		clearTimeout(settimeoutid);
-		return
+
 	} else {
 		cds--;
 		if(10 > cds && cds > -1) {
@@ -72,4 +72,4 @@ $(document).ready(
 	$("#entertest").click(function() {
 		location.href = 'item-knows.htm';
 	})
-)
+);

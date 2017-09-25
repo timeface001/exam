@@ -22,10 +22,10 @@ var autoTextarea = function (elem, extra, maxHeight) {
                         var rect = elem.getBoundingClientRect();
                         return rect.bottom - rect.top -
                                 parseFloat(getStyle('paddingTop')) + 'px';
-                                parseFloat(getStyle('paddingBottom')) + 'px';        
-                };
+                                parseFloat(getStyle('paddingBottom')) + 'px';
 
-                return val;
+                }
+            return val;
         } : function (name) {
                         return getComputedStyle(elem, null)[name];
         },
@@ -43,7 +43,7 @@ var autoTextarea = function (elem, extra, maxHeight) {
 
         if (!isFirefox && !isOpera) {
                 padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
-        };
+        }
         scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
         elem.style.height = minHeight + 'px';
@@ -54,13 +54,13 @@ var autoTextarea = function (elem, extra, maxHeight) {
                 } else {
                         height = elem.scrollHeight - padding;
                         style.overflowY = 'hidden';
-                };
-                style.height = height + extra + 'px';
+                }
+            style.height = height + extra + 'px';
                 scrollTop += parseInt(style.height) - elem.currHeight;
                 document.body.scrollTop = scrollTop;
                 document.documentElement.scrollTop = scrollTop;
                 elem.currHeight = parseInt(style.height);
-        };
+        }
     };
 
     addEvent('propertychange', change);

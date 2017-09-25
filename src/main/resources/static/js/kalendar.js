@@ -3,7 +3,7 @@ $(function(){
 	//判断是否是闰年,计算每个月的天数
 	function leapYear(year){
 		var isLeap = year%100==0 ? (year%400==0 ? 1 : 0) : (year%4==0 ? 1 : 0);
-		return new Array(31,28+isLeap,31,30,31,30,31,31,30,31,30,31);
+		return [31,28+isLeap,31,30,31,30,31,31,30,31,30,31];
 	}
 
 	//获得某月第一天是周几
@@ -14,7 +14,7 @@ $(function(){
 	//获得当天的相关日期变量
 	function dateNoneParam(){
 		var day = new Date();
-		var today = new Array();
+		var today = [];
 		today['year'] = day.getFullYear();
 		today['month'] = day.getMonth();
 		today['date'] = day.getDate();
@@ -29,7 +29,7 @@ $(function(){
 	//获得所选日期的相关变量
 	function dateWithParam(year,month){
 		var day = new Date(year,month);
-		var date = new Array();
+		var date = [];
 		date['year'] = day.getFullYear();
 		date['month'] = day.getMonth();
 		date['firstDay'] = firstDay(new Date(date['year'],date['month'],1));
@@ -152,9 +152,9 @@ $(function(){
 	var today = dateNoneParam();//当天
 
 	/*月-日 设置*/
-	var month = new Array('一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月');
+	var month = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
 	var monthDays = leapYear(today['year']);//返回数组，记录每月有多少天
-	var weekDay = new Array('日','一','二','三','四','五','六');
+	var weekDay = ['日','一','二','三','四','五','六'];
 	// alert('年:'+someDay['year']+'\n月:'+someDay['month']+'\n日:'+someDay['date']+'\n星期:'+someDay['week']+'\n本月第一天星期:'+someDay['firstDay']);return false;
 
 	kalendar_html = kalendarCode(today['year'],today['month'],today['date'],today['firstDay']);
@@ -169,8 +169,8 @@ $(function(){
 	var listYear = $('#year .selectChange select option');//所有可选年份
 	var selectMonth = $('#month .selectChange select');//选择月份列表
 	var listMonth = $('#month .selectChange select option');//所有可选月份
-	var dateLine = Math.ceil((monthDays[today['month']]+today['firstDay'])/7);;//当前日历中有几行日期，默认是 当年当月
-	var dateDay = $('#kalendar tr#day td ul.dayList li');//日历中的每一天
+    var dateLine = Math.ceil((monthDays[today['month']] + today['firstDay']) / 7);//当前日历中有几行日期，默认是 当年当月
+    var dateDay = $('#kalendar tr#day td ul.dayList li');//日历中的每一天
 
 
 /***************************/

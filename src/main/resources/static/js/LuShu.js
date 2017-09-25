@@ -211,7 +211,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
 		if (!this._opts.icon instanceof BMap.Icon) {
 			this._opts.icon = defaultIcon;
 		}
-	}
+	};
 	/**
 	 * 根据用户输入的opts，修改默认参数_opts
 	 * 
@@ -228,28 +228,28 @@ var BMapLib = window.BMapLib = BMapLib || {};
 				this._opts[p] = opts[p];
 			}
 		}
-	}
+	};
 	
 	/**
 	 * 根据用户输入的path，修改参数_path
 	 */
 	LuShu.prototype.setPath = function(path){
 		this._path = path;
-	}
+	};
 	
 	/**
 	 * 根据用户输入的speed，修改参数_speed
 	 */
 	LuShu.prototype.setSpeed = function(speed){
 		this._opts.speed = speed;
-	}
+	};
 	
 	/**
 	 * 根据用户输入的path，修改参数_path
 	 */
 	LuShu.prototype.getIndex = function(){
 		return this.i;
-	}
+	};
 
 	/**
 	 * @description 开始运动
@@ -503,12 +503,12 @@ var BMapLib = window.BMapLib = BMapLib || {};
 				var disy = targetPos.y - curPos.y;
 				var bias = 0;
 				if (disy > 0)
-					bias = -1
+					bias = -1;
 				else
-					bias = 1
+					bias = 1;
 				me._marker.setRotation(-bias * 90);
 			}
-			return;
+
 
 		},
 
@@ -636,10 +636,10 @@ var BMapLib = window.BMapLib = BMapLib || {};
 		map.getPanes().floatPane.appendChild(div);
 		this._map = map;
 		return div;
-	}
+	};
 	CustomOverlay.prototype.draw = function() {
 		this.setPosition(this.lushuMain._marker.getPosition(), this.lushuMain._marker.getIcon().size);
-	}
+	};
 	baidu.object.extend(CustomOverlay.prototype, {
 		// 设置overlay的position
 		setPosition : function(poi, markerSize) {

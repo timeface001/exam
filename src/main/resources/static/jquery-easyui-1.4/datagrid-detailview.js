@@ -432,7 +432,7 @@ $.extend($.fn.datagrid.methods, {
 						}
 					},
 					onResize: function(){
-						var dg = $(this).children('div.datagrid-view').children('table')
+						var dg = $(this).children('div.datagrid-view').children('table');
 						setParentHeight(this);
 					},
 					onResizeColumn: function(field, width){

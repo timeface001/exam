@@ -8,7 +8,7 @@ function showImage(key) {
 	}
 	var cmp = "image-" + key.substring(0, key.indexOf("."));
 	$("body").append("<div id='" + cmp + "'></div>");
-	var url = "common/getImage.html?file=" + key
+	var url = "common/getImage.html?file=" + key;
 	var win = $('#' + cmp).window({
 		width : 500,
 		height : 500,

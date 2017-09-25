@@ -46,9 +46,9 @@ $('#deploy-cn').modal({backdrop: 'static', keyboard: false , show: false});
 $(document).ready(function() {
 	//
 	$("#nextBtn").click(function(){
-		var scoreto =$("#paperScore").val()
+		var scoreto =$("#paperScore").val();
 	$("#totalScore").text(scoreto);
-	})
+	});
 	
 	
 	$(".knowsbody-main").click(function(event){
@@ -58,7 +58,7 @@ $(document).ready(function() {
 			$("#tipsxing").text("");
 		}
 		
-	})
+	});
 	
 	// 当点击弹窗确定按钮时，隐藏弹窗并把选择的数据放在知识点input中
 	$("#zsd_qd").click(function(){
@@ -145,7 +145,7 @@ function resetTypeIdx(idx) {
 		var btn = $("#titleTypeCkId"+idx);
 		btn.prop("checked",false);
 		btn.removeClass("btn-checked").addClass("btn-inf");
-		btn.eq(0).children(0).css("background-color","#FFFFFF")	
+		btn.eq(0).children(0).css("background-color","#FFFFFF");
 		
 		if (titleTypeDivObj[idx] != null) {
 			titleTypeDivObj[idx].remove();
@@ -164,9 +164,9 @@ $(window).scroll(function(){
 			$(".deploy-top").removeClass("posi-fix");
 			$(".deploy-top1").css("display","none")
 		}
-})
+});
 function scolldh(){
-		 topto =$(window).scrollTop()
+		 topto =$(window).scrollTop();
 		
 		topto+=8;
 		if(topto<(scrollfor-331)){
@@ -196,14 +196,14 @@ function titleCheckBox(idx, flag) {
 	
 	if (typeof(flag) == "undefined"){
 		if (btn.prop("checked") == true) {
-			resetTypeIdx(idx)
+			resetTypeIdx(idx);
 			return;
 		}	
 	}
 	
 	btn.prop("checked",true);
 	btn.removeClass("btn-inf").addClass("btn-checked");
-	btn.eq(0).children(0).css("background-color","#5BC0DE")
+	btn.eq(0).children(0).css("background-color","#5BC0DE");
 	var tipcon =
 		$('<div id="titleTypeDiv'+idx+'" class="deploybox row">' +
 		'<div class="col-lg-11 col-md-11 line-right">' +
@@ -804,7 +804,7 @@ function addPointGroupInfoDiv(name,num,val){
 	var s = '<div>' +
 			'	<div class="xuxian_bg">' +
 			'		<span class="font-weight pd_title">'+name+'<span class="text-color fontnone">（'+num+'道）</span></span>' +
-			'		<span class="text-color pd_scorll">'+val+'分</span>'
+			'		<span class="text-color pd_scorll">'+val+'分</span>';
 			'	</div>' +
 			'</div>';
 // ' <div class="col-lg-8 col-md-8 padding-0"><div
@@ -961,7 +961,7 @@ Date.prototype.pattern = function(fmt) {
 		}           
 	}           
 	return fmt; 
-}  
+};
 
   function scoresys(e){
   	var testnumb = 0;//所选题目统计
@@ -988,7 +988,7 @@ Date.prototype.pattern = function(fmt) {
   	$("#testScore").text(scoreall);//数据同步  统计所有输入框结果-用去分数
   	var dpboxtestnumb = uuuid.find("input").eq(0).val();
   	var dpboxtscoreall =uuuid.find("input").eq(1).val()*dpboxtestnumb;
-  	uuuid.find(".border-tmlx").attr("gets",1)
+  	uuuid.find(".border-tmlx").attr("gets",1);
   	
   	
   	 od = uuuid.find(".border-tmlx").text().slice(0,12);

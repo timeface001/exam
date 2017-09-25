@@ -160,8 +160,8 @@
 						</div>
 						<!--试卷配置信息 end-->
 						<div class="btnbox">
-							<a class="btn btn-success" onclick="javascript:window.location.href='paper-add-basic.htm';"><i class="glyphicon glyphicon-arrow-left" style="margin-left:0;"></i>上一步</a>
-							<a class="btn btn-info" onclick="javascript:window.location.href='paper-add-issue.htm';">下一步<i class="glyphicon glyphicon-arrow-right" style="margin-right:0;"></i></a>
+							<a class="btn btn-success" onclick="window.location.href='paper-add-basic.htm';"><i class="glyphicon glyphicon-arrow-left" style="margin-left:0;"></i>上一步</a>
+							<a class="btn btn-info" onclick="window.location.href='paper-add-issue.htm';">下一步<i class="glyphicon glyphicon-arrow-right" style="margin-right:0;"></i></a>
 						</div>
 					</div>
 				</div>
@@ -436,7 +436,7 @@
 				$(".knowsmain li .twobox .srkbox").blur(function() {
 					var num = $(this).parent().parent().index();
 					var nums = $(".knowsmain li").length;
-					$(".knowsmain").children().eq(num).find(".twobox").find(".srkbox").val()
+					$(".knowsmain").children().eq(num).find(".twobox").find(".srkbox").val();
 					var temp = $(".knowsmain").children().eq(num).find(".twobox").find(".srkbox").val();
 					if(temp == null || temp == ""){
 						temp = 0;

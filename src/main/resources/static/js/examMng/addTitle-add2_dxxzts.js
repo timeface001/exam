@@ -55,8 +55,8 @@ function dxxzts_del(value){
 				}else if(j == 2){
 					temp += "<div class=\"del\" style=\"top:"+(parseInt(answer_choose_top)+70*i)+"px\" onclick=\"dxxzts_del("+i+")\"><input type=\"radio\" name=\"radio1\" style=\"display: none;\"></div>";
 				}else{
-					temp += nums_all[i][j].replace("id=\"dxxzts_xx"+(parseInt(i)+1)+"\"", "id=\"dxxzts_xx"+i+"\"").replace("onblur=\"dxxzts_blur("+(parseInt(i)+1)+")\"", "onblur=\"dxxzts_blur("+i+")\"");;
-				}
+                    temp += nums_all[i][j].replace("id=\"dxxzts_xx" + (parseInt(i) + 1) + "\"", "id=\"dxxzts_xx" + i + "\"").replace("onblur=\"dxxzts_blur(" + (parseInt(i) + 1) + ")\"", "onblur=\"dxxzts_blur(" + i + ")\"");
+                }
 			}else{
 				temp += nums_all[i][j];
 			}

@@ -13,7 +13,7 @@
 	var ff=d.getElementById('sangcalender');
 	var fd=f.document;
 	fd.open();
-	fd.write('<!DOCTYPE html><html><head><style type="text/css">#yearL, #monthL, #monthR, #yearR, #hoursL, #hoursR, #minL, #minR, #y, #m, #h, #i, #s{cursor:pointer;}.calenderClose a{display:block;width:13px;line-height:13px;border:1px solid #cccccc;background-color:#eeeeee;color:#666; text-decoration:none}.calenderClose a:hover{color:red}td{text-align:center}#calenderDay{cursor:pointer}body{font-size:12px;padding:0;margin:0}.col666{color:#999}.bg9ebdd6{background-color:#9ebdd6}</style></head><body onselectstart="return false" style="-moz-user-select:none" oncontextmenu="return false">')
+	fd.write('<!DOCTYPE html><html><head><style type="text/css">#yearL, #monthL, #monthR, #yearR, #hoursL, #hoursR, #minL, #minR, #y, #m, #h, #i, #s{cursor:pointer;}.calenderClose a{display:block;width:13px;line-height:13px;border:1px solid #cccccc;background-color:#eeeeee;color:#666; text-decoration:none}.calenderClose a:hover{color:red}td{text-align:center}#calenderDay{cursor:pointer}body{font-size:12px;padding:0;margin:0}.col666{color:#999}.bg9ebdd6{background-color:#9ebdd6}</style></head><body onselectstart="return false" style="-moz-user-select:none" oncontextmenu="return false">');
 	fd.write('<table width="100%" border="0" bgcolor="#CCCCCC" cellspacing="1" cellpadding="0">'+
 			 '<tr><td><table border="0" cellspacing="0" bgcolor="#6699FF" cellpadding="0" width="100%">'+
 			 '<tr><td width="20" height="25" align="center" id="yearL" title="上一年">&lt;&lt;</td>'+
@@ -44,8 +44,10 @@
 	}
 	//需要添加事件的元素的集合
 	var idsArr=['yearL','yearR','y','m','monthL','monthR','hoursL','hoursR','minL','minR','calenderClose','calenderDay','h','i','s'];
-	if(!ids){ids=gids.call(fd,idsArr)};
-	//格式化日历控件
+    if (!ids) {
+        ids = gids.call(fd, idsArr)
+    }
+    //格式化日历控件
 	function formatDay(timestr){
 		var t=/(\d+)-(\d+)-(\d+)\s*(\d*):?(\d*):?(\d*)/.exec(timestr);
 		var da=null;
@@ -87,10 +89,10 @@
 		each.call(ids['calenderDay'].getElementsByTagName("td"),function(o,i){
 			addEvent(o,"mouseover",function(e){
 				o.style.backgroundColor="#9ebdd6";
-			})
+			});
 			addEvent(o,"mouseout",function(e){
 				o.style.backgroundColor="";
-			})
+			});
 			addEvent(o,"click",function(e){
 				if(o.className=="col666"){return}
 				oInput.value=ids['y'].innerHTML+"-"+ids['m'].innerHTML+"-"+ fillzero(o.innerHTML) 
@@ -104,12 +106,12 @@
 	var handlers=[yL,yR,mL,mR,hL,hR,iL,iR];
 	each.call([ids['yearL'],ids['yearR'],ids['monthL'],ids['monthR'],ids['hoursL'],ids['hoursR'],ids['minL'],ids['minR']],function(o,i){
 		addEvent(o,"click",handlers[i]);
-	})
+	});
 	
 	var clicks=[yClick,mClick,hClick,iClick,sClick];
 	each.call([ids['y'],ids['m'],ids['h'],ids['i'],ids['s']],function(o,i){
 		addEvent(o,"click",clicks[i]);
-	})
+	});
 	
 	//获取元素位置
 	function getPos(e){
@@ -352,8 +354,8 @@
 	
 	each.call(getObj("sang_Calender"),function(o,i){
 		addEvent(o,"click",function(e){preventDefault(e);oInput=o,show(o);ff.focus()})
-	})
+	});
 	
 	//var iframeObj=isIE?ff:f;
 	addEvent(isIE?ff:f,"blur",function(e){hide()})
-})()
+})();

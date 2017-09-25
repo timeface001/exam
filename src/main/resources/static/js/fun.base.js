@@ -2,8 +2,7 @@
 	var range = ma - mi;
 	var out = mi + Math.round( Math.random() * range) ;	
 	return parseInt(out);
-};	
-
+}
 function getViewSize(){
 	var de=document.documentElement;
 	var db=document.body;

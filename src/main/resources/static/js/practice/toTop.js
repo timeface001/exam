@@ -18,7 +18,7 @@
 		    			clearInterval(timer);
 		    		}
 		    		isTop = false;
-		    	}
+		    	};
 		    	
 		    	obtn.onclick = function(){
 		    		//设置定时器

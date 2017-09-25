@@ -150,7 +150,7 @@
 			for ( i= 0; i<sta.length;i++) {
 				if(mName==sta.eq(i).find("div").attr("value")){
 					sta.eq(i).find("div").find("span").toggleClass("bgccbox");
-					sta.eq(i).find("div").attr("checkedos","0")//更改状态参数
+					sta.eq(i).find("div").attr("checkedos","0");//更改状态参数
 					cuntuser--;//选中人员计数
 					$("#choosepeople").text(cuntuser);//实时更新选中人员 
 				}
@@ -163,7 +163,7 @@
 			$(objm).remove();
 		}
 		}
-	})
+	});
 	 //获得当前人员所在部门的所有人员做组织机构的默认展示======start======	
 	//curUserDeptId:在jsp页面定义的变量
 
@@ -205,7 +205,7 @@
 				}
 			
 		
-	})
+	});
 	
 	function selectPerson(obj) {
 		   //获取所用的li标签
@@ -290,7 +290,7 @@
 					  class="glyphicon glyphicon-minus-sign colordel floatrit" title="删除" \
 					  onclick="delSelectUser(this)"> </span></li>';  
 		   $("#selectList").append(s);
-		   tmp += accountList[i].name + "; "
+		   tmp += accountList[i].name + "; ";
 		   accountIds += accountList[i].id +";";
 		}
 		totalSelectCount = accountList.length;
@@ -303,14 +303,13 @@
 		var obj = $('#'+treeNode);
 		
 		if (obj.id==rootId){//如果是根节点，不需要异步请求，因为根节点为默认展开节点
-			return;
+
 		}else{
 			var url = localPath+"/itemTask/getOrgTree.html?id="+treeNode.id;	    
 			return url;
 		}
-	};	
-	
-	function getTime() {
+    }
+    function getTime() {
 		var now= new Date();
 		var hour=now.getHours();
 		var minute=now.getMinutes();
@@ -350,10 +349,10 @@
 		//currCheckListCount = 0;
 		//currSelectedCount = 0;
 		treeNodeId=nodeid;
-		treeNodeName = nodename
-		$("#ztree_nodesIn").text(treeNodeName+'('+treeNodeId+')')
+		treeNodeName = nodename;
+		$("#ztree_nodesIn").text(treeNodeName+'('+treeNodeId+')');
 		
-		$("#user_cps").val(treeNodeName)
+		$("#user_cps").val(treeNodeName);
 		//点击树的节点获取当前节点的人员
 		$.ajax({
 			type : "post", //使用get方法访问后台
@@ -429,7 +428,7 @@
 	
 	//删除某一个选中人员
     function delSelectUser(thisObj){
-		var cz = $("#selectList").find("li")
+		var cz = $("#selectList").find("li");
 		//获得当前节点的父节点
 		var parent = thisObj.parentNode;
 		//获得父节点的父节点
@@ -461,7 +460,7 @@
 		
 		selectVal = $("input:checkbox");
 		var selectLen = selectVal.length;
-		var cz = $("#selectList").find("li")
+		var cz = $("#selectList").find("li");
 		var czLen = cz.length;			
 		
 		if (currSelectedCount == currCheckListCount) { //移除
@@ -540,7 +539,7 @@
 			$("#selectList").empty();
 			cuntuser=0;
 			$("#choosepeople").text("0");
-		})
+		});
 		//人员检索
 		$(".msgresult").click(function(event){
 			var addu;//服务器返回的用户名
@@ -571,7 +570,7 @@
 				$("#user_id").val(poliid);
 				$("#user_cps").val(cmps);
 				
-		})
+		});
 		/****************************** 对警员的增删改功能(对应3个按钮)***************************************/
 		$("#use_user").click(function()	{
 			var pliName = $("#user_name").val();//增加的警员姓名
@@ -641,4 +640,4 @@
 					createMessageBox("提示", "网络通讯异常，请重新尝试操作。", MSG_ID_OK, null);
 				}
 			});
-		}) 
+		});

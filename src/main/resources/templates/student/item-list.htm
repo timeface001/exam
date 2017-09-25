@@ -220,11 +220,11 @@
 				} else {
 					ff.scollwidthh = $(window).width();
 				}
-				$(".huadd").css("left",ff.scollwidthh/2-25+"px")
+				$(".huadd").css("left",ff.scollwidthh/2-25+"px");
 				if(ff.scollwidthh<768){
 					binking();
 					 $(window).scroll(function(event){
-					clearTimeout(ff.bink)
+					clearTimeout(ff.bink);
 					$(".KaoshiXinXi-box").css("padding","0px!important")
 										 .css("width","80%")
 										 .css("margin-left","10% !important")
@@ -236,33 +236,33 @@
 				
 				$(".KaoshiXinXi-box").find(".btn-default").mousedown(function() {
 					$(this).css("background-color", "#eeFAFF");
-				})
+				});
 				$(".KaoshiXinXi-box").find(".btn-default").mouseup(function() {
 					$(this).css("background-color", "#FFFFFF");
-				})
+				});
 				$(".KaoshiXinXi-box").find(".btn-default").mousemove(function() {
 
 					ff.trbl = this.getBoundingClientRect().bottom;
-					ff.e = $(".middlebox")
+					ff.e = $(".middlebox");
 					ff.lleft = ff.e[0].getBoundingClientRect().left;
 					ff.widdth = ff.e.width();
-					ff.tipsj = $(".tipss")
-					ff.tipsleftdu45 = (this.getBoundingClientRect().left + this.getBoundingClientRect().right - 55) / 2
+					ff.tipsj = $(".tipss");
+					ff.tipsleftdu45 = (this.getBoundingClientRect().left + this.getBoundingClientRect().right - 55) / 2;
 					ff.tipsj.css("top", ff.trbl)
 						.css("left", ff.lleft + 45 + "px")
 						.css("width", ff.widdth - 90 + "px");
 					$(".du45").css("top", ff.trbl)
-						.css("left", ff.tipsleftdu45 + "px")
+						.css("left", ff.tipsleftdu45 + "px");
 					if(browser.versions.trident) {
 						$(".du45").css("margin-top", "8px")
 					}
 					ff.tipsj.removeClass("displaynone");
 					$(".du45").removeClass("displaynone");
-				})
+				});
 				$(".KaoshiXinXi-box").find(".btn-default").mouseleave(function() {
 
-					ff.tipsj = $(".tipss")
-					ff.tipsj.addClass("displaynone")
+					ff.tipsj = $(".tipss");
+					ff.tipsj.addClass("displaynone");
 					$(".du45").addClass("displaynone");
 				})
 			});

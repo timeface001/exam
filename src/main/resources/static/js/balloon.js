@@ -42,4 +42,4 @@ function airBalloon(balloon){
 			}, rand(1000, 3000) );
 		});	
 	}
-};
+}

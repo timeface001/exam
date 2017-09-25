@@ -146,7 +146,7 @@
 			for ( i= 0; i<sta.length;i++) {
 				if(mName==sta.eq(i).find("div").attr("value")){
 					sta.eq(i).find("div").find("span").toggleClass("bgccbox");
-					sta.eq(i).find("div").attr("checkedos","0")//更改状态参数
+					sta.eq(i).find("div").attr("checkedos","0");//更改状态参数
 					cuntuser--;//选中人员计数
 					$("#choosepeople").text(cuntuser);//实时更新选中人员 
 				}
@@ -159,7 +159,7 @@
 			$(objm).remove();
 		}
 		}
-	})
+	});
 	 //获得当前人员所在部门的所有人员做组织机构的默认展示======start======	
 	//curUserDeptId:在jsp页面定义的变量
 
@@ -192,7 +192,7 @@
 				}
 			}
 		}
-	})
+	});
 	
 	function selectPerson(obj) {
 		   //获取所用的li标签
@@ -277,7 +277,7 @@
 					  class="glyphicon glyphicon-minus-sign colordel floatrit" title="删除" \
 					  onclick="delSelectUser(this)"> </span></li>';  
 		   $("#selectList").append(s);
-		   tmp += accountList[i].name + "; "
+		   tmp += accountList[i].name + "; ";
 		   accountIds += accountList[i].id +";";
 		}
 		totalSelectCount = accountList.length;
@@ -290,14 +290,13 @@
 		var obj = $('#'+treeNode);
 		
 		if (obj.id==rootId){//如果是根节点，不需要异步请求，因为根节点为默认展开节点
-			return;
+
 		}else{
 			var url = localPath+"/itemTask/getOrgTree.html?id="+treeNode.id;	    
 			return url;
 		}
-	};	
-	
-	function getTime() {
+    }
+    function getTime() {
 		var now= new Date();
 		var hour=now.getHours();
 		var minute=now.getMinutes();
@@ -412,7 +411,7 @@
 	
 	//删除某一个选中人员
     function delSelectUser(thisObj){
-		var cz = $("#selectList").find("li")
+		var cz = $("#selectList").find("li");
 		//获得当前节点的父节点
 		var parent = thisObj.parentNode;
 		//获得父节点的父节点
@@ -444,7 +443,7 @@
 		
 		selectVal = $("input:checkbox");
 		var selectLen = selectVal.length;
-		var cz = $("#selectList").find("li")
+		var cz = $("#selectList").find("li");
 		var czLen = cz.length;			
 		
 		if (currSelectedCount == currCheckListCount) { //移除
@@ -530,7 +529,7 @@
 			$("#selectList").empty();
 			cuntuser=0;
 			$("#choosepeople").text("0");
-		})
+		});
 		//人员检索
 		$(".msgresult").click(function(event){
 			var addu;//服务器返回的用户名
@@ -539,10 +538,10 @@
 			var idin ;//用户索引id (唯一)
 			if(event.target!=this){
 				if($(event.target).hasClass("searli")){
-					idin = event.target.children[0].id
+					idin = event.target.children[0].id;
 					addu = $(event.target).find("span").eq(0).text();
 				}else{
-					idin = event.target.children[0].id
+					idin = event.target.children[0].id;
 				 	addu = $(event.target).parents("li").find("span").eq(0).text();
 				}
 			for (i=0;i<convr.length;i++) {
@@ -560,9 +559,9 @@
 					$("#choosepeople").text(cuntuser);
 				}
 			}
-		})
+		});
 		//初始化选中人员树   统计 被选人员个数
 $(".peoplechoose").click(function(){
 	 var cuntuster =   $("#selectList").find("li").length;
 	 $("#choosepeople").text(cuntuster);
-})
+});

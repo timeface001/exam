@@ -328,8 +328,8 @@
 		<script type="text/javascript">
 		var nnwidth;
 		var titleType = 0;
-		var value8 = $("#text8").val()
-		var value9 = $("#text9").val()
+		var value8 = $("#text8").val();
+		var value9 = $("#text9").val();
 		//select下拉框模拟
 		$(function() {
 			$('#topicchoose').selectlist({
@@ -362,7 +362,7 @@
 		stepHour: 0,
 		stepMinute: 0,
 		stepSecond: 0
-	})
+	});
 		$("#ui_timepicker4").datetimepicker({
 		showOn: "button",
 		buttonImage: "../../images/examMng/icon_calendar.gif",
@@ -372,7 +372,7 @@
 		stepHour: 1,
 		stepMinute: 1,
 		stepSecond: 1
-	})
+	});
 		$("#ui_timepicker5").datetimepicker({
 		showOn: "button",
 		buttonImage: "../../images/examMng/icon_calendar.gif",
@@ -382,44 +382,44 @@
 		stepHour: 1,
 		stepMinute: 1,
 		stepSecond: 1
-	})
+	});
 		$(document).ready(function(){
-			debugger
-			$('[data-toggle="tooltip"]').tooltip()
+			debugger;
+			$('[data-toggle="tooltip"]').tooltip();
 			
 		
-		 nnwidth =$(".ui_timepicker").width()-60+"px"
+		 nnwidth =$(".ui_timepicker").width()-60+"px";
 		$(".ui_timepicker").width(nnwidth);
-	})
+	});
 
 	$("#text9").blur(function() {
 		if($(this).val() == value9 || $(this).val() == "") {
-			$(this).css("border-color", "red")
-			$(this).parent().append('<span class="jinggao text22">' + value9 + '</span>')
-			var spanposition = $(this).parent().width() - $(this).parent().find("span").width() + "px"
+			$(this).css("border-color", "red");
+			$(this).parent().append('<span class="jinggao text22">' + value9 + '</span>');
+			var spanposition = $(this).parent().width() - $(this).parent().find("span").width() + "px";
 			$(this).parent().find("span").css("left", spanposition)
 		} else {
-			$(this).parent().find("span").remove()
+			$(this).parent().find("span").remove();
 			$(this).css("border-color", "#CCCCCC")
 		}
-	})
+	});
 	$("#text9").focus(function() {
-		$(this).parent().find("span").remove()
+		$(this).parent().find("span").remove();
 		$(this).css("border-color", "#CCCCCC")
-	})
+	});
 	$("#text8").blur(function() {
 		if($(this).val() == value8 || $(this).val() == "") {
-			$(this).css("border-color", "red")
-			$(this).parent().append('<span class="jinggao text22">' + value8 + '</span>')
-			var spanposition = $(this).parent().width() - $(this).parent().find("span").width() + "px"
+			$(this).css("border-color", "red");
+			$(this).parent().append('<span class="jinggao text22">' + value8 + '</span>');
+			var spanposition = $(this).parent().width() - $(this).parent().find("span").width() + "px";
 			$(this).parent().find("span").css("left", spanposition)
 		} else {
-			$(this).parent().find("span").remove()
+			$(this).parent().find("span").remove();
 			$(this).css("border-color", "#CCCCCC")
 		}
-	})
+	});
 	$("#text8").focus(function() {
-		$(this).parent().find("span").remove()
+		$(this).parent().find("span").remove();
 		$(this).css("border-color", "#CCCCCC")
 	})
 	
