@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.ntes.domain.mapper.MemberRoleMapper">
+  <resultMap id="BaseResultMap" type="com.fs.ntes.domain.MemberRole">
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="member_uid" jdbcType="BIGINT" property="memberUid" />
+    <result column="creare_time" jdbcType="TIMESTAMP" property="creareTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.fs.ntes.domain.MemberRole">
+    insert into member_role (role_id, member_uid, creare_time
+      )
+    values (#{roleId,jdbcType=BIGINT}, #{memberUid,jdbcType=BIGINT}, #{creareTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fs.ntes.domain.MemberRole">
+    insert into member_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="memberUid != null">
+        member_uid,
+      </if>
+      <if test="creareTime != null">
+        creare_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="memberUid != null">
+        #{memberUid,jdbcType=BIGINT},
+      </if>
+      <if test="creareTime != null">
+        #{creareTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

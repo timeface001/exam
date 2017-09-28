@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.ntes.domain.ext.PermissionExtMapper">
+
+  <select id="selectListByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from permission p LEFT JOIN role_permission r on p.id=r.permission_id
+    where r.role_id = #{roleId}
+  </select>
+</mapper>
