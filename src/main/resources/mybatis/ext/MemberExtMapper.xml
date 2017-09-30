@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.ntes.domain.ext.MemberExtMapper">
 
-  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="com.fs.ntes.domain.mapper.MemberMapper.BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+    <include refid="com.fs.ntes.domain.mapper.MemberMapper.Base_Column_List" />
     from member a
     where username = #{username}
   </select>

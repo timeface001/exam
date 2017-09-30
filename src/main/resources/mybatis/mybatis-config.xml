@@ -20,4 +20,5 @@
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
         <setting name="logPrefix" value="dao."/>
     </settings>
+
 </configuration>

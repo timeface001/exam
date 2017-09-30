@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.ntes.domain.mapper.MemberRoleMapper">
   <resultMap id="BaseResultMap" type="com.fs.ntes.domain.MemberRole">
-    <result column="role_id" jdbcType="BIGINT" property="roleId" />
-    <result column="member_uid" jdbcType="BIGINT" property="memberUid" />
-    <result column="creare_time" jdbcType="TIMESTAMP" property="creareTime" />
+    <result column="a_role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="a_member_uid" jdbcType="BIGINT" property="memberUid" />
+    <result column="a_creare_time" jdbcType="TIMESTAMP" property="creareTime" />
   </resultMap>
   <insert id="insert" parameterType="com.fs.ntes.domain.MemberRole">
     insert into member_role (role_id, member_uid, creare_time

@@ -2,24 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.ntes.domain.mapper.MemberMapper">
   <resultMap id="BaseResultMap" type="com.fs.ntes.domain.Member">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="uid" jdbcType="BIGINT" property="uid" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <id column="a_id" jdbcType="BIGINT" property="id" />
+    <result column="a_uid" jdbcType="BIGINT" property="uid" />
+    <result column="a_username" jdbcType="VARCHAR" property="username" />
+    <result column="a_name" jdbcType="VARCHAR" property="name" />
+    <result column="a_password" jdbcType="VARCHAR" property="password" />
+    <result column="a_salt" jdbcType="VARCHAR" property="salt" />
+    <result column="a_status" jdbcType="INTEGER" property="status" />
+    <result column="a_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="a_update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, uid, username, name, password, salt, status, create_time, update_time
+    a.id as a_id, a.uid as a_uid, a.username as a_username, a.name as a_name, a.password as a_password, 
+    a.salt as a_salt, a.status as a_status, a.create_time as a_create_time, a.update_time as a_update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from member
-    where id = #{id,jdbcType=BIGINT}
+    from member a
+    where a.id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from member

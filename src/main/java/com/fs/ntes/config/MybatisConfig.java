@@ -1,5 +1,6 @@
 package com.fs.ntes.config;
 
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.Interceptor;
@@ -11,6 +12,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,12 +22,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @MapperScan(basePackages = {"com.fs.ntes.domain.mapper","com.fs.ntes.domain.ext"})
+@ConfigurationProperties(locations = "classpath:application.properties", ignoreUnknownFields = false, prefix = "mybatis")
 public class MybatisConfig {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -92,18 +97,18 @@ public class MybatisConfig {
             PageHelper pagePlugin = new PageHelper();
             pagePlugin.setProperties(prop);
 
-            Interceptor[] plugins = {pagePlugin};
-            if (logstashClient.getLogstashConfig().isLogDatebase()) {
+            //Interceptor[] plugins = {pagePlugin};
+            /*if (logstashClient.getLogstashConfig().isLogDatebase()) {
                 MybatisExecutorLogInterceptor sqlLogInterceptor = new MybatisExecutorLogInterceptor(logstashClient);
                 sqlLogInterceptor.setExcludeSqlCommandTypes(SqlCommandType.SELECT);
                 sqlLogInterceptor.setExcludeSqlIds("com.czy.tticar.mapper.base.LogRequestMapper.insertSelective");
                 plugins = new Interceptor[]{sqlLogInterceptor, pagePlugin};
-            }
-            sqlSessionFactoryBean.setPlugins(plugins);
+            }*/
+            //sqlSessionFactoryBean.setPlugins(plugins);
 
             sqlSessionFactory = sqlSessionFactoryBean.getObject();
         } catch (Exception e) {
-            LogUtils.error("init sqlSessionFactory failed.", e);
+            logger.error(e.getMessage(),e);
             System.exit(1);
         }
         return sqlSessionFactory;

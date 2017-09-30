@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.ntes.domain.ext.RoleExtMapper">
 
-  <select id="selectListByMemberUid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectListByMemberUid" parameterType="java.lang.Long" resultMap="com.fs.ntes.domain.mapper.RoleMapper.BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+    <include refid="com.fs.ntes.domain.mapper.RoleMapper.Base_Column_List" />
     from role r LEFT JOIN  member_role m on r.member_uid=m.uid
     where m.member_uid = #{uid}
   </select>
