@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.ntes.domain.mapper.RolePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.fs.ntes.domain.RolePermission">
+    <result column="a_role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="a_permission_id" jdbcType="BIGINT" property="permissionId" />
+    <result column="a_creare_time" jdbcType="TIMESTAMP" property="creareTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.fs.ntes.domain.RolePermission">
+    insert into role_permission (role_id, permission_id, creare_time
+      )
+    values (#{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT}, #{creareTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fs.ntes.domain.RolePermission">
+    insert into role_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="permissionId != null">
+        permission_id,
+      </if>
+      <if test="creareTime != null">
+        creare_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=BIGINT},
+      </if>
+      <if test="creareTime != null">
+        #{creareTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
