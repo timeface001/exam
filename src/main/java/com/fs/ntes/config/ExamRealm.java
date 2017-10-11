@@ -38,7 +38,7 @@ public class ExamRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 userInfo, //用户名
                 userInfo.getMember().getPassword(), //密码
-                //ByteSource.Util.bytes(userInfo.getCredentialsSalt()),//salt=username+salt
+                ByteSource.Util.bytes(userInfo.getCredentialsSalt()),//salt=username+salt
                 getName()  //realm name
         );
         return authenticationInfo;

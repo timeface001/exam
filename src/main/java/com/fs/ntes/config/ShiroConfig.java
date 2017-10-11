@@ -27,7 +27,7 @@ public class ShiroConfig {
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "authc");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/auth/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
 
@@ -37,17 +37,17 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-  /*  @Bean
-    public MyShiroRealm myShiroRealm(){
-        MyShiroRealm myShiroRealm = new MyShiroRealm();
+    @Bean
+    public ExamRealm myShiroRealm(){
+        ExamRealm myShiroRealm = new ExamRealm();
         return myShiroRealm;
-    }*/
+    }
 
 
     @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
-        //securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(myShiroRealm());
         return securityManager;
     }
 }

@@ -5,7 +5,7 @@
   <select id="selectListByMemberUid" parameterType="java.lang.Long" resultMap="com.fs.ntes.domain.mapper.RoleMapper.BaseResultMap">
     select
     <include refid="com.fs.ntes.domain.mapper.RoleMapper.Base_Column_List" />
-    from role r LEFT JOIN  member_role m on r.member_uid=m.uid
+    from role a LEFT JOIN  member_role m on a.id=m.role_id
     where m.member_uid = #{uid}
   </select>
 </mapper>
