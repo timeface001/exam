@@ -24,6 +24,7 @@ function init_loginWin(){
 	})
 }
 
+
 $(document).ready(function(){
 	init_loginWin();
 	footer_position();
@@ -32,4 +33,6 @@ $(document).ready(function(){
 	$(window).resize(function(){
 		footer_position();
 	});
+
+
 });	

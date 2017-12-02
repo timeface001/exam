@@ -6,104 +6,56 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="renderer" content="webkit">
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="../css/common.css">
-		<link rel="stylesheet" type="text/css" href="../css/examMng/core.css">
-		<link rel="stylesheet" type="text/css" href="../css/login.css">
-		<script src="../js/respond.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/common.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/examMng/core.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/login.css">
+		<script src="../static/js/respond.js"></script>
 		
 	
 		<!--[if !IE]> -->
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='../js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='./../static/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
 		</script>
 		<!-- <![endif]-->
 				
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='../js/jquery-1.9.1.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='./../static/js/jquery-1.9.1.min.js'>"+"<"+"/script>");
 		</script>
-		<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
-		<script type="text/javascript" src="../js/login.js" ></script>
-		<script type="text/javascript" src="../js/jquery.cookie.js" ></script>
-		
-		<script type="text/javascript">
-		$(document).ready(function(){
-			var USERNAME = 'static_login_username';  
-			var PASSWORD = 'static_login_password';  
-			if( $.cookie(USERNAME) ){  
-				$("#username").val( $.cookie(USERNAME) );  
-			}
-			if( $.cookie(PASSWORD) ){  
-				$("#password").val( $.cookie(PASSWORD) );  
-			}
-			$("#cookie_username").click(function(){  
-				if(this.checked){  
-					$.cookie(USERNAME, $("#username").val() , { path: '/', expires: 7 });  
-					$.cookie(PASSWORD, $("#password").val() , { path: '/', expires: 7 });  
-					//var date = new Date();  
-					//date.setTime(date.getTime() + (3 * 24 * 60 * 60 * 1000)); //三天后的这个时候过期  
-					//$.cookie(COOKIE_NAME, $("#username").val(), { path: '/', expires: date });  
-				}else{  
-					$.cookie(USERNAME, null, { path: '/' }); //删除cookie  
-					$.cookie(PASSWORD, null, { path: '/' }); //删除cookie  
-				}  
-			});
-		});
-		</script>
+
 	</head>
 	<body>
 		<!--head begin-->
 		<div class="container login_logo">
-			<img src="../images/login_logo.png">
+			<img src="../static/images/login_logo.png">
 		</div>
 		<!--head end-->
 		
 		<!--body begin-->
 		<div class="loginbox">
 			<div class="row">
-				<img class="col-lg-7 col-md-7 col-sm-3 login_pic" src="../images/login_pic.png">
+				<img class="col-lg-7 col-md-7 col-sm-3 login_pic" src="../static/images/login_pic.png">
 				<div class="col-lg-5 col-md-5 rightmain">
 					<div class="rightbg"> 
 						<ul class="login-nav">
-							<li id="nav1"><a class="active">民警登录</a></li>
-							<li id="nav2"><a>协警登录</a></li>
+							<li id="nav1" style="width: 100%;"><a class="active">用户登录</a></li>
 						</ul>
 						<div class="login-main">
 							<div class="content-mj" id="login-content1">
-								<form>
+								<form id="submit" action="./../login" method="post">
 									<div class="form-group has-feedback">
-									  <input id="username" type="text" placeholder="请输入警号" class="form-control" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)">
+									  <input id="username" name="username" type="text" placeholder="请输入用户名" class="form-control" value="admin" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)">
 									  <span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
 									  <span class="sr-only">(success)</span>
 									</div>
 									<div class="form-group has-feedback">
-									  <input id="password" type="password" placeholder="请输入密码" class="form-control" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)">
+									  <input id="password" name="password" type="password" placeholder="请输入密码" class="form-control" value="123456" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)">
 									  <span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
 									  <span class="sr-only">(success)</span>
 									</div>
 									<div class="checkbox">
 									    <label>
 									      <input id="cookie_username" type="checkbox">自动登录
-									    </label>
-									</div>
-									<a class="btn btn-success btn-block">登录</a>
-								</form>
-							</div>
-							<div class="content-xj" id="login-content2" style="display:none;">
-								<form>
-									<div class="form-group has-feedback">
-									  <input type="text" value="请输入警号" class="form-control"  style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)">
-									  <span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
-									  <span class="sr-only">(success)</span>
-									</div>
-									<div class="form-group has-feedback">
-									  <input type="password" value="请输入密码" class="form-control" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)">
-									  <span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
-									  <span class="sr-only">(success)</span>
-									</div>
-									<div class="checkbox">
-									    <label>
-									      <input type="checkbox">自动登录自动登录
 									    </label>
 									</div>
 									<a class="btn btn-success btn-block">登录</a>
@@ -126,7 +78,7 @@
 						<div class="practice_line"></div>
 					</div>
 					<div class="practice_main">
-						<img src="../images/phb_pic.png">
+						<img src="../static/images/phb_pic.png">
 						<table class="table" cellpadding="0" cellspacing="0" border="0">
 							<tr class="practice_main_list">
 								<td width="25%" class="red_color">1</td>
@@ -190,7 +142,7 @@
 						<div class="integral_line"></div>
 					</div>
 					<div class="integral_main">
-						<img src="../images/phb_pic.png">
+						<img src="../static/images/phb_pic.png">
 						<table class="table" cellpadding="0" cellspacing="0" border="0">
 							<tr class="practice_main_list">
 								<td width="25%" class="red_color">1</td>
@@ -282,5 +234,59 @@
 			<p>技术支持：服务有限公司®&nbsp;&nbsp;13000000000</p>
 		</div>
 		<!--footer end-->
+		<script type="text/javascript" src="../static/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="../static/js/examMng/common.js" ></script>
+		<script type="text/javascript" src="../static/js/login.js" ></script>
+		<script type="text/javascript" src="../static/js/global.js" ></script>
+		<script type="text/javascript" src="../static/js/jquery.cookie.js" ></script>
+
+		<script type="text/javascript">
+            $(document).ready(function(){
+                var USERNAME = 'static_login_username';
+                var PASSWORD = 'static_login_password';
+                if( $.cookie(USERNAME) ){
+                    $("#username").val( $.cookie(USERNAME) );
+                }
+                if( $.cookie(PASSWORD) ){
+                    $("#password").val( $.cookie(PASSWORD) );
+                }
+                $("#cookie_username").click(function(){
+                    if(this.checked){
+                        $.cookie(USERNAME, $("#username").val() , { path: '/', expires: 7 });
+                        $.cookie(PASSWORD, $("#password").val() , { path: '/', expires: 7 });
+                        //var date = new Date();
+                        //date.setTime(date.getTime() + (3 * 24 * 60 * 60 * 1000)); //三天后的这个时候过期
+                        //$.cookie(COOKIE_NAME, $("#username").val(), { path: '/', expires: date });
+                    }else{
+                        $.cookie(USERNAME, null, { path: '/' }); //删除cookie
+                        $.cookie(PASSWORD, null, { path: '/' }); //删除cookie
+                    }
+                });
+
+                function post(URL, PARAMS) {
+                    var temp_form = document.createElement("form");
+                    temp_form.action = URL;
+                    temp_form.target = "";
+                    temp_form.method = "post";
+                    temp_form.style.display = "none";
+                    for (var x in PARAMS) {
+                        var opt = document.createElement("textarea");
+                        opt.name = x;
+                        opt.value = PARAMS[x];
+                        temp_form.appendChild(opt);
+                    }
+                    document.body.appendChild(temp_form);
+                    temp_form.submit();
+
+                }
+
+                $(".btn-success").click(function(){
+                    post("../login",{username:"admin",password:"123456"});
+                   // $('#submit').submit();
+				});
+
+
+            });
+		</script>
 	</body>
 </html>

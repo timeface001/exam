@@ -7,6 +7,8 @@ public class Member {
 
     private Long uid;
 
+    private Integer type;
+
     private String username;
 
     private String name;
@@ -35,6 +37,14 @@ public class Member {
 
     public void setUid(Long uid) {
         this.uid = uid;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getUsername() {
