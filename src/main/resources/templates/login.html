@@ -42,7 +42,7 @@
 						</ul>
 						<div class="login-main">
 							<div class="content-mj" id="login-content1">
-								<form id="submit" action="./../login" method="post">
+								<form id="submit" action="./login" method="post">
 									<div class="form-group has-feedback">
 									  <input id="username" name="username" type="text" placeholder="请输入用户名" class="form-control" value="admin" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)">
 									  <span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
@@ -281,9 +281,9 @@
                 }
 
                 $(".btn-success").click(function(){
-                    post("../login",{username:"admin",password:"123456"});
-                   // $('#submit').submit();
-				});
+                    //$.ajax({url:"./../auth/login",data:{username:$("#username").val(),password:"123456"},success:function(data){}});
+				    $("#submit").submit();
+                });
 
 
             });

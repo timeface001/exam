@@ -16,13 +16,13 @@ public class LoginController extends BaseController {
 
     @RequestMapping("/login")
     public String login(HttpServletRequest request) {
-
+        System.out.println("exception=" + request.getParameter("username"));
         System.out.println("HomeController.login()");
         // 登录失败从request中获取shiro处理的异常信息。
         // shiroLoginFailure:就是shiro异常类的全类名.
         String exception = (String) request.getAttribute("shiroLoginFailure");
         System.out.println("exception=" + exception);
-        System.out.println("exception=" + request.getParameter("username"));
+
         String msg = "";
         UsernamePasswordToken token = new UsernamePasswordToken(request.getParameter("username"), request.getParameter("password"));
         //获取当前的Subject

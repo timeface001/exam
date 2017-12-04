@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.fs.ntes.domain.Member">
     <id column="a_id" jdbcType="BIGINT" property="id" />
     <result column="a_uid" jdbcType="BIGINT" property="uid" />
+    <result column="a_type" jdbcType="INTEGER" property="type" />
     <result column="a_username" jdbcType="VARCHAR" property="username" />
     <result column="a_name" jdbcType="VARCHAR" property="name" />
     <result column="a_password" jdbcType="VARCHAR" property="password" />
@@ -13,8 +14,9 @@
     <result column="a_update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    a.id as a_id, a.uid as a_uid, a.username as a_username, a.name as a_name, a.password as a_password, 
-    a.salt as a_salt, a.status as a_status, a.create_time as a_create_time, a.update_time as a_update_time
+    a.id as a_id, a.uid as a_uid, a.type as a_type, a.username as a_username, a.name as a_name, 
+    a.password as a_password, a.salt as a_salt, a.status as a_status, a.create_time as a_create_time, 
+    a.update_time as a_update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -27,14 +29,14 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.fs.ntes.domain.Member">
-    insert into member (id, uid, username, 
-      name, password, salt, 
-      status, create_time, update_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    insert into member (id, uid, type, 
+      username, name, password, 
+      salt, status, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.fs.ntes.domain.Member">
     insert into member
@@ -44,6 +46,9 @@
       </if>
       <if test="uid != null">
         uid,
+      </if>
+      <if test="type != null">
+        type,
       </if>
       <if test="username != null">
         username,
@@ -74,6 +79,9 @@
       <if test="uid != null">
         #{uid,jdbcType=BIGINT},
       </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
@@ -103,6 +111,9 @@
       <if test="uid != null">
         uid = #{uid,jdbcType=BIGINT},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
@@ -130,6 +141,7 @@
   <update id="updateByPrimaryKey" parameterType="com.fs.ntes.domain.Member">
     update member
     set uid = #{uid,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
       username = #{username,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
