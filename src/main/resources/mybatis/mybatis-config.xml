@@ -19,6 +19,7 @@
         <setting name="jdbcTypeForNull" value="OTHER"/>
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
         <setting name="logPrefix" value="dao."/>
+        <setting name="logImpl" value="SLF4J"/>
     </settings>
 
 </configuration>

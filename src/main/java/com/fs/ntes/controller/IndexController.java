@@ -13,7 +13,7 @@ public class IndexController extends BaseController {
         //分流
         int type = getMember().getType();
         if (type == Constant.MEMBER_TYPE_ADMIN) {
-            return "/admin/itemList";
+            return "redirect: ./../item/list";
         }
 
         if (type == Constant.MEMBER_TYPE_STUDENT) {
