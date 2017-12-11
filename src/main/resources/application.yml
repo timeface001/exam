@@ -1,4 +1,5 @@
 aliyun:
-   oss:
-     accessKeyId: LTAIyaw3s6ajUgNN
-     accessKeySecret: tQrppHDVGfkBYG8ccCFXKrmoInCz9k
+     oss:
+       accessKeyId: LTAIyaw3s6ajUgNN
+       accessKeySecret: tQrppHDVGfkBYG8ccCFXKrmoInCz9k
+       endpoint: oss-cn-shanghai.aliyuncs.com

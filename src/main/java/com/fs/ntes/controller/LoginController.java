@@ -1,51 +1,39 @@
 package com.fs.ntes.controller;
 
-import com.alibaba.fastjson.JSON;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.subject.Subject;
+import com.fs.ntes.domain.stronger.MemberStg;
+import com.fs.ntes.service.MemberService;
+import com.fs.ntes.utils.MD5Utils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("auth")
 public class LoginController extends BaseController {
 
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest request) {
-        System.out.println("exception=" + request.getParameter("username"));
-        System.out.println("HomeController.login()");
-        // 登录失败从request中获取shiro处理的异常信息。
-        // shiroLoginFailure:就是shiro异常类的全类名.
-        String exception = (String) request.getAttribute("shiroLoginFailure");
-        System.out.println("exception=" + exception);
+    public String login(HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
-        String msg = "";
-        UsernamePasswordToken token = new UsernamePasswordToken(request.getParameter("username"), request.getParameter("password"));
-        //获取当前的Subject
-        Subject currentUser = SecurityUtils.getSubject();
-        try {
-            //在调用了login方法后,SecurityManager会收到AuthenticationToken,并将其发送给已配置的Realm执行必须的认证检查
-            //每个Realm都能在必要时对提交的AuthenticationTokens作出反应
-            //所以这一步在调用login(token)方法时,它会走到MyRealm.doGetAuthenticationInfo()方法中,具体验证方式详见此方法
-            currentUser.login(token);
-            System.out.println(currentUser.isAuthenticated());
-            System.out.println(JSON.toJSONString(getMember()));
-        } catch (UnknownAccountException uae) {
-            System.out.println("对用户[" + "]进行登录验证..验证未通过,未知账户");
-        } catch (IncorrectCredentialsException ice) {
-            System.out.println("对用户[" + "]进行登录验证..验证未通过,错误的凭证");
-        } catch (LockedAccountException lae) {
-            System.out.println("对用户[" + "]进行登录验证..验证未通过,账户已锁定");
-        } catch (ExcessiveAttemptsException eae) {
-            System.out.println("对用户[" + "]进行登录验证..验证未通过,错误次数过多");
-        } catch (AuthenticationException ae) {
-            //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
-            System.out.println("对用户[" + "]进行登录验证..验证未通过,堆栈轨迹如下");
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        MemberStg member = memberService.selectStgByUsername(username);
+        if (Objects.nonNull(member) && StringUtils.equals(member.getMember().getPassword(), MD5Utils.EncoderByMd5(password))) {
+            request.getSession(true).setAttribute("member", member.getMember());
+            request.getSession(true).setAttribute("memberStg", member);
+            return "redirect:./../index/index";
         }
+
 
         return "login";
 

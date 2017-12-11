@@ -8,7 +8,7 @@ import com.fs.ntes.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.channels.MembershipKey;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -29,6 +29,9 @@ public class MemberServiceImpl implements MemberService {
     public MemberStg selectStgByUsername(String username) {
         Member member= memberExtMapper.selectByUsername(username);
 
+        if (Objects.isNull(member)) {
+            return null;
+        }
         MemberStg memberStg=new MemberStg();
         memberStg.setMember(member);
         memberStg.setRoleList(roleService.selectByMemberUid(Optional.ofNullable(member).map(g->member.getUid()).orElse(0L)));
