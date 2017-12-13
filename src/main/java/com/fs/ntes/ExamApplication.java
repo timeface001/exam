@@ -1,5 +1,6 @@
 package com.fs.ntes;
 
+import com.fs.ntes.utils.oss.AliyunConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(scanBasePackages = "com.fs.ntes")
 //@ServletComponentScan
-@EnableConfigurationProperties
+@EnableConfigurationProperties(AliyunConfig.class)
 public class ExamApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExamApplication.class, args);

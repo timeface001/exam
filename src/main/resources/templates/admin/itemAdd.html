@@ -51,7 +51,7 @@
 					</div>
 					<div class="col-lg-2 col-md-2" style="padding-right:0">
 						<a href="javascript:file_upload.click()">
-							<div class="info-add-photo"><img src="../static/images/examMng/photos.png"></div>
+							<div class="info-add-photo"><img id="" src="../static/images/examMng/photos.png"></div>
 							<div class="info-add-text text-center">
 								<button type="button" class="layui-btn" id="upload">
 									<i class="layui-icon">&#xe67c;</i>上传封面
@@ -170,7 +170,9 @@
                     elem: '#upload' //绑定元素
                     , url: './../upload/' //上传接口
                     , done: function (res,index,upload) {
-                        console.log(res);
+                        if(res.code==0){
+
+						}
                     }
                     , error: function (index, upload) {
                         //请求异常回调

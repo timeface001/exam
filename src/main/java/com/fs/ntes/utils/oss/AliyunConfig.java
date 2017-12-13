@@ -2,10 +2,11 @@ package com.fs.ntes.utils.oss;
 
 import com.aliyun.oss.OSSClient;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-@Component
 @ConfigurationProperties(prefix = "aliyun.oss")
+@Component
 public class AliyunConfig {
 
     private String accessKeyId;
@@ -14,11 +15,14 @@ public class AliyunConfig {
 
     private String endpoint;
 
-    public static OSSClient ossClient;
+    private String domain;
 
-    public void init() {
+    public String getDomain() {
+        return domain;
+    }
 
-        ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public String getAccessKeyId() {

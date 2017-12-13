@@ -1,5 +1,7 @@
 package com.fs.ntes.dto;
 
+import com.alibaba.fastjson.JSON;
+
 public class RespResult<T> {
     private int code;
 
@@ -49,5 +51,10 @@ public class RespResult<T> {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
     }
 }
