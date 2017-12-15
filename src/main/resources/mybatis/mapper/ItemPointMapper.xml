@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.ntes.domain.mapper.ItemPointMapper">
+  <resultMap id="BaseResultMap" type="com.fs.ntes.domain.ItemPoint">
+    <id column="a_id" jdbcType="INTEGER" property="id" />
+    <result column="a_name" jdbcType="VARCHAR" property="name" />
+    <result column="a_item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="a_status" jdbcType="INTEGER" property="status" />
+    <result column="a_create_uid" jdbcType="BIGINT" property="createUid" />
+    <result column="a_update_uid" jdbcType="BIGINT" property="updateUid" />
+    <result column="a_question_count" jdbcType="INTEGER" property="questionCount" />
+    <result column="a_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="a_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    a.id as a_id, a.name as a_name, a.item_id as a_item_id, a.status as a_status, a.create_uid as a_create_uid, 
+    a.update_uid as a_update_uid, a.question_count as a_question_count, a.create_time as a_create_time, 
+    a.update_time as a_update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_point a
+    where a.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_point
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fs.ntes.domain.ItemPoint">
+    insert into item_point (id, name, item_id, 
+      status, create_uid, update_uid, 
+      question_count, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createUid,jdbcType=BIGINT}, #{updateUid,jdbcType=BIGINT}, 
+      #{questionCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fs.ntes.domain.ItemPoint">
+    insert into item_point
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createUid != null">
+        create_uid,
+      </if>
+      <if test="updateUid != null">
+        update_uid,
+      </if>
+      <if test="questionCount != null">
+        question_count,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createUid != null">
+        #{createUid,jdbcType=BIGINT},
+      </if>
+      <if test="updateUid != null">
+        #{updateUid,jdbcType=BIGINT},
+      </if>
+      <if test="questionCount != null">
+        #{questionCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fs.ntes.domain.ItemPoint">
+    update item_point
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createUid != null">
+        create_uid = #{createUid,jdbcType=BIGINT},
+      </if>
+      <if test="updateUid != null">
+        update_uid = #{updateUid,jdbcType=BIGINT},
+      </if>
+      <if test="questionCount != null">
+        question_count = #{questionCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fs.ntes.domain.ItemPoint">
+    update item_point
+    set name = #{name,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_uid = #{createUid,jdbcType=BIGINT},
+      update_uid = #{updateUid,jdbcType=BIGINT},
+      question_count = #{questionCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
