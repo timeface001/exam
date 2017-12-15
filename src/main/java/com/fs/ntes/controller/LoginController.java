@@ -1,6 +1,8 @@
 package com.fs.ntes.controller;
 
 import com.fs.ntes.domain.stronger.MemberStg;
+import com.fs.ntes.dto.RespGenerator;
+import com.fs.ntes.dto.RespResult;
 import com.fs.ntes.service.MemberService;
 import com.fs.ntes.utils.MD5Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,11 +33,11 @@ public class LoginController extends BaseController {
         if (Objects.nonNull(member) && StringUtils.equals(member.getMember().getPassword(), MD5Utils.EncoderByMd5(password))) {
             request.getSession(true).setAttribute("member", member.getMember());
             request.getSession(true).setAttribute("memberStg", member);
-            return "redirect:./../index/index";
+            return RespGenerator.generateSuccessViewRedirect("./../index/index");
         }
 
 
-        return "login";
+        return RespGenerator.generateSuccessView("login");
 
 
     }

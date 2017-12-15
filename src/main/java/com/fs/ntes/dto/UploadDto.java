@@ -1,12 +1,9 @@
 package com.fs.ntes.dto;
 
+import com.fs.ntes.utils.BeanUtils;
 import com.fs.ntes.utils.oss.AliyunConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class UploadDto {
-
-    @Autowired
-    private AliyunConfig aliyunConfig;
 
     private int code;
 
@@ -46,7 +43,7 @@ public class UploadDto {
         this.msg = msg;
         this.data = this.new Data();
         data.setSrc(src);
-        data.setAbsSrc(aliyunConfig.getDomain() + src);
+        data.setAbsSrc(BeanUtils.getBean(AliyunConfig.class).getDomain() + src);
     }
 
     public class Data {
@@ -75,9 +72,5 @@ public class UploadDto {
 
         }
 
-        public Data(String absSrc, String src) {
-            this.absSrc = aliyunConfig.getDomain() + src;
-            this.src = src;
-        }
     }
 }

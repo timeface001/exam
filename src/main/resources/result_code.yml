@@ -1,0 +1,13 @@
+code:
+   common:
+      success: 0 请求成功
+      paramNone: 1001 参数为空
+      paramIllgal: 1002 参数不合法
+      addFailed: 1003 新增失败
+      addSuccess: 1004 新增成功
+      updateFailed: 1005 修改失败
+      updateSuccess: 1006 修改成功
+      saveFailed: 1007 保存失败
+      saveSuccess: 1008 保存成功
+      delFailed: 1009 删除失败
+      delSuccess: 1010 删除成功

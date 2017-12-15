@@ -3,7 +3,7 @@ package com.fs.ntes.dto;
 import com.alibaba.fastjson.JSON;
 
 public class RespResult<T> {
-    private int code;
+    private String code;
 
     private String msg;
 
@@ -11,21 +11,31 @@ public class RespResult<T> {
 
     private String memo;
 
-    private boolean isPage;//是否跳转页面
+    private boolean success;
 
-    public boolean isPage() {
-        return isPage;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setPage(boolean page) {
-        isPage = page;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public int getCode() {
+    private boolean isView;//是否跳转页面
+
+    public boolean isView() {
+        return isView;
+    }
+
+    public void setView(boolean view) {
+        isView = view;
+    }
+
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

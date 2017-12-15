@@ -17,6 +17,10 @@ public class LogUtils {
         logger.info(msg, objects);
     }
 
+    public static void info(String msg, String... objects) {
+        logger.info(msg, objects);
+    }
+
     public static void info(String msg, Throwable throwable) {
         logger.info(msg, throwable);
     }

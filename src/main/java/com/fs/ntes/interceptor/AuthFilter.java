@@ -6,8 +6,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@Order(1)
-@WebFilter(filterName = "authFilter", urlPatterns = "/*")
+//@Order(1)
+//@WebFilter(filterName = "authFilter", urlPatterns = "/*")
 public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

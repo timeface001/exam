@@ -13,7 +13,11 @@ public class Item {
 
     private String cover;
 
-    private Integer uid;
+    private Integer questionCount;
+
+    private Integer pointCount;
+
+    private Long uid;
 
     private Date createTime;
 
@@ -59,11 +63,27 @@ public class Item {
         this.cover = cover == null ? null : cover.trim();
     }
 
-    public Integer getUid() {
+    public Integer getQuestionCount() {
+        return questionCount;
+    }
+
+    public void setQuestionCount(Integer questionCount) {
+        this.questionCount = questionCount;
+    }
+
+    public Integer getPointCount() {
+        return pointCount;
+    }
+
+    public void setPointCount(Integer pointCount) {
+        this.pointCount = pointCount;
+    }
+
+    public Long getUid() {
         return uid;
     }
 
-    public void setUid(Integer uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 

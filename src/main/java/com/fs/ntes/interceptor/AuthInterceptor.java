@@ -13,19 +13,22 @@ import java.util.Objects;
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+        HttpSession session = request.getSession(true);
+        if (Objects.nonNull(session.getAttribute("member"))||request.getRequestURI().contains("/auth/login")) {
+
+        } else {
+            response.sendRedirect(request.getContextPath() + "/auth/login");
+
+        }
+
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
         LogUtils.info("auth interceptor do start...");
-        HttpSession session=request.getSession();
-        if(Objects.nonNull(session.getAttribute("member"))){
 
-        }else{
-            response.sendRedirect(request.getContextPath()+"/auth/login");
-        }
 
         LogUtils.info("auth interceptor do end...");
     }
@@ -33,6 +36,6 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
 
-        LogUtils.info("");
+        request.setAttribute("basePath",request.getContextPath());
     }
 }

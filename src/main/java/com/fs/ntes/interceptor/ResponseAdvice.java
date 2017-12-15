@@ -19,11 +19,11 @@ public class ResponseAdvice implements ResponseBodyAdvice<RespResult> {
     @Override
     public RespResult beforeBodyWrite(RespResult o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
 
-        boolean isPage=o.isPage();
+        LogUtils.info("数据返回");
         /*if(isPage){
             return o.getData();
         }*/
-        o.setCode(122);
+        o.setCode("11");
         LogUtils.info(o.toString());
 
         return o;

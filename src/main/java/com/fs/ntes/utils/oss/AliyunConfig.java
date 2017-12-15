@@ -1,12 +1,9 @@
 package com.fs.ntes.utils.oss;
 
-import com.aliyun.oss.OSSClient;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @ConfigurationProperties(prefix = "aliyun.oss")
-@Component
 public class AliyunConfig {
 
     private String accessKeyId;
@@ -48,4 +45,6 @@ public class AliyunConfig {
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
     }
+
+
 }

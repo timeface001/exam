@@ -1,11 +1,15 @@
 package com.fs.ntes.controller.admin;
 
 import com.fs.ntes.controller.BaseController;
+import com.fs.ntes.domain.Item;
+import com.fs.ntes.dto.RespGenerator;
+import com.fs.ntes.dto.RespResult;
 import com.fs.ntes.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +24,7 @@ public class ItemController extends BaseController {
     public String index(HttpServletRequest request) {
 
         request.setAttribute("list", itemService.selectList(getMember()));
-        return "admin/itemList";
+        return RespGenerator.generateSuccessView("admin/itemList");
 
     }
 
@@ -32,9 +36,11 @@ public class ItemController extends BaseController {
     }
 
     @PostMapping("/save")
-    public String save(HttpServletRequest request) {
-
-        return "redirect:/item/list";
+    @ResponseBody
+    public RespResult save(Item item) {
+        item.setUid(getMember().getUid());
+        itemService.save(item);
+        return RespGenerator.generateSuccess();
 
     }
 

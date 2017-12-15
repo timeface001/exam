@@ -27,31 +27,25 @@
 					<div class="col-lg-10 col-md-10" style="padding:0">
 						<div class="input-group input-group-lg tk-title">
 							<span class="input-group-addon">题库名称</span>
-							<input type="text" id="name" class="form-control" placeholder="请输入题库名称"
-								   aria-describedby="sizing-addon1">
+							<input type="text" id="name" name="name" class="form-control" placeholder="请输入题库名称"
+								   aria-describedby="sizing-addon1" maxlength="50">
 						</div>
 						<div class="input-group input-group-lg tk-title">
 							<span class="input-group-addon" id="year">题库年份</span>
 							<div class="btn-group btn-group-lg" role="group">
-								<!--<select  class="form-control">
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                    <option>2014</option>
-                                    <option>2013</option>
-                                    <option>2012</option>
-                                </select>-->
-								<input type="text" class="layui-input form-control" id="selectYear"/>
+								<input type="text" name="year" class="layui-input form-control" id="selectYear"/>
 							</div>
 						</div>
 						<div class="input-group input-group-lg tk-title tk-introduction">
 							<span class="input-group-addon" id="sizing-addon1">题库简介</span>
-							<textarea type="text" id="desc" class="form-control" placeholder="请输入题库名称"
-									  aria-describedby="sizing-addon1"></textarea>
+							<textarea type="text" id="desc" name="desc" class="form-control" placeholder="请输入题库简介"
+									  aria-describedby="sizing-addon1" maxlength="500"></textarea>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-2" style="padding-right:0">
 						<a href="javascript:file_upload.click()">
-							<div class="info-add-photo"><img id="" src="../static/images/examMng/photos.png"></div>
+							<div class="info-add-photo"><img id="coverShow" src="../static/images/examMng/photos.png">
+							</div>
 							<div class="info-add-text text-center">
 								<button type="button" class="layui-btn" id="upload">
 									<i class="layui-icon">&#xe67c;</i>上传封面
@@ -67,10 +61,13 @@
 					<span>题库信息保存后，只能修改不能删除，请仔细检查确认信息的准确性</span>
 				</div>
 				<div class="anniu-group">
-					<button class="btn btn-danger" role="button">取消</button>
-					<button class="btn btn-success" role="button">创建题库</button>
+					<button class="btn btn-danger" role="button" onclick="javascript:location.href='./../item/list'">
+						取消
+					</button>
+					<button class="btn btn-success" role="button" id="submit">创建题库</button>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<!--body end-->
@@ -168,15 +165,44 @@
                 //执行实例
                 var uploadInst = upload.render({
                     elem: '#upload' //绑定元素
+                    , accept: "images"
+                    , number: 1
+                    , size: 1024
                     , url: './../upload/' //上传接口
                     , done: function (res,index,upload) {
                         if(res.code==0){
-
-						}
+                            $("#coverShow").attr("src", res.data.absSrc);
+                            $("#cover").val(res.data.src);
+                        }
                     }
                     , error: function (index, upload) {
                         //请求异常回调
 						console.log(index);
+                    }
+                });
+            });
+
+            //提交
+            $("#submit").click(function () {
+                $.post("./../item/save", {
+                    name: $("#name").val(),
+                    year: $("#selectYear").val(),
+                    desc: $("#desc").val(),
+                    cover: $("#cover").val()
+                }, function (data) {
+                    if (data.success) {
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg('保存成功');
+                            setTimeout(function () {
+                                window.location.href = "./../item/list";
+                            }, 1500);
+                        });
+                    } else {
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg('保存失败');
+                        });
                     }
                 });
             });

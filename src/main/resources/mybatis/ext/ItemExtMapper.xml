@@ -8,7 +8,7 @@
         <include refid="com.fs.ntes.domain.mapper.ItemMapper.Base_Column_List"/>
         from item a
         <where>
-            <if test="member.type=2">
+            <if test="member.type==2">
                 a.uid=#{member.uid}
             </if>
         </where>

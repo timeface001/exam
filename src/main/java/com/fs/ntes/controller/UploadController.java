@@ -1,11 +1,14 @@
 package com.fs.ntes.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.fs.ntes.dto.UploadDto;
 import com.fs.ntes.utils.FileUtils;
 import com.fs.ntes.utils.GeneralUtils;
 import com.fs.ntes.utils.LogUtils;
+import com.fs.ntes.utils.oss.AliyunConfig;
 import com.fs.ntes.utils.oss.OSSUtils;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +26,8 @@ public class UploadController extends BaseController {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UploadController.class);
 
+
+
     @RequestMapping("/")
     public @ResponseBody UploadDto upload(HttpServletRequest request, MultipartFile file) {
 
@@ -30,6 +35,7 @@ public class UploadController extends BaseController {
         String fileName = file.getOriginalFilename();
 
         LogUtils.debug("filename:" + fileName);
+
 
         try {
             System.out.println(file.isEmpty());

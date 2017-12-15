@@ -1,6 +1,7 @@
 package com.fs.ntes.config;
 
 import com.fs.ntes.interceptor.AuthInterceptor;
+import com.fs.ntes.interceptor.ResponseHandler;
 import com.fs.ntes.utils.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     private AuthInterceptor authInterceptor;
 
+    @Autowired
+    private ResponseHandler responseHandler;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LogUtils.info("start");
@@ -20,6 +24,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(authInterceptor).addPathPatterns("/**").excludePathPatterns("/auth/login");
+        //registry.addInterceptor(responseHandler).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 }

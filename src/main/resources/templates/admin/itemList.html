@@ -23,18 +23,15 @@
     <div class="main-container">
         <div class="container body-box">
             <div class="row content-box">
-                <div class="col-lg-3 col-md-3 content-border">
-                    <a href="item-knows.htm">
-                        <img src="../static/images/examMng/a.png">
-                        <p class="title text-center">协警资格考试（2016）</p>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-3 content-border">
-                    <a href="item-knows.htm">
-                        <img src="../static/images/examMng/a.png">
-                        <p class="title text-center">人民**执法资格考试题库初级考试题库初级（2016）</p>
-                    </a>
-                </div>
+
+                <#list list as l>
+                    <div class="col-lg-3 col-md-3 content-border">
+                        <a href="./../item/point/list?itemId=${l.id}">
+                            <img src="../static/images/examMng/a.png">
+                            <p class="title text-center">${l.name}</p>
+                        </a>
+                    </div>
+                </#list>
 
                 <div class="col-lg-3 col-md-3 content-border">
                     <a href="./../item/toAdd">
@@ -47,6 +44,7 @@
         </div>
     </div>
     <!--body end-->
+
 
     <!--footer begin-->
     <div class="footer">
@@ -78,6 +76,9 @@
                 $(".kw-footer").css("position","initial");
             }
         }
+
+
     </script>
+</div>
 </body>
 </html>
