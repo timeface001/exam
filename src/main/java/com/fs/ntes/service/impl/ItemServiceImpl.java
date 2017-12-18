@@ -35,4 +35,9 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemPoint> selectPointList(Map<String, Object> params) {
         return itemPointExtMapper.selectList(params);
     }
+
+    @Override
+    public Item findById(Integer id) {
+        return itemPointExtMapper.selectByPrimaryKey(id);
+    }
 }

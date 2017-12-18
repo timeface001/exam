@@ -14,4 +14,6 @@ public interface ItemService {
     boolean save(Item item);
 
     List<ItemPoint> selectPointList(Map<String, Object> params);
+
+    Item findById(Integer id);
 }

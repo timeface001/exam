@@ -29,8 +29,9 @@ public class ItemController extends BaseController {
     }
 
     @RequestMapping("/toAdd")
-    public String add(HttpServletRequest request) {
+    public String add(HttpServletRequest request, Integer itemId) {
 
+        request.setAttribute("item", itemService.findById(itemId));
         return "admin/itemAdd";
 
     }

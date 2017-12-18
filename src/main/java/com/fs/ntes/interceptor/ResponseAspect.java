@@ -2,7 +2,9 @@ package com.fs.ntes.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.fs.ntes.dto.RespResult;
+import com.fs.ntes.utils.BeanUtils;
 import com.fs.ntes.utils.LogUtils;
+import com.fs.ntes.utils.oss.AliyunConfig;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -43,6 +45,7 @@ public class ResponseAspect {
 
         LogUtils.info(request.getContextPath());
         request.setAttribute("basePath",request.getContextPath());
+        request.setAttribute("aliyunPath", BeanUtils.getBean(AliyunConfig.class).getDomain());
         // result的值就是被拦截方法的返回值
         Object result = pjp.proceed();
         if (result instanceof RespResult) {

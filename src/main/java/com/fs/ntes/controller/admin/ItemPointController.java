@@ -18,10 +18,11 @@ public class ItemPointController extends BaseController {
     private ItemService itemService;
 
     @RequestMapping("/list")
-    public String index(HttpServletRequest request, Long itemId) {
+    public String index(HttpServletRequest request, Integer itemId) {
         Map<String, Object> map = new HashMap<>();
         map.put("itemId", itemId);
         request.setAttribute("list", itemService.selectPointList(map));
+        request.setAttribute("item", itemService.findById(itemId));
         return "admin/itemPoint";
     }
 }

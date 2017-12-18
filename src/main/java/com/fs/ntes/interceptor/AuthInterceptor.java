@@ -28,6 +28,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
         LogUtils.info("auth interceptor do start...");
+        LogUtils.info("url:"+request.getRequestURI());
 
 
         LogUtils.info("auth interceptor do end...");
@@ -36,6 +37,5 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
 
-        request.setAttribute("basePath",request.getContextPath());
     }
 }
