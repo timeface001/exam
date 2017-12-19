@@ -8,11 +8,13 @@ import com.fs.ntes.domain.ext.ItemPointExtMapper;
 import com.fs.ntes.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional(readOnly = true)
 public class ItemServiceImpl implements ItemService {
 
     @Autowired
@@ -38,6 +40,13 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item findById(Integer id) {
-        return itemPointExtMapper.selectByPrimaryKey(id);
+        return itemExtMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public int saveItemPoint(ItemPoint point) {
+        itemExtMapper.updatePointCount(point.getItemId(), 1);
+        return itemPointExtMapper.insertSelective(point);
     }
 }

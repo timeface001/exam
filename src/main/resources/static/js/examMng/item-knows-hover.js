@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-	$(".right-message div").mouseover(function(){
+	$(".right-message").on("mouseover","div",function(){
 		var num = $(this).index();
 		var nums = $(".right-message div").length;
 		for (var i = 0; i < nums; i++) {
@@ -19,7 +19,7 @@ $(document).ready(function(){
 			}
 		}
 	});
-	$(".right-message div").mouseout(function(){
+	$(".right-message").on("mouseout","div",function(){
 		var nums = $(".right-message div").length;
 		for (var i = 0; i < nums; i++) {
 			if(i > 1){

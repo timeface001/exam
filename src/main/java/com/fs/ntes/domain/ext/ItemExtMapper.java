@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface ItemExtMapper extends ItemMapper {
      List<Item> selectList(@Param("member") Member member);
+
+     void updatePointCount(@Param("id") Integer itemId,@Param("count") int i);
 }

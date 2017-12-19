@@ -178,10 +178,10 @@ function IsPC() {
 	return flag;
 }
 
-function isNUllOrEmpty(str) {
-    return str == null || $.trim(str).length() == 0;
+function isNullOrEmpty(str) {
+    return str == null || str.replace(/(^s*)|(s*$)/g, "").length ==0;
 }
 
-function isNotNUllOrEmpty(str) {
-    return !isNUllOrEmpty(str);
+function isNotNullOrEmpty(str) {
+    return !isNullOrEmpty(str);
 }

@@ -13,4 +13,9 @@
             </if>
         </where>
     </select>
+
+    <update id="updatePointCount" parameterType="java.util.Map">
+        UPDATE item SET point+#{count} WHERE id=#{id}
+    </update>
+
 </mapper>

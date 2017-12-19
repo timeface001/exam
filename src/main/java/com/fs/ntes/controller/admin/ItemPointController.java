@@ -1,10 +1,15 @@
 package com.fs.ntes.controller.admin;
 
 import com.fs.ntes.controller.BaseController;
+import com.fs.ntes.domain.Item;
+import com.fs.ntes.domain.ItemPoint;
+import com.fs.ntes.dto.RespGenerator;
+import com.fs.ntes.dto.RespResult;
 import com.fs.ntes.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -24,5 +29,14 @@ public class ItemPointController extends BaseController {
         request.setAttribute("list", itemService.selectPointList(map));
         request.setAttribute("item", itemService.findById(itemId));
         return "admin/itemPoint";
+    }
+
+    @RequestMapping("/add")
+    @ResponseBody
+    public RespResult add(HttpServletRequest request, ItemPoint point) {
+
+        point.setCreateUid(getMember().getUid());
+        itemService.saveItemPoint(point);
+        return RespGenerator.generateSuccess(point);
     }
 }

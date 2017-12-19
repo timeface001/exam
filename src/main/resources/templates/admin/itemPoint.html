@@ -9,7 +9,7 @@
 
 		<script src="${basePath}/static/js/examMng/item-knows-hover.js"></script>
 		<link rel="stylesheet" href="${basePath}/static/css/examMng/examMng.css" />
-		<script src="${basePath}/static/js/examMng/footer.js"></script>
+		<!--<script src="${basePath}/static/js/practice/footer.js"></script>-->
 		
 	</head>
 	<body>
@@ -38,101 +38,42 @@
 								<p class="photo-title">${item.name}</p>
 							</div>
 							<p class="now-title">当前题库</p>
-							<p class="now-knowledge"><span>知  识 点 ：</span><b>四章</b></p>
-							<p class="now-num">题目数量：<b>0</b></p>
+							<p class="now-knowledge"><span>知  识 点 ：</span><b>${item.pointCount}</b></p>
+							<p class="now-num">题目数量：<b>${item.questionCount}</b></p>
 						</div>
 						<div class="col-lg-9 col-md-9 right-message">
 							<div class="input-group refer">
-						    	<input type="text" class="refer-input" placeholder="请输入知识点名称" onblur="tijiao(this)">
+								<input id="pointName" type="text" class="refer-input" placeholder="请输入知识点名称">
 						    	<span class="input-group-btn">
 						    		<button class="btn btn-default refer-btn" type="button" id="pointAdd" ><i class="glyphicon glyphicon-open"></i>提交</button>
 						    	</span>
 						    </div>
-						    <div class="line-bottom"></div>
-						    <div class="message-exam">
-						    	<a id="addtxt" href="item-type.htm" class="message-exam-title">第一章&nbsp;社会主义法治理念</a>
-						    	<p class="message-exam-subject">试题：0</p>
-								<div class="message-exam-over-bianji" style="display: none;">
-									<div>
-								    	<i class="glyphicon glyphicon-plus-sign"></i>
-								    	<a href="item-type-add-2.htm">添加试题</a>
-							    	</div>
-							    	<div>
-							    		<i class="glyphicon glyphicon-remove-circle"></i>
-								    	<a href="#close-cn" data-toggle="modal">删除</a>
-									</div>
-									<div>
-								    	<i class="glyphicon glyphicon-pencil"></i>
-								    	<a onclick="bianji(this)">编辑</a>
-									</div>
-									<div>
-										<a style="text-decoration: none;">试题：0</a>
-									</div>
-						    	</div>
-						    </div>
-						    <div class="message-exam">
-						    	<a id="addtxt"  href="item-type.htm" class="message-exam-title">第二章&nbsp;社会主义法治理念</a>
-						    	<p class="message-exam-subject">试题：0</p>
-								<div class="message-exam-over-bianji" style="display: none;">
-									<div>
-								    	<i class="glyphicon glyphicon-plus-sign"></i>
-								    	<a href="item-type-add-2.htm">添加试题</a>
-							    	</div>
-							    	<div>
-							    		<i class="glyphicon glyphicon-remove-circle"></i>
-								    	<a href="#close-cn" data-toggle="modal">删除</a>
-									</div>
-									<div>
-								    	<i class="glyphicon glyphicon-pencil"></i>
-								    	<a onclick="bianji(this)">编辑</a>
-									</div>
-									<div>
-										<a style="text-decoration: none;">试题：0</a>
-									</div>
-						    	</div>
-						    </div>
-						    <div class="message-exam">
-						    	<a href="item-type.htm" class="message-exam-title">第三章&nbsp;社会主义法治理念</a>
-						    	<p class="message-exam-subject">试题：0</p>
-								<div class="message-exam-over-bianji" style="display: none;">
-									<div>
-								    	<i class="glyphicon glyphicon-plus-sign"></i>
-								    	<a href="item-type-add-2.htm">添加试题</a>
-							    	</div>
-							    	<div>
-							    		<i class="glyphicon glyphicon-remove-circle"></i>
-								    	<a href="#close-cn" data-toggle="modal">删除</a>
-									</div>
-									<div>
-								    	<i class="glyphicon glyphicon-pencil"></i>
-								    	<a onclick="bianji(this)">编辑</a>
-									</div>
-									<div>
-										<a style="text-decoration: none;">试题：0</a>
-									</div>
-						    	</div>
-						    </div>
-						    <div class="message-exam">
-						    	<a href="item-type.htm" class="message-exam-title">第四章&nbsp;社会主义法治理念</a>
-						    	<p class="message-exam-subject">试题：0</p>
-								<div class="message-exam-over-bianji" style="display: none;">
-									<div>
-								    	<i class="glyphicon glyphicon-plus-sign"></i>
-								    	<a href="item-type-add-2.htm">添加试题</a>
-							    	</div>
-							    	<div>
-							    		<i class="glyphicon glyphicon-remove-circle"></i>
-								    	<a href="#close-cn" data-toggle="modal">删除</a>
-									</div>
-									<div>
-								    	<i class="glyphicon glyphicon-pencil"></i>
-								    	<a href="javascript:void(null)" onclick="bianji(this)">编辑</a>
-									</div>
-									<div>
-										<a style="text-decoration: none;">试题：0</a>
-									</div>
-						    	</div>
-						    </div>
+							<div class="line-bottom" id="pointList"></div>
+						   <#list list as t>
+							   <div class="message-exam">
+								   <a id="addtxt" href="item-type.htm" class="message-exam-title">${t.name}</a>
+								   <p class="message-exam-subject">试题：${t.questionCount}</p>
+								   <div class="message-exam-over-bianji" style="display: none;">
+									   <div>
+										   <i class="glyphicon glyphicon-plus-sign"></i>
+										   <a href="item-type-add-2.htm">添加试题</a>
+									   </div>
+									   <div>
+										   <i class="glyphicon glyphicon-remove-circle"></i>
+										   <a href="#close-cn" data-toggle="modal">删除</a>
+									   </div>
+									   <div>
+										   <i class="glyphicon glyphicon-pencil"></i>
+										   <a onclick="bianji(this)">编辑</a>
+									   </div>
+									   <div style="margin-top: 7px;">
+										   <a style="text-decoration: none;">试题：${t.questionCount}</a>
+									   </div>
+								   </div>
+							   </div>
+						   </#list>
+
+
 						</div>
 					</div>
 				</div>
@@ -228,6 +169,46 @@
 		<script type="text/javascript">
 			//打开模态窗口
 			$('#close-cn').modal({backdrop: 'static', keyboard: false , show: false});
+
+            $(function () {
+                $("#pointAdd").click(function () {
+                    if (isNotNullOrEmpty($("#pointName").val())) {
+                        $.post("${basePath}/item/point/add",
+                            {name: $("#pointName").val(), itemId: '${item.id}'}, function (data) {
+                                if (data.success) {
+                                     initPoint($("#pointName").val());
+                                    $("#pointName").val("");
+                                }
+                            })
+                    }
+                });
+
+                function initPoint(name) {
+                    $("#pointList").after("<div class='message-exam'>" +
+                        "<a href='item-type.htm' class='message-exam-title'>" + name + "</a>" +
+                        "<p class='message-exam-subject'>试题：0</p>" +
+                        "<div class='message-exam-over-bianji' style='display: none;' > "+
+                    "<div>" +
+                    "<i class='glyphicon glyphicon-plus-sign'></i>" +
+                    "   <a href='item-type-add-2.htm'>添加试题</a>" +
+                    "   </div>" +
+                    "   <div>" +
+                    "   <i class='glyphicon glyphicon-remove-circle'></i>" +
+                    "   <a href='javascript:void(0)' data-toggle='modal'>删除</a>" +
+                    "   </div>" +
+                    "   <div>" +
+                    "   <i class='glyphicon glyphicon-pencil'></i>" +
+                    "   <a onclick='bianji(this)'>编辑</a>" +
+                    "   </div>" +
+                    "   <div style='margin-top: 7px;'>" +
+                    "   <a style='text-decoration: none;'>试题：0</a>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>"
+                )
+                    ;
+                }
+            })
 		</script>
 		</div>
 	</body>
