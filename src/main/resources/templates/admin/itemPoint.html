@@ -61,7 +61,7 @@
 									   </div>
 									   <div>
 										   <i class="glyphicon glyphicon-remove-circle"></i>
-										   <a href="#close-cn" data-toggle="modal">删除</a>
+										   <a href="javascript:void(0);" data-toggle="modal" id="pointDel">删除</a>
 									   </div>
 									   <div>
 										   <i class="glyphicon glyphicon-pencil"></i>
@@ -180,8 +180,32 @@
                                      initPoint($("#pointName").val(),data.data.id);
                                     $("#pointName").val("");
                                 }
-                            })
+                            });
                     }
+                });
+
+                $("#pointDel").on("click",function () {
+                    var pointId = $(this).parents(".message-exam").attr("val");
+                    layer.confirm('点击确定按钮会删除当前题库知识点信息，您确定要删除么吗？', {
+                        btn: ['取消', '确定'] //按钮
+                    }, function () {
+                        //layer.msg('的确很重要', {icon: 1});
+                    }, function () {
+                        $.post("${basePath}/item/point/del",
+                            {pointId: pointId, itemId: '${item.id}'}, function (data) {
+                                if (data.success) {
+                                    layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg(data.msg);
+                                    });
+                                }else{
+                                    layer.msg(data.msg);
+								}
+                            });
+
+
+                    });
+
                 });
 
                 function initPoint(name,id) {
