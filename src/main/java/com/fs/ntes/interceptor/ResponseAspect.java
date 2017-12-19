@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
+import java.util.Optional;
 
 @Aspect   //定义一个切面
 @Configuration
@@ -54,7 +55,8 @@ public class ResponseAspect {
                 return resp.getData();
             } else {
                 LogUtils.info("请求结束，controller的返回值是 " + JSON.toJSONString(result));
-
+                resp.setMsg(Optional.ofNullable(resp.getCode()).map(g->g.split(" ")[1]).orElse(""));
+                resp.setCode(Optional.ofNullable(resp.getCode()).map(g->g.split(" ")[0]).orElse(""));
                 return resp;
             }
         }

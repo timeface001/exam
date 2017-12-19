@@ -8,7 +8,11 @@
         <include refid="com.fs.ntes.domain.mapper.ItemPointMapper.Base_Column_List"/>
         from item_point a
         <where>
-            a.item_id=#{itemId}
+            a.item_id=#{itemId} AND a.status=0
         </where>
     </select>
+
+    <update id="delById" parameterType="java.util.Map">
+        UPDATE item_point SET status=1 WHERE id=#{id}
+    </update>
 </mapper>

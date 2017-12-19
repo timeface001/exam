@@ -17,5 +17,7 @@ public interface ItemService {
 
     Item findById(Integer id);
 
-    int saveItemPoint(ItemPoint point);
+    ItemPoint saveItemPoint(ItemPoint point);
+
+    int delItemPoint(Integer pointId,Integer itemId);
 }

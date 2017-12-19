@@ -19,6 +19,13 @@ public class RespGenerator<T> {
         return result;
     }
 
+    public static <T> RespResult generateSuccessDependBol(boolean bol) {
+        RespResult result = new RespResult();
+        result.setCode(BeanUtils.getBean(ResultCode.class).getCommon().getSuccess());
+        result.setSuccess(bol);
+        return result;
+    }
+
     public static String generateSuccessView(String view) {
         return view;
     }

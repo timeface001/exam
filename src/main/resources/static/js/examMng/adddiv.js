@@ -1,7 +1,7 @@
 	var oldval;  //旧的章节名称
 	var newval;		//新的章节名称
 	//点击编辑触发
-	function bianji(use){
+	function  bianji(use){
 		//增加新的选项
 		oldval=$(use).parent().parent().parent().children("a").text();
 		$(use).parent().parent().parent().html('<div class="text-form"><form class="z-form" action="#" method="get"><input id="new-input" type="text" value="'+oldval+'"/></form><div onclick="bubaocun(this)" class="z-div2"><i class="glyphicon glyphicon-remove"></i><a id="add">取消</a></div><div onclick="baocun(this)" class="z-div1"><i class="glyphicon glyphicon-ok"></i><a>保存</a></div></div>');
@@ -16,8 +16,28 @@
 			      keyboard: true
 			})
 		}else{
-			$(use).parent().parent().html('<a id="addtxt" href="item-type.htm" class="message-exam-title">'+newval+'</a><p class="message-exam-subject">试题：0</p><div class="message-exam-over-bianji" style="display: none;"><div><i class="glyphicon glyphicon-plus-sign"></i><a href="item-type-add-2.htm">添加试题</a></div><div><i class="glyphicon glyphicon-remove-circle"></i><a href="#close-cn" data-toggle="modal">删除</a></div><div><i class="glyphicon glyphicon-pencil"></i><a id="add" onclick="bianji(this)">编辑</a></div><div><i class="glyphicon glyphicon-upload"></i><a href="#">上移</a></div>')
-	 
+			$.post("./../point/add",{name:newval,id:$(use).parents(".message-exam").attr("val")},function(data){});
+			//$(use).parent().parent().html('<a id="addtxt" href="item-type.htm" class="message-exam-title">'+newval+'</a><p class="message-exam-subject">试题：0</p><div class="message-exam-over-bianji" style="display: none;"><div><i class="glyphicon glyphicon-plus-sign"></i><a href="item-type-add-2.htm">添加试题</a></div><div><i class="glyphicon glyphicon-remove-circle"></i><a href="#close-cn" data-toggle="modal">删除</a></div><div><i class="glyphicon glyphicon-pencil"></i><a id="add" onclick="bianji(this)">编辑</a></div><div><i class="glyphicon glyphicon-upload"></i><a href="#">上移</a></div>')
+			$(use).parent().parent().html("<a href='item-type.htm' class='message-exam-title'>" + newval + "</a>" +
+                "<p class='message-exam-subject'>试题：0</p>" +
+                "<div class='message-exam-over-bianji' style='display: none;' > "+
+                "<div>" +
+                "<i class='glyphicon glyphicon-plus-sign'></i>" +
+                "   <a href='item-type-add-2.htm'>添加试题</a>" +
+                "   </div>" +
+                "   <div>" +
+                "   <i class='glyphicon glyphicon-remove-circle'></i>" +
+                "   <a href='javascript:void(0)' data-toggle='modal'>删除</a>" +
+                "   </div>" +
+                "   <div>" +
+                "   <i class='glyphicon glyphicon-pencil'></i>" +
+                "   <a onclick='bianji(this)'>编辑</a>" +
+                "   </div>" +
+                "   <div style='margin-top: 7px;'>" +
+                "   <a style='text-decoration: none;'>试题：0</a>" +
+                "</div>" +
+                "</div>");
+
 			}
 		}
 	//点击不保存按钮触发

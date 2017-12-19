@@ -1,7 +1,6 @@
 package com.fs.ntes.controller.admin;
 
 import com.fs.ntes.controller.BaseController;
-import com.fs.ntes.domain.Item;
 import com.fs.ntes.domain.ItemPoint;
 import com.fs.ntes.dto.RespGenerator;
 import com.fs.ntes.dto.RespResult;
@@ -36,7 +35,15 @@ public class ItemPointController extends BaseController {
     public RespResult add(HttpServletRequest request, ItemPoint point) {
 
         point.setCreateUid(getMember().getUid());
-        itemService.saveItemPoint(point);
+        point = itemService.saveItemPoint(point);
         return RespGenerator.generateSuccess(point);
+    }
+
+    @RequestMapping("/del")
+    @ResponseBody
+    public RespResult del(HttpServletRequest request, Integer itemId, Integer pointId) {
+
+        int i = itemService.delItemPoint(pointId, itemId);
+        return RespGenerator.generateSuccessDependBol(i == 1);
     }
 }

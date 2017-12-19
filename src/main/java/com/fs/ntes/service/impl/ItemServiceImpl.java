@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @Transactional(readOnly = true)
@@ -45,8 +46,25 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(readOnly = false)
-    public int saveItemPoint(ItemPoint point) {
-        itemExtMapper.updatePointCount(point.getItemId(), 1);
-        return itemPointExtMapper.insertSelective(point);
+    public ItemPoint saveItemPoint(ItemPoint point) {
+        if (Objects.nonNull(point.getId())) {
+            point.setUpdateUid(point.getCreateUid());
+            point.setCreateUid(null);
+            itemPointExtMapper.updateByPrimaryKeySelective(point);
+            return point;
+        } else {
+
+            itemExtMapper.updatePointCount(point.getItemId(), 1);
+            itemPointExtMapper.insertSelective(point);
+            return point;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public int delItemPoint(Integer pointId, Integer itemId) {
+        itemExtMapper.updatePointCount(itemId, -1);
+        itemExtMapper.updateQuestionCount(itemId, itemPointExtMapper.selectByPrimaryKey(pointId).getQuestionCount());
+        return itemPointExtMapper.delById(pointId);
     }
 }

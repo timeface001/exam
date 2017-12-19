@@ -28,21 +28,22 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.fs.ntes.domain.ItemPoint">
-    insert into item_point (id, name, item_id, 
-      status, create_uid, update_uid, 
-      question_count, create_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{createUid,jdbcType=BIGINT}, #{updateUid,jdbcType=BIGINT}, 
-      #{questionCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into item_point (name, item_id, status, 
+      create_uid, update_uid, question_count, 
+      create_time, update_time)
+    values (#{name,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createUid,jdbcType=BIGINT}, #{updateUid,jdbcType=BIGINT}, #{questionCount,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.fs.ntes.domain.ItemPoint">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into item_point
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="name != null">
         name,
       </if>
@@ -69,9 +70,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>

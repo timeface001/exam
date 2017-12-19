@@ -8,6 +8,7 @@
 		<title>考务管理</title>
 
 		<script src="${basePath}/static/js/examMng/item-knows-hover.js"></script>
+		<script src="${basePath}/static/js/examMng/adddiv.js"></script>
 		<link rel="stylesheet" href="${basePath}/static/css/examMng/examMng.css" />
 		<!--<script src="${basePath}/static/js/practice/footer.js"></script>-->
 		
@@ -50,7 +51,7 @@
 						    </div>
 							<div class="line-bottom" id="pointList"></div>
 						   <#list list as t>
-							   <div class="message-exam">
+							   <div class="message-exam" val="${t.id}">
 								   <a id="addtxt" href="item-type.htm" class="message-exam-title">${t.name}</a>
 								   <p class="message-exam-subject">试题：${t.questionCount}</p>
 								   <div class="message-exam-over-bianji" style="display: none;">
@@ -176,15 +177,15 @@
                         $.post("${basePath}/item/point/add",
                             {name: $("#pointName").val(), itemId: '${item.id}'}, function (data) {
                                 if (data.success) {
-                                     initPoint($("#pointName").val());
+                                     initPoint($("#pointName").val(),data.data.id);
                                     $("#pointName").val("");
                                 }
                             })
                     }
                 });
 
-                function initPoint(name) {
-                    $("#pointList").after("<div class='message-exam'>" +
+                function initPoint(name,id) {
+                    $("#pointList").after("<div class='message-exam'  val='"+id+"'>" +
                         "<a href='item-type.htm' class='message-exam-title'>" + name + "</a>" +
                         "<p class='message-exam-subject'>试题：0</p>" +
                         "<div class='message-exam-over-bianji' style='display: none;' > "+
@@ -194,7 +195,7 @@
                     "   </div>" +
                     "   <div>" +
                     "   <i class='glyphicon glyphicon-remove-circle'></i>" +
-                    "   <a href='javascript:void(0)' data-toggle='modal'>删除</a>" +
+                    "   <a href='#close-cn' data-toggle='modal'>删除</a>" +
                     "   </div>" +
                     "   <div>" +
                     "   <i class='glyphicon glyphicon-pencil'></i>" +

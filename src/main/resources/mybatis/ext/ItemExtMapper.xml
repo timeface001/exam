@@ -15,7 +15,11 @@
     </select>
 
     <update id="updatePointCount" parameterType="java.util.Map">
-        UPDATE item SET point+#{count} WHERE id=#{id}
+        UPDATE item SET point_count=point_count+#{count} WHERE id=#{id}
+    </update>
+
+    <update id="updateQuestionCount" parameterType="java.util.Map">
+        UPDATE item SET  question_count=question_count+#{count} WHERE id=#{id}
     </update>
 
 </mapper>
