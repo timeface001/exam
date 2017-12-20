@@ -16,12 +16,20 @@ public class RespGenerator<T> {
         RespResult result = new RespResult();
         result.setCode(BeanUtils.getBean(ResultCode.class).getCommon().getSuccess());
         result.setSuccess(true);
+        result.setData(data);
         return result;
     }
 
     public static <T> RespResult generateSuccessDependBol(boolean bol) {
         RespResult result = new RespResult();
         result.setCode(BeanUtils.getBean(ResultCode.class).getCommon().getSuccess());
+        result.setSuccess(bol);
+        return result;
+    }
+
+    public static <T> RespResult generateSuccessDependBol(boolean bol,String code) {
+        RespResult result = new RespResult();
+        result.setCode(code);
         result.setSuccess(bol);
         return result;
     }

@@ -54,9 +54,9 @@ public class ResponseAspect {
             if (resp.isView()) {
                 return resp.getData();
             } else {
-                LogUtils.info("请求结束，controller的返回值是 " + JSON.toJSONString(result));
                 resp.setMsg(Optional.ofNullable(resp.getCode()).map(g->g.split(" ")[1]).orElse(""));
                 resp.setCode(Optional.ofNullable(resp.getCode()).map(g->g.split(" ")[0]).orElse(""));
+                LogUtils.info("请求结束，controller的返回值是 " + JSON.toJSONString(result));
                 return resp;
             }
         }

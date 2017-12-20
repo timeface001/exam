@@ -187,6 +187,7 @@
                 $("#pointDel").on("click",function () {
                     var pointId = $(this).parents(".message-exam").attr("val");
                     layer.confirm('点击确定按钮会删除当前题库知识点信息，您确定要删除么吗？', {
+                        title:"知识点删除",
                         btn: ['取消', '确定'] //按钮
                     }, function () {
                         //layer.msg('的确很重要', {icon: 1});

@@ -4,6 +4,7 @@ import com.fs.ntes.controller.BaseController;
 import com.fs.ntes.domain.ItemPoint;
 import com.fs.ntes.dto.RespGenerator;
 import com.fs.ntes.dto.RespResult;
+import com.fs.ntes.dto.ResultCode;
 import com.fs.ntes.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class ItemPointController extends BaseController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private ResultCode resultCode;
 
     @RequestMapping("/list")
     public String index(HttpServletRequest request, Integer itemId) {
@@ -44,6 +48,6 @@ public class ItemPointController extends BaseController {
     public RespResult del(HttpServletRequest request, Integer itemId, Integer pointId) {
 
         int i = itemService.delItemPoint(pointId, itemId);
-        return RespGenerator.generateSuccessDependBol(i == 1);
+        return RespGenerator.generateSuccessDependBol(i == 1, i == 1 ? resultCode.getCommon().getDelSuccess() : resultCode.getCommon().getDelFailed());
     }
 }
