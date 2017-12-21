@@ -1,8 +1,8 @@
 package com.fs.ntes.service;
 
 import com.fs.ntes.domain.Item;
-import com.fs.ntes.domain.ItemPoint;
 import com.fs.ntes.domain.Member;
+import com.fs.ntes.domain.Point;
 
 import java.util.List;
 import java.util.Map;
@@ -13,11 +13,11 @@ public interface ItemService {
 
     boolean save(Item item);
 
-    List<ItemPoint> selectPointList(Map<String, Object> params);
+    List<Point> selectPointList(Map<String, Object> params);
 
     Item findById(Integer id);
 
-    ItemPoint saveItemPoint(ItemPoint point);
+    Point saveItemPoint(Point point);
 
     int delItemPoint(Integer pointId,Integer itemId);
 }

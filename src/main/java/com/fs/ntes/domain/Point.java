@@ -2,7 +2,7 @@ package com.fs.ntes.domain;
 
 import java.util.Date;
 
-public class ItemPoint {
+public class Point {
     private Integer id;
 
     private String name;
@@ -10,6 +10,14 @@ public class ItemPoint {
     private Integer itemId;
 
     private Integer status;
+
+    private Integer judgeCount;
+
+    private Integer radioCount;
+
+    private Integer checkboxCount;
+
+    private Integer shortCount;
 
     private Long createUid;
 
@@ -51,6 +59,38 @@ public class ItemPoint {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getJudgeCount() {
+        return judgeCount;
+    }
+
+    public void setJudgeCount(Integer judgeCount) {
+        this.judgeCount = judgeCount;
+    }
+
+    public Integer getRadioCount() {
+        return radioCount;
+    }
+
+    public void setRadioCount(Integer radioCount) {
+        this.radioCount = radioCount;
+    }
+
+    public Integer getCheckboxCount() {
+        return checkboxCount;
+    }
+
+    public void setCheckboxCount(Integer checkboxCount) {
+        this.checkboxCount = checkboxCount;
+    }
+
+    public Integer getShortCount() {
+        return shortCount;
+    }
+
+    public void setShortCount(Integer shortCount) {
+        this.shortCount = shortCount;
     }
 
     public Long getCreateUid() {

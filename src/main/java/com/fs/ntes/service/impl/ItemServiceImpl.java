@@ -1,10 +1,10 @@
 package com.fs.ntes.service.impl;
 
 import com.fs.ntes.domain.Item;
-import com.fs.ntes.domain.ItemPoint;
 import com.fs.ntes.domain.Member;
+import com.fs.ntes.domain.Point;
 import com.fs.ntes.domain.ext.ItemExtMapper;
-import com.fs.ntes.domain.ext.ItemPointExtMapper;
+import com.fs.ntes.domain.ext.PointExtMapper;
 import com.fs.ntes.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemExtMapper itemExtMapper;
 
     @Autowired
-    private ItemPointExtMapper itemPointExtMapper;
+    private PointExtMapper pointExtMapper;
 
     @Override
     public List<Item> selectList(Member member) {
@@ -35,8 +35,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemPoint> selectPointList(Map<String, Object> params) {
-        return itemPointExtMapper.selectList(params);
+    public List<Point> selectPointList(Map<String, Object> params) {
+        return pointExtMapper.selectList(params);
     }
 
     @Override
@@ -46,16 +46,16 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(readOnly = false)
-    public ItemPoint saveItemPoint(ItemPoint point) {
+    public Point saveItemPoint(Point point) {
         if (Objects.nonNull(point.getId())) {
             point.setUpdateUid(point.getCreateUid());
             point.setCreateUid(null);
-            itemPointExtMapper.updateByPrimaryKeySelective(point);
+            pointExtMapper.updateByPrimaryKeySelective(point);
             return point;
         } else {
 
             itemExtMapper.updatePointCount(point.getItemId(), 1);
-            itemPointExtMapper.insertSelective(point);
+            pointExtMapper.insertSelective(point);
             return point;
         }
     }
@@ -64,7 +64,7 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = false)
     public int delItemPoint(Integer pointId, Integer itemId) {
         itemExtMapper.updatePointCount(itemId, -1);
-        itemExtMapper.updateQuestionCount(itemId, itemPointExtMapper.selectByPrimaryKey(pointId).getQuestionCount());
-        return itemPointExtMapper.delById(pointId);
+        itemExtMapper.updateQuestionCount(itemId, pointExtMapper.selectByPrimaryKey(pointId).getQuestionCount());
+        return pointExtMapper.delById(pointId);
     }
 }

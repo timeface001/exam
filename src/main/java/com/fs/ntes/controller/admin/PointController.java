@@ -1,7 +1,7 @@
 package com.fs.ntes.controller.admin;
 
 import com.fs.ntes.controller.BaseController;
-import com.fs.ntes.domain.ItemPoint;
+import com.fs.ntes.domain.Point;
 import com.fs.ntes.dto.RespGenerator;
 import com.fs.ntes.dto.RespResult;
 import com.fs.ntes.dto.ResultCode;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("item/point/")
-public class ItemPointController extends BaseController {
+public class PointController extends BaseController {
 
     @Autowired
     private ItemService itemService;
@@ -31,12 +31,12 @@ public class ItemPointController extends BaseController {
         map.put("itemId", itemId);
         request.setAttribute("list", itemService.selectPointList(map));
         request.setAttribute("item", itemService.findById(itemId));
-        return "admin/itemPoint";
+        return "admin/point";
     }
 
     @RequestMapping("/add")
     @ResponseBody
-    public RespResult add(HttpServletRequest request, ItemPoint point) {
+    public RespResult add(HttpServletRequest request, Point point) {
 
         point.setCreateUid(getMember().getUid());
         point = itemService.saveItemPoint(point);

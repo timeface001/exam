@@ -70,8 +70,10 @@
         <!--<table  tableName="member_role" domainObjectName="MemberRole" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false" alias="a"></table>-->
         <!--<table  tableName="role_permission" domainObjectName="RolePermission" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false" alias="a"></table>-->
         <!--<table  tableName="item" domainObjectName="Item" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false" alias="a"></table>-->
-        <table  tableName="item_point" domainObjectName="ItemPoint" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false" alias="a">
+        <!--<table  tableName="point" domainObjectName="Point" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false" alias="a">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
+
+        <!--<table  tableName="question" domainObjectName="Question" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false" alias="a"></table>-->
     </context>
 </generatorConfiguration>
