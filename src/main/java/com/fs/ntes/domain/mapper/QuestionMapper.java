@@ -1,20 +1,17 @@
 package com.fs.ntes.domain.mapper;
 
 import com.fs.ntes.domain.Question;
-import com.fs.ntes.domain.QuestionWithBLOBs;
 
 public interface QuestionMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(QuestionWithBLOBs record);
+    int insert(Question record);
 
-    int insertSelective(QuestionWithBLOBs record);
+    int insertSelective(Question record);
 
-    QuestionWithBLOBs selectByPrimaryKey(Integer id);
+    Question selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(QuestionWithBLOBs record);
-
-    int updateByPrimaryKeyWithBLOBs(QuestionWithBLOBs record);
+    int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);
 }

@@ -52,7 +52,7 @@
 							<div class="line-bottom" id="pointList"></div>
 						   <#list list as t>
 							   <div class="message-exam" val="${t.id}">
-								   <a id="addtxt" href="item-type.htm" class="message-exam-title">${t.name}</a>
+								   <a id="addtxt" href="${basePath}/question/type?pointId=${t.id}" class="message-exam-title">${t.name}</a>
 								   <p class="message-exam-subject">试题：${t.questionCount}</p>
 								   <div class="message-exam-over-bianji" style="display: none;">
 									   <div>
@@ -211,12 +211,12 @@
 
                 function initPoint(name,id) {
                     $("#pointList").after("<div class='message-exam'  val='"+id+"'>" +
-                        "<a href='item-type.htm' class='message-exam-title'>" + name + "</a>" +
+                        "<a href='${basePath}/point/type?pointId=id' class='message-exam-title'>" + name + "</a>" +
                         "<p class='message-exam-subject'>试题：0</p>" +
                         "<div class='message-exam-over-bianji' style='display: none;' > "+
                     "<div>" +
                     "<i class='glyphicon glyphicon-plus-sign'></i>" +
-                    "   <a href='item-type-add-2.htm'>添加试题</a>" +
+                    "   <a href='${basePath}/point/toAdd'>添加试题</a>" +
                     "   </div>" +
                     "   <div>" +
                     "   <i class='glyphicon glyphicon-remove-circle'></i>" +

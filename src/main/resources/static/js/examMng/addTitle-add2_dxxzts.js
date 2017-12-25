@@ -9,9 +9,9 @@ function getSelectedOption(v) {
 function check_item_dxxzts(value){
 	if($("#dxxzts #xx").children().eq(value*3).css("background-image").indexOf("select_nochecked.png") != -1){
 		flagArray.push(value);
-		$("#dxxzts #xx").children().eq(value*3).css("background","url(../../static/images/examMng/select_checked.png)");
+		$("#dxxzts #xx").children().eq(value*3).css("background","url(./../exam/static/images/examMng/select_checked.png)");
 	}else{
-		$("#dxxzts #xx").children().eq(value*3).css("background","url(../../static/images/examMng/select_nochecked.png)");
+		$("#dxxzts #xx").children().eq(value*3).css("background","url(./../static/images/examMng/select_nochecked.png)");
 	}
 }
 function dxxzts_blur(value){

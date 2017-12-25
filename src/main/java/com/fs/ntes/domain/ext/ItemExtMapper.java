@@ -12,5 +12,5 @@ public interface ItemExtMapper extends ItemMapper {
 
      void updatePointCount(@Param("id") Integer itemId,@Param("count") int i);
 
-    void updateQuestionCount(@Param("id") Integer itemId, @Param("count") int count);
+     void updateQuestionCount(@Param("id") Integer itemId, @Param("count") int count);
 }

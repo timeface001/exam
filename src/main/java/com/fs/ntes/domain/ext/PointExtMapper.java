@@ -11,4 +11,6 @@ public interface PointExtMapper extends PointMapper {
     List<Point> selectList(Map<String, Object> map);
 
     int delById(@Param("id") Integer pointId);
+
+    int updateQuestionCount(Integer pointId,int questionType,Integer count);
 }

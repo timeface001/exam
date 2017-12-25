@@ -37,10 +37,11 @@ $(document).ready(function(){
 });
 var titleType = 0;
 var flagArray = [];
-var htmArray = []; 
+var htmArray = [];
+var answer = [];
 var currArrayNum = 0;
-var pngList=["url(../../static/images/examMng/select_checked.png)",
-			"url(../../static/images/examMng/select_nochecked.png)"];
+var pngList = ["url(./../static/images/examMng/select_checked.png)",
+    "url(./../static/images/examMng/select_nochecked.png)"];
 //var pngList=["url(../../images/examMng/select_checked.png)",
 //		"url(../../images/examMng/select_nochecked.png)"];	
 /****
@@ -135,6 +136,19 @@ function check_select_status(t){
 	
 	return 0;
 }
+
+function clear_check_status(t) {
+    var i = 0;
+    var n = 0;
+    for (i = 0; i < currArrayNum; i++) {
+        flagArray[i] = 0;
+        $("#check_opt" + i).css("background", pngList[1]);
+    }
+
+    answer = [];
+
+}
+
 /*
 	func : add_options
 	新增试题新增方法。
@@ -162,7 +176,7 @@ function add_options(t, c, v){
 							var temp = $(
 							"<div class=\"input-group input-group-lg testtype\">"+
 								"<div id=\"check_opt" +currArrayNum+ "\" class=\"answer_choose\" style=\"top:"+(top_pos)+"px\" onclick=\"check_item_status("+currArrayNum+")\"><input type=\"radio\" name=\"radio1\" style=\"display: none;\"></div>"
-								+"<span class=\"input-group-addon\" >题目选项</span>"
+                                + "<span class=\"input-group-addon\" >题目选项" + getWord(currArrayNum) + "</span>"
 								+"<input id=\"dxxzt_xx" + currArrayNum + "\" type=\"text\" class=\"form-control options\" placeholder=\"请输入题目选项内容\" aria-describedby=\"sizing-addon1\" value=\"\" onblur=\"checkInput(this)\" onFocus=\"textFocus(this)\">"
 								+"<span class=\"validate_input\">选择内容不能为空</span>"
 								+"<div id=\"delBtn"+ currArrayNum +"\" class=\"del\" style=\"top:"+(top_pos)+"px\" onclick=\"remove_options("+currArrayNum+")\"></div>"
@@ -198,4 +212,60 @@ function add_options(t, c, v){
 	currArrayNum++;
 	//alert(currArrayNum);
 
+}
+
+function getWord(num) {
+    switch (num) {
+        case 0:
+            return "A";
+            break;
+        case 1:
+            return "B";
+            break;
+        case 2:
+            return "C";
+            break;
+        case 3:
+            return "D";
+            break;
+        case 4:
+            return "E";
+            break;
+        case 5:
+            return "F";
+            break;
+        case 6:
+            return "G";
+            break;
+        case 7:
+            return "H";
+            break;
+        case 8:
+            return "I";
+            break;
+        case 9:
+            return "J";
+            break;
+        case 10:
+            return "K";
+            break;
+        case 11:
+            return "L";
+            break;
+        case 12:
+            return "M";
+            break;
+    }
+}
+
+function getWords(arr) {
+
+    var ans = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == 1) {
+            ans.push(getWord(i));
+        }
+    }
+
+    return ans;
 }

@@ -23,7 +23,7 @@
 					onChange:titleTypeOnChange
 				});
 				add_options(0,0,"正确");
-				add_options(0,1,"错误")
+				add_options(0,0,"错误")
 			});
 			//tips提示
 			$(function () { $("[data-tip='tooltip']").tooltip(); });
@@ -52,8 +52,16 @@
 					titleType = 2;
 					clear_check_status(2);
 				}
-				$(".titletype-jt").text($("#titletype").children().eq(num).text());
-				$(".titletype-jt").css("color","#555");
+
+                if(num == "简答题"){
+                    $("#pdt").css("display","none");
+                    $("#dxxzt").css("display","none");
+                    $("#dxxzts").css("display","block");
+                    titleType = 3;
+                    clear_check_status(3);
+                }
+				//$(".titletype-jt").text($("#titletype").children().eq(num).text());
+				//$(".titletype-jt").css("color","#555");
 				$("#titletype").css("display","none");
 			}
 
@@ -71,8 +79,8 @@
 		<div class="main-container">
 			<div class="container info-add body-box">
 				<div class="info-add-box">
-					<p>第一章&nbsp;社会主义法制理念</p>
-		  			<a href="javascript:history.go(-1);"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;返回</a>
+					<p>${point.name}</p>
+		  			<a href="javascript:history.back(-1);"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;返回</a>
 				</div>
 				<div class="additem-container" style="position: relative; z-index: 1;">
 					<div class="input-group input-group-lg testtype">
@@ -96,7 +104,7 @@
 					</div>-->
 					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;">
 						<span class="input-group-addon tgbox">提干</span>
-						<textarea type="text" id="stem" class="form-control tginput" value='请输入提干内容' onblur="if (value ==''){ value='请输入提干内容';document.getElementById('stem').style.color='#999';}" onfocus="if (value =='请输入提干内容'){value =''; this.style.color='#333';}">请输入提干内容</textarea>
+						<textarea type="text" id="stem" class="form-control tginput" placeholder='请输入提干内容' onblur="if (value ==''){ document.getElementById('stem').style.color='#999';}" onfocus="if (value =='请输入提干内容'){value =''; this.style.color='#333';}"></textarea>
 						<span class="validate_input error error1"></span>
 					</div>
 					<div id="select-options">
@@ -107,8 +115,8 @@
 					<!--题目解析-->
 					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;">
 						<span class="input-group-addon tmjx_box">题目解析</span>
-						<textarea type="text"  class="form-control tginput" value='请输入题目解析' onblur="if (value ==''){ value='请输入题目解析';document.getElementById('stem').style.color='#999';}" onfocus="if (value =='请输入题目解析'){value =''; this.style.color='#333';}">请输入题目解析</textarea>
-						<span class="validate_input error error1"></span>
+						<textarea type="text" id="analysis"  class="form-control tginput" value='请输入题目解析'>请输入题目解析</textarea>
+						<span class="validate_input error error2"></span>
 					</div>
 					<!--题目解析-->
 					<div id="pdt">
@@ -126,49 +134,16 @@
 						</div>
 						<p style="color:red">*&nbsp;&nbsp;多项选择题有且至少两个选中项</p>
 					</div>
+
 					
 					<div class="border-bottom"></div>
 					<div class="input-group input-group-lg testtype text-center button-grop" style="position: relative; z-index: 1; margin: 0px auto;">
 						<button type="button" class="btn btn-default" onClick="window.location.href='item-view.htm'"><i class="glyphicon glyphicon-list"></i>试题预览</button>
-						<button id="demo3"  class="btn btn-success demo" href="#close-cn" data-toggle="modal"><i class="glyphicon glyphicon-ok"></i>保	存</button>
+						<button id="demo3"  class="btn btn-success demo" href="" data-toggle="modal"><i class="glyphicon glyphicon-ok"></i>保	存</button>
 					</div>
 					
 				</div>
-					<!--退出拟制开始-->
-					<div id="close-cn" class="modal fade" tabindex="-1">
-					    <div class="modal-dialog dw_ry_big_box">
-					        <div class="modal-content dw_ry_box">
-					        	<!--人员树header开始-->
-					            <div class="modal-header no-padding">
-					                <div class="table-header border-top-radius">
-					                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					                        <span class="white">&times;</span>
-					                    </button>
-									保存提示
-					                </div>
-					            </div>
-					            <!--人员树header结束-->
-								<!--人员树body开始-->
-					            <div class="modal-body">
-					            	<div class="text-center">
-					            		试题添加成功！
-					                </div>
-					            </div>
-								<!--人员树body结束-->
-					            <!--人员树footer开始-->
-					            <div class="modal-footer no-margin-top border-bottom-radius">
-					            	<button class="btn btn-sm btn-success" data-dismiss="modal" id="sure-close" onclick="window.location.href='item-knows.htm'">
-					                    <i class="glyphicon glyphicon-arrow-left"></i>返回上一页
-					                </button>
-					                <button class="btn btn-sm btn-danger" data-dismiss="modal" onclick="window.location.href='item-type-add-2.htm'">
-					                    <i class="glyphicon glyphicon-th-large"></i>继续添加
-					                </button>
-					            </div>
-					            <!--人员树footer结束-->
-					        </div>
-					    </div>
-					</div>
-					<!--退出拟制结束-->
+
 			</div>
 			
 			<!--footer begin-->
@@ -185,7 +160,31 @@
 	<script>
 		//添加试题的提示文字
 		$(function(){
-			
+
+		    $("#demo3").click(function () {
+
+		        var options=[];
+		        var data={pointId:'${point.id}',itemId:'${point.itemId}',type:$("#jinji option:selected").val(),content:$("#stem").val(),options:options,analysis:$("#analysis").val(),answer:getWords(flagArray)};
+				console.log(data);
+		        $.post("${basePath}/question/add",data,function (data) {
+                    if(data.success){
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg(data.msg);
+                        });
+                        setTimeout(function () {
+							window.history.back(-1);
+                        },1000);
+					}else{
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg(data.msg);
+                        });
+					}
+                });
+
+            });
+
 		//判断题
 			//题号获得焦点
 			$(".number").focus(function(){

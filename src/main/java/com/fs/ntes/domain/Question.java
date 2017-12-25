@@ -7,7 +7,13 @@ public class Question {
 
     private Integer pointId;
 
+    private Integer itemId;
+
     private Integer type;
+
+    private String content;
+
+    private String options;
 
     private String answer;
 
@@ -37,12 +43,36 @@ public class Question {
         this.pointId = pointId;
     }
 
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
     public Integer getType() {
         return type;
     }
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options == null ? null : options.trim();
     }
 
     public String getAnswer() {

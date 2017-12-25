@@ -13,11 +13,7 @@ public interface ItemService {
 
     boolean save(Item item);
 
-    List<Point> selectPointList(Map<String, Object> params);
-
     Item findById(Integer id);
 
-    Point saveItemPoint(Point point);
 
-    int delItemPoint(Integer pointId,Integer itemId);
 }

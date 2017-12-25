@@ -15,4 +15,8 @@
     <update id="delById" parameterType="java.util.Map">
         UPDATE point SET status=1 WHERE id=#{id}
     </update>
+
+    <update id="updateQuestionCount" parameterType="java.util.Map">
+        UPDATE point SET question_count=question_count+#{count}, WHERE id=#{pointId}
+    </update>
 </mapper>

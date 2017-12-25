@@ -6,6 +6,7 @@ import com.fs.ntes.dto.RespGenerator;
 import com.fs.ntes.dto.RespResult;
 import com.fs.ntes.dto.ResultCode;
 import com.fs.ntes.service.ItemService;
+import com.fs.ntes.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +24,16 @@ public class PointController extends BaseController {
     private ItemService itemService;
 
     @Autowired
+    private PointService pointService;
+
+    @Autowired
     private ResultCode resultCode;
 
     @RequestMapping("/list")
     public String index(HttpServletRequest request, Integer itemId) {
         Map<String, Object> map = new HashMap<>();
         map.put("itemId", itemId);
-        request.setAttribute("list", itemService.selectPointList(map));
+        request.setAttribute("list", pointService.selectPointList(map));
         request.setAttribute("item", itemService.findById(itemId));
         return "admin/point";
     }
@@ -39,7 +43,7 @@ public class PointController extends BaseController {
     public RespResult add(HttpServletRequest request, Point point) {
 
         point.setCreateUid(getMember().getUid());
-        point = itemService.saveItemPoint(point);
+        point = pointService.save(point);
         return RespGenerator.generateSuccess(point);
     }
 
@@ -47,7 +51,7 @@ public class PointController extends BaseController {
     @ResponseBody
     public RespResult del(HttpServletRequest request, Integer itemId, Integer pointId) {
 
-        int i = itemService.delItemPoint(pointId, itemId);
+        int i = pointService.delPoint(pointId, itemId);
         return RespGenerator.generateSuccessDependBol(i == 1, i == 1 ? resultCode.getCommon().getDelSuccess() : resultCode.getCommon().getDelFailed());
     }
 }
