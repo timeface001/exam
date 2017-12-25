@@ -34,6 +34,10 @@ public class RespGenerator<T> {
         return result;
     }
 
+    public static <T> RespResult generateSuccessDependBol(boolean bol, String trueCode, String falseCode) {
+        return generateSuccessDependBol(bol, bol ? trueCode : falseCode);
+    }
+
     public static String generateSuccessView(String view) {
         return view;
     }

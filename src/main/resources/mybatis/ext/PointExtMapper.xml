@@ -17,6 +17,12 @@
     </update>
 
     <update id="updateQuestionCount" parameterType="java.util.Map">
-        UPDATE point SET question_count=question_count+#{count}, WHERE id=#{pointId}
+        UPDATE point SET question_count=question_count+#{count},
+
+        judge_count=IF(#{type}=0,judge_count+#{count},judge_count),
+        radio_count=IF(#{type}=1,radio_count+#{count},radio_count),
+        checkbox_count=IF(#{type}=2,checkbox_count+#{count},checkbox_count),
+        short_count=IF(#{type}=3,short_count+#{count},short_count)
+         WHERE id=#{pointId}
     </update>
 </mapper>

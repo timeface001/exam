@@ -12,5 +12,5 @@ public interface PointExtMapper extends PointMapper {
 
     int delById(@Param("id") Integer pointId);
 
-    int updateQuestionCount(Integer pointId,int questionType,Integer count);
+    int updateQuestionCount(@Param("pointId") Integer pointId,@Param("type") int questionType,@Param("count") Integer count);
 }

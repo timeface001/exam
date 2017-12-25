@@ -164,11 +164,13 @@
 		    $("#demo3").click(function () {
 
 		        var options=[];
-		        for(var i=0;i<htmArray.length;i++){
-		            options.push({});
+		        for(var i=0;i<flagArray.length;i++){
+		            options.push({code:$("#select-options .testtype").eq(i).find(".input-group-addon").text().split(" ")[1],text:$("#select-options .testtype").eq(i).find(".options").val()});
 				}
 
-		        var data={pointId:'${point.id}',itemId:'${point.itemId}',type:titleType,content:$("#stem").val(),options:$.toJSON(options),analysis:$("#analysis").val(),answer:getWords(flagArray).join(",")};
+
+
+		        var data={pointId:'${point.id}',itemId:'${point.itemId}',type:titleType,content:$("#stem").val(),options:JSON.stringify(options),analysis:$("#analysis").val(),answer:getWords(flagArray).join(",")};
 				console.log(data);
 		        $.post("${basePath}/question/add",data,function (data) {
                     if(data.success){
@@ -176,9 +178,9 @@
                             var layer = layui.layer;
                             layer.msg(data.msg);
                         });
-                        setTimeout(function () {
-							window.history.back(-1);
-                        },1000);
+//                        setTimeout(function () {
+//							window.history.back(-1);
+//                        },1500);
 					}else{
                         layui.use('layer', function () {
                             var layer = layui.layer;
