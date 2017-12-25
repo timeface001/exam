@@ -217,43 +217,43 @@ function add_options(t, c, v){
 function getWord(num) {
     switch (num) {
         case 0:
-            return "A";
+            return " A";
             break;
         case 1:
-            return "B";
+            return " B";
             break;
         case 2:
-            return "C";
+            return " C";
             break;
         case 3:
-            return "D";
+            return " D";
             break;
         case 4:
-            return "E";
+            return " E";
             break;
         case 5:
-            return "F";
+            return " F";
             break;
         case 6:
-            return "G";
+            return " G";
             break;
         case 7:
-            return "H";
+            return " H";
             break;
         case 8:
-            return "I";
+            return " I";
             break;
         case 9:
-            return "J";
+            return " J";
             break;
         case 10:
-            return "K";
+            return " K";
             break;
         case 11:
-            return "L";
+            return " L";
             break;
         case 12:
-            return "M";
+            return " M";
             break;
     }
 }

@@ -115,7 +115,7 @@
 					<!--题目解析-->
 					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;">
 						<span class="input-group-addon tmjx_box">题目解析</span>
-						<textarea type="text" id="analysis"  class="form-control tginput" value='请输入题目解析'>请输入题目解析</textarea>
+						<textarea type="text" id="analysis"  class="form-control tginput" placeholder='请输入题目解析'></textarea>
 						<span class="validate_input error error2"></span>
 					</div>
 					<!--题目解析-->
@@ -164,7 +164,11 @@
 		    $("#demo3").click(function () {
 
 		        var options=[];
-		        var data={pointId:'${point.id}',itemId:'${point.itemId}',type:$("#jinji option:selected").val(),content:$("#stem").val(),options:options,analysis:$("#analysis").val(),answer:getWords(flagArray)};
+		        for(var i=0;i<htmArray.length;i++){
+		            options.push({});
+				}
+
+		        var data={pointId:'${point.id}',itemId:'${point.itemId}',type:titleType,content:$("#stem").val(),options:$.toJSON(options),analysis:$("#analysis").val(),answer:getWords(flagArray).join(",")};
 				console.log(data);
 		        $.post("${basePath}/question/add",data,function (data) {
                     if(data.success){
