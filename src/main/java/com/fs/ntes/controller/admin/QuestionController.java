@@ -48,9 +48,9 @@ public class QuestionController extends BaseController {
     }
 
     @RequestMapping("/view")
-    public String view(String itemName, Question question) {
-        getRequest().setAttribute("itemName", itemName);
+    public String view(String pointName, Question question) {
+        getRequest().setAttribute("pointName", pointName);
         getRequest().setAttribute("question", question);
-        return "questionView";
+        return "admin/questionView";
     }
 }
