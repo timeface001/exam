@@ -46,4 +46,11 @@ public class QuestionController extends BaseController {
         int i = questionService.save(question);
         return RespGenerator.generateSuccessDependBol(i == 1, resultCode.getCommon().getAddSuccess(),resultCode.getCommon().getAddFailed());
     }
+
+    @RequestMapping("/view")
+    public String view(String itemName, Question question) {
+        getRequest().setAttribute("itemName", itemName);
+        getRequest().setAttribute("question", question);
+        return "questionView";
+    }
 }

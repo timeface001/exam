@@ -31,7 +31,7 @@ public class QuestionServiceImpl implements QuestionService {
             return questionExtMapper.updateByPrimaryKeySelective(question);
 
         } else {
-            int i = questionExtMapper.insert(question);
+            int i = questionExtMapper.insertSelective(question);
             //更新题目数量
             if (i == 1) {
                 pointExtMapper.updateQuestionCount(question.getId(), question.getType(), 1);

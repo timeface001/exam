@@ -12,8 +12,10 @@ public class BaseController {
         return (Member) getRequest().getSession().getAttribute("member");
     }
 
-    private HttpServletRequest getRequest() {
+    protected HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
+
+
 
 }

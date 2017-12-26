@@ -35,6 +35,8 @@
 					$("#pdt").css("display","block");
 					$("#dxxzt").css("display","none");
 					$("#dxxzts").css("display","none");
+                    $("#select-options").css("display","block");
+                    $("#shortDiv").css("display","none");
 					remove_addition();
 					titleType = 0;
 				}
@@ -42,6 +44,8 @@
 					$("#pdt").css("display","none");
 					$("#dxxzt").css("display","block");
 					$("#dxxzts").css("display","none");
+                    $("#select-options").css("display","block");
+                    $("#shortDiv").css("display","none");
 					titleType = 1;
 					clear_check_status(1);
 				}
@@ -49,6 +53,8 @@
 					$("#pdt").css("display","none");
 					$("#dxxzt").css("display","none");
 					$("#dxxzts").css("display","block");
+                    $("#select-options").css("display","block");
+                    $("#shortDiv").css("display","none");
 					titleType = 2;
 					clear_check_status(2);
 				}
@@ -56,9 +62,13 @@
                 if(num == "简答题"){
                     $("#pdt").css("display","none");
                     $("#dxxzt").css("display","none");
-                    $("#dxxzts").css("display","block");
+                    $("#dxxzts").css("display","none");
                     titleType = 3;
+                    $("#select-options").css("display","none");
+                    $("#shortDiv").css("display","block");
                     clear_check_status(3);
+                    remove_addition();
+
                 }
 				//$(".titletype-jt").text($("#titletype").children().eq(num).text());
 				//$(".titletype-jt").css("color","#555");
@@ -112,6 +122,13 @@
 						   <input type="radio" name="radio1" style="display: none;"></div>
 
 					</div>
+					<!--简答题答案-->
+					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;display: none;" id="shortDiv">
+						<span class="input-group-addon tmjx_box">答案</span>
+						<textarea type="text" id="shortAnswer"  class="form-control tginput" placeholder='请输入答案'></textarea>
+						<span class="validate_input error error2"></span>
+					</div>
+					<!--简答题答案-->
 					<!--题目解析-->
 					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;">
 						<span class="input-group-addon tmjx_box">题目解析</span>
@@ -163,24 +180,39 @@
 
 		    $("#demo3").click(function () {
 
-		        var options=[];
+
+                var options = [];
 		        for(var i=0;i<flagArray.length;i++){
-		            options.push({code:$("#select-options .testtype").eq(i).find(".input-group-addon").text().split(" ")[1],text:$("#select-options .testtype").eq(i).find(".options").val()});
+                    options.push({
+                        code: $("#select-options .testtype").eq(i).find(".input-group-addon").text().split(" ")[1],
+                        text: $("#select-options .testtype").eq(i).find(".options").val(),
+                        selectStatus: flagArray[i]
+                    });
 				}
 
+                $("#stem").blur();
+                if (isNullOrEmpty($("#stem").val())) {
+                    layer.msg("提干不能为空",{  icon: 2,
+                        time: 1000});
+                    return;
+                }
 
+                if (titleType<3&&getWords(flagArray).length == 0) {
+                    layer.msg("选项不能为空",{  icon: 2,
+                        time: 1000});
+                    return;
+                }
 
 		        var data={pointId:'${point.id}',itemId:'${point.itemId}',type:titleType,content:$("#stem").val(),options:JSON.stringify(options),analysis:$("#analysis").val(),answer:getWords(flagArray).join(",")};
-				console.log(data);
 		        $.post("${basePath}/question/add",data,function (data) {
                     if(data.success){
                         layui.use('layer', function () {
                             var layer = layui.layer;
                             layer.msg(data.msg);
                         });
-//                        setTimeout(function () {
-//							window.history.back(-1);
-//                        },1500);
+                        setTimeout(function () {
+                            window.history.back(-1);
+                        }, 1500);
 					}else{
                         layui.use('layer', function () {
                             var layer = layui.layer;
