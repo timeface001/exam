@@ -65,7 +65,7 @@
                     $("#dxxzts").css("display","none");
                     titleType = 3;
                     $("#select-options").css("display","none");
-                    $("#shortDiv").css("display","block");
+                    $("#shortDiv").css("display", "");
                     clear_check_status(3);
                     remove_addition();
 
@@ -124,9 +124,9 @@
 					</div>
 					<!--简答题答案-->
 					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;display: none;" id="shortDiv">
-						<span class="input-group-addon tmjx_box">答案</span>
-						<textarea type="text" id="shortAnswer"  class="form-control tginput" placeholder='请输入答案'></textarea>
-						<span class="validate_input error error2"></span>
+						<span class="input-group-addon tmjx_box">答案描述</span>
+						<textarea type="text" id="shortAnswer" class="form-control tginput"
+								  placeholder='请输入答案描述'></textarea>
 					</div>
 					<!--简答题答案-->
 					<!--题目解析-->
@@ -181,14 +181,21 @@
 		    $("#demo3").click(function () {
 
 
-                var options = [];
-		        for(var i=0;i<flagArray.length;i++){
-                    options.push({
-                        code: $("#select-options .testtype").eq(i).find(".input-group-addon").text().split(" ")[1],
-                        text: $("#select-options .testtype").eq(i).find(".options").val(),
-                        selectStatus: flagArray[i]
-                    });
-				}
+                var options = [], answerStr = "";
+                if (titleType < 3) {
+                    for (var i = 0; i < flagArray.length; i++) {
+                        options.push({
+                            code: $("#select-options .testtype").eq(i).find(".input-group-addon").text().split(" ")[1],
+                            text: $("#select-options .testtype").eq(i).find(".options").val(),
+                            selectStatus: flagArray[i]
+                        });
+                    }
+
+                    answerStr = getWords(flagArray).join(",");
+
+                } else {
+                    answerStr = $("#shortAnswer").val();
+                }
 
                 $("#stem").blur();
                 if (isNullOrEmpty($("#stem").val())) {
@@ -203,7 +210,23 @@
                     return;
                 }
 
-		        var data={pointId:'${point.id}',itemId:'${point.itemId}',type:titleType,content:$("#stem").val(),options:JSON.stringify(options),analysis:$("#analysis").val(),answer:getWords(flagArray).join(",")};
+                if (titleType == 3 && isNullOrEmpty($("#shortAnswer").val())) {
+                    layer.msg("答案不能为空", {
+                        icon: 2,
+                        time: 1000
+                    });
+                    return;
+                }
+
+                var data = {
+                    pointId: '${point.id}',
+                    itemId: '${point.itemId}',
+                    type: titleType,
+                    content: $("#stem").val(),
+                    options: JSON.stringify(options),
+                    analysis: $("#analysis").val(),
+                    answer: answerStr
+                };
 		        $.post("${basePath}/question/add",data,function (data) {
                     if(data.success){
                         layui.use('layer', function () {
