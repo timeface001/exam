@@ -203,3 +203,21 @@ function post(URL, PARAMS) {
     temp.submit();
     return temp;
 }
+
+function postBlank(URL, PARAMS) {
+    var temp = document.createElement("form");
+    temp.action = URL;
+    temp.method = "post";
+    temp.style.display = "none";
+    temp.target="_blank";
+    for (var x in PARAMS) {
+        var opt = document.createElement("textarea");
+        opt.name = x;
+        opt.value = PARAMS[x];
+        // alert(opt.name)
+        temp.appendChild(opt);
+    }
+    document.body.appendChild(temp);
+    temp.submit();
+    return temp;
+}

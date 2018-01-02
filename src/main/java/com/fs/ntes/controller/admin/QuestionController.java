@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("question")
@@ -28,8 +29,13 @@ public class QuestionController extends BaseController {
     private ResultCode resultCode;
 
     @RequestMapping("/toAdd")
-    public String toAdd(Integer pointId, HttpServletRequest request) {
+    public String toAdd(Integer pointId, Integer questionId, Question question, HttpServletRequest request) {
         request.setAttribute("point", pointService.selectOneById(pointId));
+
+        request.setAttribute("question",question);
+        Optional.of(question).ifPresent(v -> {
+            request.setAttribute("question", questionService.selectOneById(questionId));
+        });
         return "admin/questionAdd";
     }
 
@@ -48,9 +54,10 @@ public class QuestionController extends BaseController {
     }
 
     @RequestMapping("/view")
-    public String view(String pointName, Question question) {
+    public String view(String pointName, Question question, String typeName) {
         getRequest().setAttribute("pointName", pointName);
         getRequest().setAttribute("question", question);
+        getRequest().setAttribute("typeName", typeName);
         return "admin/questionView";
     }
 }

@@ -45,4 +45,9 @@ public class QuestionServiceImpl implements QuestionService {
     public List<Question> selectListByPointId(Integer pointId) {
         return questionExtMapper.selectListByPointId(pointId);
     }
+
+    @Override
+    public Question selectOneById(Integer questionId) {
+        return questionExtMapper.selectByPrimaryKey(questionId);
+    }
 }

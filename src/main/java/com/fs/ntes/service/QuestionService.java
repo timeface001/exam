@@ -10,4 +10,6 @@ public interface QuestionService {
 
     List<Question> selectListByPointId(Integer pointId);
 
+    Question selectOneById(Integer questionId);
+
 }
