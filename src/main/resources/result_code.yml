@@ -1,6 +1,7 @@
 code:
    common:
       success: 0 请求成功
+      fail: 1 请求失败
       paramNone: 1001 参数为空
       paramIllgal: 1002 参数不合法
       addFailed: 1003 新增失败

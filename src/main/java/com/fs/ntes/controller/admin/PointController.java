@@ -52,6 +52,6 @@ public class PointController extends BaseController {
     public RespResult del(HttpServletRequest request, Integer itemId, Integer pointId) {
 
         int i = pointService.delPoint(pointId, itemId);
-        return RespGenerator.generateSuccessDependBol(i == 1, i == 1 ? resultCode.getCommon().getDelSuccess() : resultCode.getCommon().getDelFailed());
+        return RespGenerator.generateDependBol(i == 1, i == 1 ? resultCode.getCommon().getDelSuccess() : resultCode.getCommon().getDelFailed());
     }
 }

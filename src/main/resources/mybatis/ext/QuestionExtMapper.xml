@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.ntes.domain.ext.QuestionExtMapper">
-    <select id="selectListByPointId" parameterType="java.lang.Long" resultMap="com.fs.ntes.domain.mapper.QuestionMapper.BaseResultMap">
+    <select id="selectListByPointId" parameterType="java.lang.Integer" resultMap="com.fs.ntes.domain.mapper.QuestionMapper.BaseResultMap">
         select
         <include refid="com.fs.ntes.domain.mapper.QuestionMapper.Base_Column_List" />
-        from question a WHERE point_id=#{pointId} AND  status=0 ORDER BY  a.create_time ASC
+        from question a WHERE point_id=#{pointId} AND status=0 AND type=#{type} ORDER BY a.create_time ASC
     </select>
 </mapper>

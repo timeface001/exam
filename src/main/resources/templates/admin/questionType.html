@@ -31,30 +31,30 @@
 						<a class="btn btn-success additem-btn" href="${basePath}/question/toAdd?pointId=${point.id}">添加试题</a>
 					</div>
 					<div class="additem-content">
-						<a href="item-view.htm">
-							<div class="firstbox" style="margin-top: 30px;">
+						<a href="javascript:location.href='${basePath}/question/view/list?pointId=${point.id}&type=0'">
+							<div class="firstbox" style="margin-top: 30px;" type="0">
 									<div class="additem-content-title">一、判断题</div>
 									<div class="dottedline"></div>
 									<div class="additem-content-num">${point.judgeCount}</div>
 							
 							</div>
 						</a>
-						<a href="item-view.htm">
-							<div class="firstbox">
+						<a href="javascript:location.href='${basePath}/question/view/list?pointId=${point.id}&type=1'">
+							<div class="firstbox" type="1">
 								<div class="additem-content-title">二、单项选择</div>
 								<div class="dottedline"></div>
 								<div class="additem-content-num">${point.radioCount}</div>
 							</div>
 						</a>
-						<a href="item-view.htm">
-							<div class="firstbox">
+						<a href="javascript:location.href='${basePath}/question/view/list?pointId=${point.id}&type=2'">
+							<div class="firstbox" type="2">
 								<div class="additem-content-title">三、多项选择</div>
 								<div class="dottedline"></div>
 								<div class="additem-content-num">${point.checkboxCount}</div>
 							</div>
 						</a>
-						<a href="item-view.htm">
-							<div class="firstbox" style="margin-bottom: 40px;">
+						<a href="javascript:location.href='${basePath}/question/view/list?pointId=${point.id}&type=3'">
+							<div class="firstbox" style="margin-bottom: 40px;" type="3">
 								<div class="additem-content-title">四、简答题</div>
 								<div class="dottedline"></div>
 								<div class="additem-content-num">${point.shortCount}</div>

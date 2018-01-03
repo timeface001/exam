@@ -23,129 +23,63 @@
 		<div class="main-container">
 			<div class="container info-add body-box">
 				<div class="info-add-box">
-					<p>${pointName}</p>
+					<p>${point.name}</p>
 		  			<a href="javascript:history.back(-1);"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;返回</a>
 				</div>
 				<div class="view-container">
 					<div class="container-title">
-						<span class="font-weight">判断题</span>
-						<span class="fbt">（共12道）</span>
+						<span class="font-weight">${typeName}</span>
+						<span class="fbt">（共${typeCount}道）</span>
 					</div>
 					<div class="view-content">
-						<div class="view-box blue-box">
-							<div class="view-title">
-								<label class="input-check">
-									<input type="checkbox" value="">
-								</label>	
-								<div class="word">
-									<span>1.社会主义法治理念的基本含义就是社会主义法制的精神和灵魂，是立法、执法、司法、守法和法律监督等法制领域的基本指导思想守法和法律监督等法制领域的基本指导思想。</span>
+						<#if list??>
+							<#list list as q>
+
+								<div class="view-box ${(q_index%2==0)?string('blue-box','border-top-none')}">
+									<div class="view-title">
+										<label class="input-check">
+											<input type="checkbox" value="">
+										</label>
+										<div class="word">
+											<span>${q.content}</span>
+										</div>
+										<div class="rtitle">
+											<div class="ico-btn" href="#"><i class="glyphicon glyphicon-th-list"></i>
+											</div>
+										</div>
+									</div>
+									<div class="bjbtn" style="display: none;">
+										<div class="bjbtn_top"></div>
+										<div class="bjbtn_content">
+											<a href="#"><i class="glyphicon glyphicon-pencil"></i>编辑</a>
+											<a href="#close-cn" data-toggle="modal" val="${q.id}"><i
+													class="glyphicon glyphicon-trash"></i>删除</a>
+										</div>
+									</div>
+									<#if q.type lt 3 >
+										<div class="view-choose-box">
+											<#assign options=q.options?eval />
+											<#list options as o>
+												<div class="radio">
+													<label class="choose">
+														<input type="radio" name="optionsRadios1" id="optionsRadios2"
+															   value="option2" disabled>
+														<p><span>${o.code}</span>&nbsp;${o.text}</p>
+													</label>
+												</div>
+											</#list>
+
+										</div>
+									</#if>
+									<div class="answer-box">
+										<span class="right-line"></span>
+										<span>正确答案：<b>${q.answer}</b></span>
+									</div>
 								</div>
-								<div class="rtitle">
-									<div class="ico-btn" href="#"><i class="glyphicon glyphicon-th-list"></i></div>
-								</div>
-							</div>
-							<div class="bjbtn" style="display: none;">
-								<div class="bjbtn_top"></div>
-								<div class="bjbtn_content">
-									<a href="#"><i class="glyphicon glyphicon-pencil"></i>编辑</a>
-									<a href="#close-cn" data-toggle="modal"><i class="glyphicon glyphicon-trash"></i>删除</a>
-								</div>
-							</div>
-							<div class="view-choose-box">
-								<div class="radio">
-									<label class="choose">
-										<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2" disabled>
-										<p><span>A</span>&nbsp;正确</p>
-									</label>
-								</div>
-								<div class="radio" style="margin-top: 6px;">
-									<label class="choose">
-										<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2" disabled>
-										<p><span>B</span>&nbsp;错误</p>
-									</label>
-								</div>
-							</div>
-							<div class="answer-box">
-								<span class="right-line"></span>
-								<span>正确答案：<b>B</b></span>
-							</div>
-						</div>
-						<div class="view-box border-top-none">
-							<div class="view-title">
-								<label class="input-check">
-									<input type="checkbox" value="">
-								</label>	
-								<div class="word">
-									<span>1.社会主义法治理念的基本含义就是社会主义法制的精神和灵魂，是立法、执法、司法、守法和法律监督等法制领域的基本指导思想守法和法律监督等法制领域的基本指导思想。</span>
-								</div>
-								<div class="rtitle">
-									<div class="ico-btn" href="#"><i class="glyphicon glyphicon-th-list"></i></div>
-								</div>
-							</div>
-							<div class="bjbtn" style="display: none;">
-								<div class="bjbtn_top"></div>
-								<div class="bjbtn_content">
-									<a href="#"><i class="glyphicon glyphicon-pencil"></i>编辑</a>
-									<a href="#close-cn" data-toggle="modal"><i class="glyphicon glyphicon-trash"></i>删除</a>
-								</div>
-							</div>
-							<div class="view-choose-box">
-								<div class="radio">
-									<label class="choose">
-										<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2" disabled>
-										<p><span>A</span>&nbsp;正确</p>
-									</label>
-								</div>
-								<div class="radio" style="margin-top: 6px;">
-									<label class="choose">
-										<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2" disabled>
-										<p><span>B</span>&nbsp;错误</p>
-									</label>
-								</div>
-							</div>
-							<div class="answer-box">
-								<span class="right-line"></span>
-								<span>正确答案：<b>B</b></span>
-							</div>
-						</div>
-						<div class="view-box blue-box border-top-none">
-							<div class="view-title">
-								<label class="input-check">
-									<input type="checkbox" value="">
-								</label>	
-								<div class="word">
-									<span>1.社会主义法治理念的基本含义就是社会主义法制的精神和灵魂，是立法、执法、司法、守法和法律监督等法制领域的基本指导思想守法和法律监督等法制领域的基本指导思想。</span>
-								</div>
-								<div class="rtitle">
-									<div class="ico-btn" href="#"><i class="glyphicon glyphicon-th-list"></i></div>
-								</div>
-							</div>
-							<div class="bjbtn" style="display: none;">
-								<div class="bjbtn_top"></div>
-								<div class="bjbtn_content">
-									<a href="#"><i class="glyphicon glyphicon-pencil"></i>编辑</a>
-									<a href="#close-cn" data-toggle="modal"><i class="glyphicon glyphicon-trash"></i>删除</a>
-								</div>
-							</div>
-							<div class="view-choose-box">
-								<div class="radio">
-									<label class="choose">
-										<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2" disabled>
-										<p><span>A</span>&nbsp;正确</p>
-									</label>
-								</div>
-								<div class="radio" style="margin-top: 6px;">
-									<label class="choose">
-										<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2" disabled>
-										<p><span>B</span>&nbsp;错误</p>
-									</label>
-								</div>
-							</div>
-							<div class="answer-box">
-								<span class="right-line"></span>
-								<span>正确答案：<b>B</b></span>
-							</div>
-						</div>
+
+							</#list>
+						</#if>
+
 						<div style="height: 60px;"></div>
 					</div>
 				</div>
@@ -175,7 +109,7 @@
 			        	<!--删除footer开始-->
 			            <div class="modal-footer">
 			            	<button class="btn btn-sm btn-success" data-dismiss="modal" id="sure-close">
-			                    <i class="icon-ok"></i>确定
+								<i class="icon-ok"></i>确定
 			                </button>
 			                <button class="btn btn-sm btn-danger" data-dismiss="modal">
 			                    <i class="icon-remove"></i>取消
@@ -195,6 +129,40 @@
 			<!--footer end-->
 		</div>
 		<!--body end-->
+
+		<script>
+            $(function () {
+
+                $("a[href='#close-cn']").click(function () {
+                    console.log($(this).attr("val"));
+                    $("#sure-close").attr("val", $(this).attr("val"));
+                });
+
+                $("#sure-close").click(function () {
+                    $.post("${basePath}/question/del", {
+                        pointId: '${point.id}',
+                        questionId: $(this).attr("val"),
+                        type: '${type}'
+                    }, function (data) {
+                        if (data.success) {
+                            layer.msg("删除题目成功", {
+                                icon: 1,
+                                time: 1000
+                            });
+
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            layer.msg(data.msg, {
+                                icon: 2,
+                                time: 1000
+                            });
+                        }
+                    })
+                });
+            });
+		</script>
 		
 	</body>
 </html>

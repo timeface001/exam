@@ -16,6 +16,10 @@ public class BaseController {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
 
+    protected void setAttribute(String key, Object value) {
+        getRequest().setAttribute(key, value);
+    }
+
 
 
 }

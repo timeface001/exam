@@ -8,8 +8,10 @@ public interface QuestionService {
 
     int save(Question question);
 
-    List<Question> selectListByPointId(Integer pointId);
+    List<Question> selectListByPointId(Integer pointId, Integer type);
 
     Question selectOneById(Integer questionId);
+
+    int del(Integer pointId,Integer questionId,Integer questionType);
 
 }

@@ -20,22 +20,22 @@ public class RespGenerator<T> {
         return result;
     }
 
-    public static <T> RespResult generateSuccessDependBol(boolean bol) {
+    public static <T> RespResult generateDependBol(boolean bol) {
         RespResult result = new RespResult();
-        result.setCode(BeanUtils.getBean(ResultCode.class).getCommon().getSuccess());
+        result.setCode(bol ? BeanUtils.getBean(ResultCode.class).getCommon().getSuccess() : BeanUtils.getBean(ResultCode.class).getCommon().getFail());
         result.setSuccess(bol);
         return result;
     }
 
-    public static <T> RespResult generateSuccessDependBol(boolean bol,String code) {
+    public static <T> RespResult generateDependBol(boolean bol,String code) {
         RespResult result = new RespResult();
         result.setCode(code);
         result.setSuccess(bol);
         return result;
     }
 
-    public static <T> RespResult generateSuccessDependBol(boolean bol, String trueCode, String falseCode) {
-        return generateSuccessDependBol(bol, bol ? trueCode : falseCode);
+    public static <T> RespResult generateDependBol(boolean bol, String trueCode, String falseCode) {
+        return generateDependBol(bol, bol ? trueCode : falseCode);
     }
 
     public static String generateSuccessView(String view) {

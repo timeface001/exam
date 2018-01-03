@@ -1,6 +1,7 @@
 package com.fs.ntes.service.impl;
 
 import com.fs.ntes.domain.Question;
+import com.fs.ntes.domain.em.Status;
 import com.fs.ntes.domain.ext.ItemExtMapper;
 import com.fs.ntes.domain.ext.PointExtMapper;
 import com.fs.ntes.domain.ext.QuestionExtMapper;
@@ -42,12 +43,26 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> selectListByPointId(Integer pointId) {
-        return questionExtMapper.selectListByPointId(pointId);
+    public List<Question> selectListByPointId(Integer pointId, Integer type) {
+        return questionExtMapper.selectListByPointId(pointId, type);
     }
 
     @Override
     public Question selectOneById(Integer questionId) {
         return questionExtMapper.selectByPrimaryKey(questionId);
+    }
+
+    @Override
+    public int del(Integer pointId, Integer questionId, Integer questionType) {
+        Question question = new Question();
+        question.setId(questionId);
+        question.setStatus(Status.DEL);
+        int i = questionExtMapper.updateByPrimaryKeySelective(question);
+        if (i == 1) {
+            pointExtMapper.updateQuestionCount(pointId, questionType, -1);
+            itemExtMapper.updateQuestionCount(question.getItemId(), -1);
+        }
+
+        return i;
     }
 }

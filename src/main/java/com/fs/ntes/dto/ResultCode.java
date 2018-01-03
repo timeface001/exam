@@ -1,7 +1,6 @@
 package com.fs.ntes.dto;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 @ConfigurationProperties(prefix = "code", locations = "classpath:result_code.yml")
 public class ResultCode {
@@ -18,6 +17,7 @@ public class ResultCode {
 
     public static class Common {
         private String success;
+        private String fail;
         private String paramNone;
         private String paramIllgal;
         private String addFailed;
@@ -28,6 +28,14 @@ public class ResultCode {
         private String saveSuccess;
         private String delFailed;
         private String delSuccess;
+
+        public String getFail() {
+            return fail;
+        }
+
+        public void setFail(String fail) {
+            this.fail = fail;
+        }
 
         public String getSuccess() {
             return success;
