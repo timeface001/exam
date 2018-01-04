@@ -29,12 +29,20 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public int save(Question question) {
         if (Objects.nonNull(question.getId())) {
-            return questionExtMapper.updateByPrimaryKeySelective(question);
+            Question srcQuestion = questionExtMapper.selectByPrimaryKey(question.getId());
+            int srcType = srcQuestion.getType();
+            int i = questionExtMapper.updateByPrimaryKeySelective(question);
+            if (i == 1 && srcType != question.getType()) {
+                pointExtMapper.updateQuestionCount(question.getPointId(), question.getType(), 1);
+                pointExtMapper.updateQuestionCount(question.getPointId(), srcType, -1);
+            }
+            return i;
 
         } else {
             int i = questionExtMapper.insertSelective(question);
             //更新题目数量
             if (i == 1) {
+
                 pointExtMapper.updateQuestionCount(question.getPointId(), question.getType(), 1);
                 itemExtMapper.updateQuestionCount(question.getItemId(), 1);
             }

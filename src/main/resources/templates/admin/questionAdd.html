@@ -17,18 +17,78 @@
 			var titleType = 0;
 			//select下拉框模拟
 			$(function(){
+
+
+                function getTypeDesc(i) {
+                    if (i == 0) {
+                        return "判断题";
+                    }
+                    if (i == 1) {
+                        return "单项选择题";
+                    }
+                    if (i == 2) {
+                        return "多项选择题";
+                    }
+                    if (i == 3) {
+                        return "简答题";
+                    }
+
+                    return "";
+
+                }
+
+
 				$('select').selectlist({
 					zIndex: 10,
 					height: 50,
 					onChange:titleTypeOnChange
 				});
-				add_options(0,0,"正确");
-				add_options(0,0,"错误")
+
+                $(".select-button").val(getTypeDesc('${question.type}'));
+                titleTypeOnChange();
+                var qid = '${question.id}';
+                if (qid !== null) {
+                    var type = '${question.type}';
+                    if (type == 3) {//简答题不回显选项
+                        return;
+                    }
+
+                    console.log(1);
+                    var options = $.parseJSON('${question.options}');
+                    if (type == 0) {//判断题
+                        //$("#dxxzt_xx0").val
+                        for (var i = 0; i < options.length; i++) {
+                            /*$("#dxxzt_xx" + i).val(options[i].text);
+                            if (options[i].selectStatus == 1) {
+                                $("#check_opt" + i).css("background", pngList[0]);
+                                flagArray[i] = 1;
+                            }*/
+                            add_options(type, options[i].selectStatus, options[i].text);
+                        }
+
+                    } else {
+                        //$("#dxxzt_xx0").val
+                        for (var i = 0; i < options.length; i++) {
+                            /*if (i < 2) {
+                                $("#dxxzt_xx" + i).val(options[i].text);
+                                if (options[i].selectStatus == 1) {
+                                    $("#check_opt" + i).css("background", pngList[0]);
+                                    flagArray[i] = 1;
+                                }
+                            } else {*/
+                            add_options(type, options[i].selectStatus, options[i].text);
+                        }
+
+                    }
+                } else {
+                    add_options(0, 0, "正确");
+                    add_options(0, 0, "错误")
+                }
 			});
 			//tips提示
 			$(function () { $("[data-tip='tooltip']").tooltip(); });
 			var checkTitleSelectedIdx = 0;
-			
+
 			function titleTypeOnChange(){
 				var num = $(".select-button").val();
 				if(num == "判断题"){
@@ -114,7 +174,9 @@
 					</div>-->
 					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;">
 						<span class="input-group-addon tgbox">提干</span>
-						<textarea type="text" id="stem" class="form-control tginput" placeholder='请输入提干内容' val="${question.content}" onblur="if (value ==''){ document.getElementById('stem').style.color='#999';}" onfocus="if (value =='请输入提干内容'){value =''; this.style.color='#333';}"></textarea>
+						<textarea type="text" id="stem" class="form-control tginput" placeholder='请输入提干内容'
+								  onblur="if (value ==''){ document.getElementById('stem').style.color='#999';}"
+								  onfocus="if (value =='请输入提干内容'){value =''; this.style.color='#333';}">${question.content}</textarea>
 						<span class="validate_input error error1"></span>
 					</div>
 					<div id="select-options">
@@ -132,7 +194,7 @@
 					<!--题目解析-->
 					<div class="input-group input-group-lg tgtest reg-box" style="position: relative; z-index: 1;">
 						<span class="input-group-addon tmjx_box">题目解析</span>
-						<textarea type="text" id="analysis"  class="form-control tginput" placeholder='请输入题目解析'></textarea>
+						<textarea type="text" id="analysis" class="form-control tginput" placeholder='请输入题目解析'>${question.analysis}</textarea>
 						<span class="validate_input error error2"></span>
 					</div>
 					<!--题目解析-->
@@ -178,24 +240,6 @@
 	<script>
 		//添加试题的提示文字
 		$(function(){
-
-		    function getTypeDesc(i) {
-				if(i==0){
-				    return "判断题";
-				}
-				if(i==1){
-				    return "单选选择题";
-				}
-				if(i==2){
-				    return "多项选择题";
-				}
-				if(i==3){
-				    return "简答题";
-				}
-
-				return "";
-
-            }
 
 
             $("#view").click(function () {
@@ -285,7 +329,8 @@
                     content: $("#stem").val(),
                     options: JSON.stringify(options),
                     analysis: $("#analysis").val(),
-                    answer: answerStr
+                    answer: answerStr,
+                    id: '${question.id}'
                 };
 		        $.post("${basePath}/question/add",data,function (data) {
                     if(data.success){
