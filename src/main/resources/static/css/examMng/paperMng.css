@@ -518,7 +518,7 @@
   .setboeder{
   	
 	margin:10.8px;
-	min-height: 300px;
+      min-height: 200px;
   }
   	.setboeder .tik_img{
 		width: 60%;

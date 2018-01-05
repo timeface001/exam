@@ -502,6 +502,8 @@
 				
 				//当点击知识点输入框时，需要判断 数量 和 分值  如果为空则提示输入
 				$('#close-cn').on('shown.bs.modal', function () {
+                    console.log(score);
+                    console.log(reg.test(score) == true);
 					// 执行一些动作...
 					var reg = /^[0-9]*[1-9][0-9]*$/;// 这里是 正则表达式，大小写英文字母都可以
 					if (reg.test(score) == true && reg.test(scorenums) == true) {

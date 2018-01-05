@@ -8,8 +8,8 @@
     <div class="navbar-collapse pull-right nav-main-collapse collapse">
         <nav class="nav-main">
             <ul id="topMain" class="nav nav-pills nav-main">
-                <li class="dropdown active"><a class="dropdown-toggle" href="${basePath}/item/list">题库管理</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" href="paper-list.htm">试卷管理</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" href="${basePath}/item/list">题库管理</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" href="${basePath}/paper/list">试卷管理</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" href="exam-org.htm">考试组织</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" href="#">考试统计</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" href="daily-practice.htm">每日练习</a></li>
@@ -24,4 +24,26 @@
             </ul>
         </nav>
     </div>
+    <script>
+        $(function () {
+            function active(num) {
+                for (var i = 0; i < $("#topMain li").length; i++) {
+                    if (num === i) {
+                        $("#topMain li").eq(i).addClass("active");
+                    } else {
+                        $("#topMain li").eq(i).removeClass("active")
+                    }
+                }
+            }
+
+            var path = window.location.pathname;
+            if (path.indexOf("/item") == 5) {
+                active(0);
+            }
+            if (path.indexOf("/paper") == 5) {
+                active(1);
+            }
+
+        });
+    </script>
 </div>

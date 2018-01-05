@@ -23,7 +23,7 @@ public class ItemController extends BaseController {
     @RequestMapping("/list")
     public String index(HttpServletRequest request) {
 
-        request.setAttribute("list", itemService.selectList(getMember()));
+        setAttribute("list", itemService.selectList(getMember()));
         return RespGenerator.generateSuccessView("admin/itemList");
 
     }
@@ -31,7 +31,7 @@ public class ItemController extends BaseController {
     @RequestMapping("/toAdd")
     public String add(HttpServletRequest request, Integer itemId) {
 
-        request.setAttribute("item", itemService.findById(itemId));
+        setAttribute("item", itemService.findById(itemId));
         return "admin/itemAdd";
 
     }
