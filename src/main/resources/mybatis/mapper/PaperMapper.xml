@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.ntes.domain.mapper.PaperMapper">
+    <resultMap id="BaseResultMap" type="com.fs.ntes.domain.Paper">
+        <id column="a_id" jdbcType="INTEGER" property="id"/>
+        <result column="a_name" jdbcType="VARCHAR" property="name"/>
+        <result column="a_finish_status" jdbcType="INTEGER" property="finishStatus"/>
+        <result column="a_status" jdbcType="INTEGER" property="status"/>
+        <result column="a_question_count" jdbcType="INTEGER" property="questionCount"/>
+        <result column="a_score" jdbcType="INTEGER" property="score"/>
+        <result column="a_score_detail_json" jdbcType="VARCHAR" property="scoreDetailJson"/>
+        <result column="a_description" jdbcType="VARCHAR" property="description"/>
+        <result column="a_items" jdbcType="VARCHAR" property="items"/>
+        <result column="a_point_json" jdbcType="VARCHAR" property="pointJson"/>
+        <result column="a_question_type_json" jdbcType="VARCHAR" property="questionTypeJson"/>
+        <result column="a_uid" jdbcType="BIGINT" property="uid"/>
+        <result column="a_uname" jdbcType="VARCHAR" property="uname"/>
+        <result column="a_create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="a_update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        a.id as a_id, a.name as a_name, a.finish_status as a_finish_status, a.status as a_status,
+        a.question_count as a_question_count, a.score as a_score, a.score_detail_json as a_score_detail_json,
+        a.description as a_description, a.items as a_items, a.point_json as a_point_json,
+        a.question_type_json as a_question_type_json, a.uid as a_uid, a.uname as a_uname,
+        a.create_time as a_create_time, a.update_time as a_update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from paper a
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from paper
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.fs.ntes.domain.Paper">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into paper (name, finish_status, status,
+        question_count, score, score_detail_json,
+        description, items, point_json,
+        question_type_json, uid, uname,
+        create_time, update_time)
+        values (#{name,jdbcType=VARCHAR}, #{finishStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+        #{questionCount,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{scoreDetailJson,jdbcType=VARCHAR},
+        #{description,jdbcType=VARCHAR}, #{items,jdbcType=VARCHAR}, #{pointJson,jdbcType=VARCHAR},
+        #{questionTypeJson,jdbcType=VARCHAR}, #{uid,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.fs.ntes.domain.Paper">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into paper
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="finishStatus != null">
+                finish_status,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="questionCount != null">
+                question_count,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="scoreDetailJson != null">
+                score_detail_json,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="items != null">
+                items,
+            </if>
+            <if test="pointJson != null">
+                point_json,
+            </if>
+            <if test="questionTypeJson != null">
+                question_type_json,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="uname != null">
+                uname,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="finishStatus != null">
+                #{finishStatus,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="questionCount != null">
+                #{questionCount,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="scoreDetailJson != null">
+                #{scoreDetailJson,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="items != null">
+                #{items,jdbcType=VARCHAR},
+            </if>
+            <if test="pointJson != null">
+                #{pointJson,jdbcType=VARCHAR},
+            </if>
+            <if test="questionTypeJson != null">
+                #{questionTypeJson,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="uname != null">
+                #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fs.ntes.domain.Paper">
+        update paper
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="finishStatus != null">
+                finish_status = #{finishStatus,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="questionCount != null">
+                question_count = #{questionCount,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="scoreDetailJson != null">
+                score_detail_json = #{scoreDetailJson,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="items != null">
+                items = #{items,jdbcType=VARCHAR},
+            </if>
+            <if test="pointJson != null">
+                point_json = #{pointJson,jdbcType=VARCHAR},
+            </if>
+            <if test="questionTypeJson != null">
+                question_type_json = #{questionTypeJson,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="uname != null">
+                uname = #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fs.ntes.domain.Paper">
+        update paper
+        set name = #{name,jdbcType=VARCHAR},
+        finish_status = #{finishStatus,jdbcType=INTEGER},
+        status = #{status,jdbcType=INTEGER},
+        question_count = #{questionCount,jdbcType=INTEGER},
+        score = #{score,jdbcType=INTEGER},
+        score_detail_json = #{scoreDetailJson,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        items = #{items,jdbcType=VARCHAR},
+        point_json = #{pointJson,jdbcType=VARCHAR},
+        question_type_json = #{questionTypeJson,jdbcType=VARCHAR},
+        uid = #{uid,jdbcType=BIGINT},
+        uname = #{uname,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
