@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="${basePath}/static/css/common.css">
     <link rel="stylesheet" type="text/css" href="${basePath}/static/css/examMng/paperMng.css">
     <script src="${basePath}/static/js/respond.js"></script>
+    <script src="${basePath}/static/js/limit.js"></script>
 
 
     <!--[if !IE]> -->
@@ -129,8 +130,7 @@
                                                 <div class="xuxian_bg">
                                                     <span class="pd_title">人民**法（46道题可选）</span>
                                                     <span class="text-color pd_scorll">12题</span>
-                                                </div>-->
-                                        </div>
+                                                </div></div>-->
                                     </div>
                                 </div>
                                 <div class="col-lg-1 col-md-1">
@@ -180,7 +180,7 @@
                                     <span>社会主义法治理念（32道题可选）</span>
                                 </div>
                                 <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
+                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly" value="1"/>
                                     <span>题</span>
                                 </div>
                                 <div class="score">
@@ -294,13 +294,13 @@
     <!--知识点选择弹窗-->
 
     <!--footer begin-->
-    <div class="footer">
-        <p>©某某市公安局-2016</p>
-        <p>技术支持：服务有限公司®&nbsp;&nbsp;13000000000</p>
-    </div>
+        <#include "./admin_footer.html" />
     <!--footer end-->
 
     <script type="text/javascript">
+
+        //整数校验
+        positiveInteger($(".form-control"));
 
 
         var score = 0; //一道题的分值
@@ -315,7 +315,7 @@
         $(document).ready(function () {
             var nums = $(".knowsmain li").length;
             for (var i = 0; i < nums; i++) {
-                $(".knowsmain").children().eq(i).find(".twobox").find("input").val(0);
+                //$(".knowsmain").children().eq(i).find(".twobox").find("input").val(0);
             }
             $('#addexam').click(function () {
                 var tipcon =
@@ -469,6 +469,8 @@
 //						alert(choosenums + temp+"--"+scorenums);
                     console.log(choosenums);
                     console.log(temp);
+                    console.log(score);
+                    console.log(num);
                     console.log(scorenums);
                     if (choosenums + temp < scorenums) {
 //							alert(num)
@@ -507,13 +509,12 @@
                     if (reg.test(scorenums) != true) {
                         $("#deployadd").children().eq(0).find(".line-right").children().eq(1).children().eq(0).children().eq(0).children().eq(1).val("请输入该类型试题分值").css("color", "red");
                     }
-                    alert("请正确赋值数量与分值选项！");
                     $('#close-cn').modal('hide');
                 }
             });
 
-            //当点击弹窗确定按钮时，隐藏弹窗并把选择的数据放在知识点input中
             $(".zsd_qd").click(function () {
+                //当点击弹窗确定按钮时，隐藏弹窗并把选择的数据放在知识点input中
                 var nums = $(".knowsmain li").length;
                 for (var i = 0; i < nums; i++) {
                     if ($(".knowsmain").children().eq(i).find(".twobox").find(".srkbox").val() == "0") {
@@ -562,6 +563,7 @@
             if (el.defaultValue == el.value) {
                 el.value = '';
                 el.style.color = '#333';
+
             }
         }
 
@@ -586,5 +588,7 @@
         }
     </script>
 
+    </div>
+</div>
 </body>
 </html>

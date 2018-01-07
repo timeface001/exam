@@ -2,6 +2,7 @@ package com.fs.ntes.service;
 
 import com.fs.ntes.domain.Item;
 import com.fs.ntes.domain.Member;
+import com.fs.ntes.domain.Paper;
 import com.fs.ntes.domain.Point;
 
 import java.util.List;

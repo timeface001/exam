@@ -52,38 +52,24 @@
                                 </li>
                             </ul>
                         </div>
-                    </div><!-- /.col -->
-                    <!--<div class="orderbox">
-                        <div class="center1">
-                            <div  class="cirle0">1</div>
-                            <div id="stype2" class="line-blue stype2"></div>
-                            <div class="cirle1 stype2">2</div>
-                            <div id="stype2" class="line-blue stype3"></div>
-                            <div class="cirle1 stype3">3</div>
-                        </div>
-                        <div class="describe-info">
-                            <p class="active">试卷基本信息</p>
-                            <p class="infos">试卷配置信息</p>
-                            <p class="infot" >试卷发布</p>
-                        </div>
-                    </div>-->
+                    </div>
                     <!--步骤 end-->
                     <!--试卷基本信息 begin-->
                     <div class="text-paper">
                         <div class="input-group input-group-lg paper-input">
                             <span class="input-group-addon">试卷名称</span>
-                            <input type="text" value="请输入试卷名称，例如“民警执法资格考试等级考试试卷（中级）A卷”" class="form-control"
+                            <input type="text" value="请输入试卷名称，例如“民警执法资格考试等级考试试卷（中级）A卷”" id="name" class="form-control"
                                    style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
                         </div>
                         <div class="input-group input-group-lg paper-input">
                             <span class="input-group-addon">试卷总分</span>
-                            <input type="text" value="请输入试卷总分，必须为整数" class="form-control" style="color:#999;"
+                            <input type="text" value="请输入试卷总分，必须为整数" id="score" class="form-control" style="color:#999;"
                                    onBlur="textBlur(this)" onFocus="textFocus(this)"/>
                         </div>
                         <div class="input-group input-group-lg paper-textarea">
                             <span class="input-group-addon">试卷简介</span>
                             <textarea id="textarea" type="text" class="form-control"
-                                      style="color:#999;overflow-y:visible" onBlur="textBlur(this)"
+                                      style="color:#999;overflow-y:visible" onBlur="textBlur(this)" id="description"
                                       onFocus="textFocus(this)">请输入试卷所使用的题库、针对的执法资格等级（基础级、中级）以及主要考试人员等试卷简要介绍信息</textarea>
                             <script>
                                 var text = document.getElementById("textarea");
@@ -101,7 +87,8 @@
                         <div id="exambox" class="row">
                             <#list list as item>
                                 <div class="col-lg-3 col-md-3 setboeder"
-                                     style="margin-left:14px;margin-top:10px;width: 17%;height: 140px;">
+                                     style="margin-left:14px;margin-top:10px;width: 17%;height: 140px;"
+                                     val="${item.id}">
                                     <img width="130px" height="163px" src="${aliyunPath}${item.cover}">
                                     <p class="setword">${item.name}</p>
                                     <img class="duigou" src="${basePath}/static/images/examMng/paper-right.png">
@@ -111,6 +98,9 @@
                         <script type="text/javascript">
                             //题库点击事件
                             $(document).ready(function () {
+
+                                itemId = null;
+
                                 $("#exambox div").click(function () {
                                     var num = $(this).index();
                                     var nums = $("#exambox div").length;
@@ -118,6 +108,7 @@
                                         if (i == num) {
                                             $("#exambox").children().eq(num).css("border", "1px solid #66ccff");
                                             $("#exambox").children().eq(num).find(".duigou").css("display", "block");
+                                            itemId = $(this).attr("val");
                                         } else {
                                             $("#exambox").children().eq(i).css("border", "1px solid #ccc");
                                             $("#exambox").children().eq(i).find(".duigou").css("display", "none");
@@ -140,6 +131,19 @@
                                     el.value = el.defaultValue;
                                     el.style.color = '#999';
                                 }
+
+
+                                //下一步
+                                $(".btnbox .click_loading").click(function () {
+
+                                    post("${basePath}/paper/addPaperQuestion", {
+                                        name: $("#name").val(),
+                                        score: $("#score").val(),
+                                        description: $("#description").val(),
+                                        itemId: itemId
+                                    });
+
+                                });
                             }
                         </script>
                     </div>
@@ -147,7 +151,7 @@
                     <div class="btnbox">
                         <a class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>取消</a>
                         <!--<a class="btn btn-info click_loading" onclick="javascript:window.location.href='paper-add-deploy.htm';">下一步<i class="glyphicon glyphicon-arrow-right" style="margin-right: 0;"></i></a>-->
-                        <a class="btn btn-info click_loading" href="${basePath}/paper/addPaperQuestion">下一步<i
+                        <a class="btn btn-info click_loading" href="javascript:void(0);">下一步<i
                                 class="glyphicon glyphicon-arrow-right" style="margin-right: 0;"></i></a>
                     </div>
                 </div>
@@ -155,24 +159,14 @@
                     <img src="${basePath}/static/images/loading.gif">
                     <p>加载中，请稍后...</p>
                 </div>
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $(".btnbox .click_loading").click(function () {
 
-                            //$(".loading_bg").css("display","block");
-                        });
-                    })
-                </script>
             </div>
         </div>
     </div>
     <!--body end-->
 
     <!--footer begin-->
-    <div class="footer">
-        <p>©某某市公安局-2016</p>
-        <p>技术支持：服务有限公司®&nbsp;&nbsp;13000000000</p>
-    </div>
+    <#include "./admin_footer.html" />
     <!--footer end-->
 </body>
 </html>

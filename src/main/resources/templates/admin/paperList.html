@@ -46,67 +46,41 @@
                         </table>
                     </div>
                     <div class="minheight">
-                        <div class="border">
-                            <table class="table-main" cellpadding="0" cellspacing="0" border="0">
-                                <tr id="content">
-                                    <td class="snum" width="8%">1</td>
-                                    <td align="left"><p class="bcolor paper-word mousezx" data-toggle="tooltip"
-                                                        data-placement="bottom" data-html="true"
-                                                        title="<span class='paper-info'>试卷介绍：</span>试卷使用了2016年公安部执法资格考试中级题库，适合正式公安民警，且通过了执法初级资格考试认证人员使用，难度中等，题量小。">
-                                        民警执法资格考试（基本级）试卷A</p></td>
-                                    <td width="10%" class="bcolor">50题</td>
-                                    <td width="10%"><p class="bcolor mousezx" data-toggle="tooltip" data-html="true"
-                                                       data-placement="bottom"
-                                                       title="<div class='tipbox'><span>判断题：10道，1分/题，共10分；</span><span>单项选择：20道，2分/题，共40分；</span><span class='bnone'>多项选择：20道，2.5分/题，共50分。</span></div>">
-                                        100分</p></td>
-                                    <td width="12%">2016-05-06</td>
-                                    <td width="10%">金涛</td>
-                                    <td width="10%" class="rcolor">未发布</td>
-                                    <td width="10%" class="caozo"><i class="glyphicon glyphicon-pencil"></i><a href="#">编辑</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="border">
-                            <table class="table-main" cellpadding="0" cellspacing="0" border="0">
-                                <tr>
-                                    <td class="snum" width="8%">2</td>
-                                    <td align="left"><p class="bcolor paper-word mousezx" data-toggle="tooltip"
-                                                        data-placement="bottom" data-html="true"
-                                                        title="<span class='paper-info'>试卷介绍：</span>试卷使用了2016年公安部执法资格考试中级题库，适合正式公安民警，且通过了执法初级资格考试认证人员使用，难度中等，题量小。">
-                                        民警执法资格考试（基本级）试卷A</p></td>
-                                    <td width="10%" class="bcolor">50题</td>
-                                    <td width="10%" class="bcolor mousezx"><p class="bcolor" data-toggle="tooltip"
-                                                                              data-html="true" data-placement="bottom"
-                                                                              title="<div class='tipbox'><span>判断题：10道，1分/题，共10分；</span><span>单项选择：20道，2分/题，共40分；</span><span class='bnone'>多项选择：20道，2.5分/题，共50分。</span></div>">
-                                        100分</p></td>
-                                    <td width="12%">2016-05-06</td>
-                                    <td width="10%">金涛</td>
-                                    <td width="10%" class="gcolor">已发布</td>
-                                    <td width="10%" class="caozo">-</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="border">
-                            <table class="table-main" cellpadding="0" cellspacing="0" border="0">
-                                <tr>
-                                    <td class="snum" width="8%">3</td>
-                                    <td align="left"><p class="bcolor paper-word mousezx" data-toggle="tooltip"
-                                                        data-placement="bottom" data-html="true"
-                                                        title="<span class='paper-info'>试卷介绍：</span>试卷使用了2016年公安部执法资格考试中级题库，适合正式公安民警，且通过了执法初级资格考试认证人员使用，难度中等，题量小。">
-                                        民警执法资格考试（基本级）试卷A</p></td>
-                                    <td width="10%" class="bcolor">50题</td>
-                                    <td width="10%" class="bcolor mousezx"><p class="bcolor" data-toggle="tooltip"
-                                                                              data-html="true" data-placement="bottom"
-                                                                              title="<div class='tipbox'><span>判断题：10道，1分/题，共10分；</span><span>单项选择：20道，2分/题，共40分；</span><span class='bnone'>多项选择：20道，2.5分/题，共50分。</span></div>">
-                                        100分</p></td>
-                                    <td width="12%">2016-05-06</td>
-                                    <td width="10%">金涛</td>
-                                    <td width="10%" class="gcolor">已发布</td>
-                                    <td width="10%" class="caozo">-</td>
-                                </tr>
-                            </table>
-                        </div>
+                        <#list list as paper>
+                            <div class="border">
+                                <table class="table-main" cellpadding="0" cellspacing="0" border="0">
+                                    <tr id="content">
+                                        <td class="snum" width="8%">${p_index+1}</td>
+                                        <td align="left"><p class="bcolor paper-word mousezx" data-toggle="tooltip"
+                                                            data-placement="bottom" data-html="true"
+                                                            title="<span class='paper-info'>试卷介绍：</span>${paper.description}">
+                                            ${paper.name}</p></td>
+                                        <td width="10%" class="bcolor">${paper.questionCount}题</td>
+                                        <td width="10%"><p class="bcolor mousezx" data-toggle="tooltip" data-html="true"
+                                                           data-placement="bottom"
+                                                           title="<div class='tipbox'><span>判断题：10道，1分/题，共10分；</span><span>单项选择：20道，2分/题，共40分；</span><span class='bnone'>多项选择：20道，2.5分/题，共50分。</span></div>">
+                                            ${paper.score}分</p></td>
+                                        <td width="12%">${paper.createTime?string("yyyy-MM-dd")}</td>
+                                        <td width="10%">${paper.uname}</td>
+                                        <td width="10%" class="rcolor">
+                                            <#switch paper.finishStatus >
+                                                <#case 0>
+                                                    未完成
+                                                    <#case 1>
+                                                        已完成
+                                                        <#default>
+                                                            发布
+                                            </#switch>
+                                        </td>
+                                        <td width="10%" class="caozo"><i class="glyphicon glyphicon-pencil"></i><a
+                                                href="#">编辑</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </#list>
+
+
                     </div>
                     <div class="btn-group pagebox" role="group">
                         <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-triangle-left"></i>
@@ -136,10 +110,7 @@
     <!--body end-->
 
     <!--footer begin-->
-    <div class="footer">
-        <p>©某某市公安局-2016</p>
-        <p>技术支持：服务有限公司®&nbsp;&nbsp;13000000000</p>
-    </div>
+    <#include "./admin_footer.html" />
 </div>
 <!--footer end-->
 </body>
