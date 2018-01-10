@@ -46,11 +46,11 @@
                         </table>
                     </div>
                     <div class="minheight">
-                        <#list list as paper>
+                        <#list list.list as paper>
                             <div class="border">
                                 <table class="table-main" cellpadding="0" cellspacing="0" border="0">
                                     <tr id="content">
-                                        <td class="snum" width="8%">${p_index+1}</td>
+                                        <td class="snum" width="8%">${paper_index+1}</td>
                                         <td align="left"><p class="bcolor paper-word mousezx" data-toggle="tooltip"
                                                             data-placement="bottom" data-html="true"
                                                             title="<span class='paper-info'>试卷介绍：</span>${paper.description}">
@@ -66,10 +66,13 @@
                                             <#switch paper.finishStatus >
                                                 <#case 0>
                                                     未完成
-                                                    <#case 1>
-                                                        已完成
-                                                        <#default>
-                                                            发布
+                                                    <#break>
+                                                        <#case 1>
+                                                            已完成
+                                                            <#break>
+                                                                <#default>
+                                                                    发布
+                                                                    <#break>
                                             </#switch>
                                         </td>
                                         <td width="10%" class="caozo"><i class="glyphicon glyphicon-pencil"></i><a
@@ -82,22 +85,22 @@
 
 
                     </div>
-                    <div class="btn-group pagebox" role="group">
-                        <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-triangle-left"></i>
+                    <div class="btn-group pagebox" role="group" id="pageList">
+                        <!--<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-triangle-left"></i>
                         </button>
                         <button type="button" class="btn btn-default">1</button>
                         <button type="button" class="btn btn-default">2</button>
                         <button type="button" class="btn btn-default">3</button>
                         <button type="button" class="btn btn-default">4</button>
-                        <button type="button" class="btn btn-default">5</button>
+                        <button type="button" class="btn btn-default">${list.totalPages}</button>
                         <button type="button" class="btn btn-default">6</button>
                         <button type="button" class="btn btn-default">...</button>
                         <button type="button" class="btn btn-default">21</button>
                         <button type="button" class="btn btn-default">22</button>
                         <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-triangle-right"></i>
-                        </button>
+                        </button>-->
                     </div>
-                    <#else>
+                    <#else/>
                         <!-----当前没有可用试卷 begin----->
                         <div class="no_paper">
                             <p><i class="glyphicon glyphicon-exclamation-sign"></i>当前没有可用试卷！</p>
@@ -108,7 +111,27 @@
         </div>
     </div>
     <!--body end-->
+    <script>
+        $(function () {
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
 
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'pageList' //注意，这里的 test1 是 ID，不用加 # 号
+                    , count: 50 //数据总数，从服务端得到
+                    , jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+
+                        //首次不执行
+                        if (!first) {
+                            //do something
+                        }
+                    }
+                });
+            });
+        })
+    </script>
     <!--footer begin-->
     <#include "./admin_footer.html" />
 </div>

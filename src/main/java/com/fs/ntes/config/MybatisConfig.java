@@ -1,6 +1,7 @@
 package com.fs.ntes.config;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.Interceptor;
@@ -78,7 +79,7 @@ public class MybatisConfig {
             // http://git.oschina.net/free/Mybatis_PageHelper/blob/master/wikis/HowToUse.markdown
             Properties prop = new Properties();
             //4.0.0以后版本可以不设置该参数
-            prop.setProperty("dialect", "mysql");
+            //prop.setProperty("dialect", "mysql");
             //设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用和startPage中的pageNum效果一样
             prop.setProperty("offsetAsPageNum", "true");
             //设置为true时，使用RowBounds分页会进行count查询
@@ -95,16 +96,18 @@ public class MybatisConfig {
             prop.setProperty("returnPageInfo", "none");
             // 分页插件
             PageHelper pagePlugin = new PageHelper();
+            PageInterceptor pageInterceptor = new PageInterceptor();
+            pageInterceptor.setProperties(prop);
             pagePlugin.setProperties(prop);
 
-            //Interceptor[] plugins = {pagePlugin};
+            Interceptor[] plugins = {pageInterceptor};
             /*if (logstashClient.getLogstashConfig().isLogDatebase()) {
                 MybatisExecutorLogInterceptor sqlLogInterceptor = new MybatisExecutorLogInterceptor(logstashClient);
                 sqlLogInterceptor.setExcludeSqlCommandTypes(SqlCommandType.SELECT);
                 sqlLogInterceptor.setExcludeSqlIds("com.czy.tticar.mapper.base.LogRequestMapper.insertSelective");
                 plugins = new Interceptor[]{sqlLogInterceptor, pagePlugin};
             }*/
-            //sqlSessionFactoryBean.setPlugins(plugins);
+            sqlSessionFactoryBean.setPlugins(plugins);
 
             sqlSessionFactory = sqlSessionFactoryBean.getObject();
         } catch (Exception e) {
