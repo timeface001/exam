@@ -87,7 +87,7 @@
                         <div id="exambox" class="row">
                             <#list list as item>
                                 <div class="col-lg-3 col-md-3 setboeder"
-                                     style="margin-left:14px;margin-top:10px;width: 17%;height: 140px;"
+                                     style="margin-left:14px;margin-top:10px;width: 17%;height: 140px;cursor: pointer;"
                                      val="${item.id}">
                                     <img width="130px" height="163px" src="${aliyunPath}${item.cover}">
                                     <p class="setword">${item.name}</p>
@@ -100,8 +100,12 @@
                             $(document).ready(function () {
 
                                 itemId = null;
+                                $("#exambox").touchend(function () {
+                                    alert(1);
+                                });
 
-                                $("#exambox div").click(function () {
+                                $("#exambox").on("click", "div", function () {
+                                    console.log(1);
                                     var num = $(this).index();
                                     var nums = $("#exambox div").length;
                                     for (var i = 0; i < nums; i++) {
@@ -115,6 +119,16 @@
                                         }
                                     }
                                 });
+
+                                var paper = '${paper}';
+                                console.log(paper);
+                                if (paper != null) {
+                                    /*$("#name").val('${paper.name}');
+                                    $("#score").val(paper.score);
+                                    $("#textarea").val(paper.description);*/
+
+                                }
+
                             });
 
                             //文本框默认提示文字点击消失

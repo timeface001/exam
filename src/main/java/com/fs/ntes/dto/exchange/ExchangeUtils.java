@@ -1,6 +1,7 @@
 package com.fs.ntes.dto.exchange;
 
 import com.fs.ntes.dto.PageList;
+import com.fs.ntes.utils.GeneralUtils;
 import com.github.pagehelper.Page;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
@@ -11,8 +12,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ExchangeUtils {
-    public ExchangeUtils() {
-    }
 
     public static <F, T> T getDto(F dto, Function<F, T> event) {
         return event.apply(dto);
@@ -25,14 +24,13 @@ public class ExchangeUtils {
     }
 
     public static <F, K, V> Map<K, V> getMap(List<F> list, java.util.function.Function<F, K> keyMapper, java.util.function.Function<F, V> valueMapper) {
-        return (Map) (CollectionUtils.isNotEmpty(list) ? (Map) list.stream().collect(Collectors.toMap(keyMapper, valueMapper)) : MapUtils.EMPTY_MAP);
+        return (Map<K, V>) (CollectionUtils.isNotEmpty(list) ? (Map<K, V>) list.stream().collect(Collectors.toMap(keyMapper, valueMapper)) : MapUtils.EMPTY_MAP);
     }
 
     public static <F, T> List<T> getList(List<F> list, Function<F, T> event) {
-        if (list != null && list.size() > 0) {
-            Stream var10000 = list.stream();
-            event.getClass();
-            return (List) var10000.map(event::apply).filter(Objects::nonNull).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(list)) {
+            Stream<F> var10000 = list.stream();
+            return (List<T>) var10000.map(event::apply).filter(Objects::nonNull).collect(Collectors.toList());
         } else {
             return Collections.emptyList();
         }
@@ -65,10 +63,10 @@ public class ExchangeUtils {
             oList = Collections.emptyList();
         }
 
-        if (list != null && list.size() > 0) {
-            Stream var10001 = list.stream();
+        if (CollectionUtils.isNotEmpty(list)) {
+            Stream<F> var10001 = list.stream();
             event.getClass();
-            ((List) oList).addAll((Collection) var10001.map(event::apply).filter(Objects::nonNull).collect(Collectors.toList()));
+            oList.addAll((Collection) var10001.map(event::apply).filter(Objects::nonNull).collect(Collectors.toList()));
         }
 
         return (List) oList;

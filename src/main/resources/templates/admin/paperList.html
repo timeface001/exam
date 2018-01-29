@@ -76,7 +76,7 @@
                                             </#switch>
                                         </td>
                                         <td width="10%" class="caozo"><i class="glyphicon glyphicon-pencil"></i><a
-                                                href="#">编辑</a>
+                                                href="${basePath}/paper/toAdd?paperId=${paper.id}">编辑</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -119,13 +119,12 @@
                 //执行一个laypage实例
                 laypage.render({
                     elem: 'pageList' //注意，这里的 test1 是 ID，不用加 # 号
-                    , count: 1 //数据总数，从服务端得到
+                    , count: '${list.totalSize}' //数据总数，从服务端得到
                     , jump: function (obj, first) {
                         //obj包含了当前分页的所有参数，比如：
-                        console.log(1);
                         if (!first) {
                             //首次不执行
-                            post("${basePath}/paper/list", {pageSize: 10, pageNum: obj.curr});
+                            post("${basePath}/paper/list", {pageSize: '${list.pageSize}', pageNum: obj.curr});
                             //do something
                         }
                     },

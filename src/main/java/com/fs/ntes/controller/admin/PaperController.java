@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("paper")
@@ -27,16 +28,16 @@ public class PaperController extends BaseController {
     @RequestMapping("/list")
     public String list(PageRequest page) {
         Page<Paper> list = paperService.selectList(getMember().getUid(), page);
-        System.out.println(list.getPages());
         setAttribute("list", new PageList<>(list));
         return "admin/paperList";
     }
 
 
     @RequestMapping("/toAdd")
-    public String toAdd() {
+    public String toAdd(Integer paperId) {
         List<Item> list = itemService.selectList(getMember());
         setAttribute("list", list);
+        setAttribute("paper", Optional.ofNullable(paperId).map(v -> paperService.selectOneById(paperId)).orElse(new Paper()));
         return "admin/paperAddBase";
     }
 

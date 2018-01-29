@@ -33,4 +33,9 @@ public class PaperServiceImpl implements PaperService {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         return paperExtMapper.selectListByUid(uid);
     }
+
+    @Override
+    public Paper selectOneById(Integer paperId) {
+        return paperExtMapper.selectByPrimaryKey(paperId);
+    }
 }

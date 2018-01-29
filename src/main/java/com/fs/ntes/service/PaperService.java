@@ -12,4 +12,6 @@ public interface PaperService {
 
     Page<Paper> selectList(Long uid, PageRequest page);
 
+    Paper selectOneById(Integer paperId);
+
 }
