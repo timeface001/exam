@@ -100,12 +100,9 @@
                             $(document).ready(function () {
 
                                 itemId = null;
-                                $("#exambox").touchend(function () {
-                                    alert(1);
-                                });
+
 
                                 $("#exambox").on("click", "div", function () {
-                                    console.log(1);
                                     var num = $(this).index();
                                     var nums = $("#exambox div").length;
                                     for (var i = 0; i < nums; i++) {
@@ -121,11 +118,10 @@
                                 });
 
                                 var paper = '${paper}';
-                                console.log(paper);
                                 if (paper != null) {
-                                    /*$("#name").val('${paper.name}');
-                                    $("#score").val(paper.score);
-                                    $("#textarea").val(paper.description);*/
+                                    $("#name").val('${paper.name}');
+                                    $("#score").val('${paper.score}');
+                                    $("#textarea").val('${paper.description}');
 
                                 }
 
