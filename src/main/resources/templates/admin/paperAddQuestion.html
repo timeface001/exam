@@ -116,27 +116,7 @@
                                             <textarea id="zsd_text" readonly="readonly" class="form-control konwsbox"
                                                       data-toggle="modal" data-target="#close-cn"
                                                       onBlur="textBlur(this)" onFocus="textFocus(this)">请选择该类试题涵盖的知识点及所占分数</textarea>
-                                            <!--<div id="zsd_text" class="form-control knows_choose">
-                                                <div class="xuxian_bg">
-                                                    <span class=" pd_title">宪法（32题可选）</span>
-                                                    <span class="text-color pd_scorll">20题</span>
-                                                </div>
-                                                <div class="xuxian_bg">
-                                                    <span class="pd_title">社会主义法治理念（32题可选）</span>
-                                                    <span class="text-color pd_scorll">2题</span>
-                                                </div>
-                                                <div class="xuxian_bg">
-                                                    <span class="pd_title">人民**法（46道题可选）</span>
-                                                    <span class="text-color pd_scorll">12题</span>
-                                                </div>
-                                                <div class="xuxian_bg">
-                                                    <span class="pd_title">社会主义法治理念（32题可选）</span>
-                                                    <span class="text-color pd_scorll">2题</span>
-                                                </div>
-                                                <div class="xuxian_bg">
-                                                    <span class="pd_title">人民**法（46道题可选）</span>
-                                                    <span class="text-color pd_scorll">12题</span>
-                                                </div></div>-->
+
                                     </div>
                                 </div>
                                 <div class="col-lg-1 col-md-1">
@@ -518,7 +498,7 @@
                     $(".knowsmain").append("<li>" +
                         "<div class='onebox'>" +
                         "<input type='checkbox' class='fxkbox' name='zsd_cb'/>" +
-                        "<span onclick=selectQuestion(" + json[i].pointId + "," + type + ")>" + json[i].name + "（" + json[i].questionCount + "道题可选）</span>" +
+                        "<span onclick=selectQuestion(" + json[i].id + "," + type + ")>" + json[i].name + "（" + json[i].questionCount + "道题可选）</span>" +
                         "</div>" +
                         "<div class='twobox'>" +
                         "<input type='text' class='srkbox' placeholder='0' readonly='readonly'/>" +
