@@ -55,4 +55,9 @@ public class PointServiceImpl  implements PointService {
     public List<Point> selectPointList(Map<String, Object> params) {
         return pointExtMapper.selectList(params);
     }
+
+    @Override
+    public List<Point> selectListByItemIds(List<Integer> list) {
+        return pointExtMapper.selectListByItemIds(list);
+    }
 }

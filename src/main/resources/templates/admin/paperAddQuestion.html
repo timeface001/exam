@@ -12,6 +12,7 @@
     <script src="${basePath}/static/js/limit.js"></script>
 
 
+
     <!--[if !IE]> -->
     <script type="text/javascript">
         window.jQuery || document.write("<script src='${basePath}/static/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
@@ -29,6 +30,11 @@
         });
 
     </script>
+    <script type="text/javascript" src="${basePath}/static/js/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="${basePath}/static/js/layer/layer.css">
+
+    <script type="text/javascript" src="${basePath}/static/js/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="${basePath}/static/js/layui/css/layui.css">
 </head>
 <body>
 <!--head begin-->
@@ -174,110 +180,8 @@
                     <div class="text-left knowsbody-nav">判断题：<span>总数20道，可用分数20分，已用1题，已用1分。</span></div>
                     <div class="knowsbody-main">
                         <ul class="knowsmain">
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>社会主义法治理念（32道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly" value="1"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>法律基本概念（27道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>宪法（51道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>人民**法（46道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>社会主义法治理念（32道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>社会主义法治理念（32道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>社会主义法治理念（32道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="onebox">
-                                    <input type="checkbox" class="fxkbox" name="zsd_cb"/>
-                                    <span>社会主义法治理念（32道题可选）</span>
-                                </div>
-                                <div class="twobox">
-                                    <input type="text" class="srkbox" placeholder="0" readonly="readonly"/>
-                                    <span>题</span>
-                                </div>
-                                <div class="score">
-                                    <span>0分</span>
-                                </div>
-                            </li>
+
+
                         </ul>
                     </div>
                 </div>
@@ -467,11 +371,6 @@
                         temp = parseInt(temp);
                     }
 //						alert(choosenums + temp+"--"+scorenums);
-                    console.log(choosenums);
-                    console.log(temp);
-                    console.log(score);
-                    console.log(num);
-                    console.log(scorenums);
                     if (choosenums + temp < scorenums) {
 //							alert(num)
                         $(".knowsmain").children().eq(num).find(".twobox").find(".srkbox").removeAttr("readonly");
@@ -525,9 +424,6 @@
 
                 var zsd_str = "";
                 $("input[name='zsd_cb']").each(function () {
-                    console.log($(this).attr("checked"));
-                    console.log($(this).outerHTML);
-                    console.log($(this).html());
                     if ($(this).prop("checked") == true) {
                         var st_title = $(this).parent().find("span").html();
                         var st_nums = $(this).parent().parent().find(".twobox").find("input").val();
@@ -586,6 +482,73 @@
             }
 //				$(el).parent().find(".validate_input").css("display","block");
         }
+
+
+        $(function () {
+            /* layer.open({
+                 type: 2,
+                 title: '很多时候',
+                 shadeClose: true,
+                 shade: false,
+                 maxmin: true, //开启最大化最小化按钮
+                 area: ['893px', '600px'],
+                 content: '${basePath}/paper/selectPaperQuestion?pointId=1&type=1'
+             });*/
+
+
+        })
+
+
+        var items = '${paper.items}';
+        var type = 0;
+
+        selectPoints(0);
+
+        function selectPoints(type) {
+            $(".knowsman").empty();
+            $.post("${basePath}/paper/selectPoint", {items: items}, function (data) {
+                if (data.data == null) {
+                    return
+                }
+                var json = data.data;
+                console.log(json);
+                console.log(typeof json);
+
+                for (var i = 0; i < json.length; i++) {
+                    $(".knowsmain").append("<li>" +
+                        "<div class='onebox'>" +
+                        "<input type='checkbox' class='fxkbox' name='zsd_cb'/>" +
+                        "<span onclick=selectQuestion(" + json[i].pointId + "," + type + ")>" + json[i].name + "（" + json[i].questionCount + "道题可选）</span>" +
+                        "</div>" +
+                        "<div class='twobox'>" +
+                        "<input type='text' class='srkbox' placeholder='0' readonly='readonly'/>" +
+                        "<span>题</span>" +
+                        "</div>" +
+                        "<div class='score'>" +
+                        "<span>0分</span>" +
+                        "</div>" +
+                        "</li>");
+                }
+
+
+            })
+
+        };
+
+        function selectQuestion(pointId, type) {
+            layer.open({
+                type: 2,
+                title: '选择题目',
+                shadeClose: true,
+                shade: false,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['893px', '600px'],
+                content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type
+            });
+        }
+
+
+
     </script>
 
     </div>

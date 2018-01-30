@@ -25,4 +25,15 @@
         short_count=IF(#{type}=3,short_count+#{count},short_count)
          WHERE id=#{pointId}
     </update>
+
+    <select id="selectListByItemIds" parameterType="java.util.Map"
+            resultMap="com.fs.ntes.domain.mapper.PointMapper.BaseResultMap">
+        SELECT
+        <include refid="com.fs.ntes.domain.mapper.PointMapper.Base_Column_List"/>
+        from point a where a.item_id in
+        <foreach collection="itemIds" index="index" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND a.`status`=0 AND a.question_count>0
+    </select>
 </mapper>

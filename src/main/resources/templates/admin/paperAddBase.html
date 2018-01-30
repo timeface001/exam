@@ -95,73 +95,13 @@
                                 </div>
                             </#list>
                         </div>
-                        <script type="text/javascript">
-                            //题库点击事件
-                            $(document).ready(function () {
 
-                                itemId = null;
-
-
-                                $("#exambox").on("click", "div", function () {
-                                    var num = $(this).index();
-                                    var nums = $("#exambox div").length;
-                                    for (var i = 0; i < nums; i++) {
-                                        if (i == num) {
-                                            $("#exambox").children().eq(num).css("border", "1px solid #66ccff");
-                                            $("#exambox").children().eq(num).find(".duigou").css("display", "block");
-                                            itemId = $(this).attr("val");
-                                        } else {
-                                            $("#exambox").children().eq(i).css("border", "1px solid #ccc");
-                                            $("#exambox").children().eq(i).find(".duigou").css("display", "none");
-                                        }
-                                    }
-                                });
-
-                                var paper = '${paper}';
-                                if (paper != null) {
-                                    $("#name").val('${paper.name}');
-                                    $("#score").val('${paper.score}');
-                                    $("#textarea").val('${paper.description}');
-
-                                }
-
-                            });
-
-                            //文本框默认提示文字点击消失
-                            function textFocus(el) {
-                                if (el.defaultValue == el.value) {
-                                    el.value = '';
-                                    el.style.color = '#333';
-                                }
-                                $(el).parent().find(".validate_input").css("display", "none");
-                            }
-
-                            function textBlur(el) {
-                                if (el.value == '') {
-                                    el.value = el.defaultValue;
-                                    el.style.color = '#999';
-                                }
-
-
-                                //下一步
-                                $(".btnbox .click_loading").click(function () {
-
-                                    post("${basePath}/paper/addPaperQuestion", {
-                                        name: $("#name").val(),
-                                        score: $("#score").val(),
-                                        description: $("#description").val(),
-                                        itemId: itemId
-                                    });
-
-                                });
-                            }
-                        </script>
                     </div>
                     <!--试卷基本信息 end-->
                     <div class="btnbox">
                         <a class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>取消</a>
                         <!--<a class="btn btn-info click_loading" onclick="javascript:window.location.href='paper-add-deploy.htm';">下一步<i class="glyphicon glyphicon-arrow-right" style="margin-right: 0;"></i></a>-->
-                        <a class="btn btn-info click_loading" href="javascript:void(0);">下一步<i
+                        <a class="btn btn-info click_loading" href="javascript:void(0);" onclick="nextStep()">下一步<i
                                 class="glyphicon glyphicon-arrow-right" style="margin-right: 0;"></i></a>
                     </div>
                 </div>
@@ -173,10 +113,102 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        //题库点击事件
+        $(document).ready(function () {
+
+            itemId = [];
+
+
+            $("#exambox").on("click", "div", function () {
+                var num = $(this).index();
+                var nums = $("#exambox div").length;
+                for (var i = 0; i < nums; i++) {
+                    if (i == num) {
+                        if ($("#exambox").children().eq(num).find(".duigou").css("display") === 'none') {
+                            $("#exambox").children().eq(num).css("border", "1px solid #66ccff");
+                            $("#exambox").children().eq(num).find(".duigou").css("display", "block");
+                            itemId.push($(this).attr("val"));
+                        } else {
+                            $("#exambox").children().eq(i).css("border", "1px solid #ccc");
+                            $("#exambox").children().eq(i).find(".duigou").css("display", "none");
+                            itemId.splice($.inArray($(this).attr("val"), arr), 1);
+                        }
+
+
+                    }
+                }
+            });
+
+            var paper = '${paper}';
+            if (paper != null) {
+                $("#name").val('${paper.name}');
+                $("#score").val('${paper.score}');
+                $("#textarea").val('${paper.description}');
+
+
+                var nums = $("#exambox div").length;
+                var arr = '${paper.items}' == null ? [] : '${paper.items}'.split(',');
+                if (arr != null && arr.length > 0) {
+
+                    itemId = arr;
+                    for (var k = 0; k < arr.length; k++) {
+                        for (var i = 0; i < nums; i++) {
+                            if ($("#exambox div").eq(i).attr("val") == arr[k]) {
+                                $("#exambox").children().eq(i).css("border", "1px solid #66ccff");
+                                $("#exambox").children().eq(i).find(".duigou").css("display", "block");
+                            }
+                        }
+                    }
+                }
+            }
+
+        });
+
+        //文本框默认提示文字点击消失
+        function textFocus(el) {
+            if (el.defaultValue == el.value) {
+                el.value = '';
+                el.style.color = '#333';
+            }
+            $(el).parent().find(".validate_input").css("display", "none");
+        }
+
+        function textBlur(el) {
+            if (el.value == '') {
+                el.value = el.defaultValue;
+                el.style.color = '#999';
+            }
+
+        }
+
+        //下一步
+        function nextStep() {
+            if (itemId == null) {
+                layer.msg("必须选择题库！", {
+                    icon: 2,
+                    time: 1000
+                });
+
+                return;
+            }
+
+            post("${basePath}/paper/addPaperQuestion", {
+                id: '${paper.id}',
+                name: $("#name").val(),
+                score: $("#score").val(),
+                description: $("#description").val(),
+                items: itemId
+            });
+
+        }
+
+    </script>
     <!--body end-->
 
     <!--footer begin-->
     <#include "./admin_footer.html" />
     <!--footer end-->
+</div>
 </body>
 </html>

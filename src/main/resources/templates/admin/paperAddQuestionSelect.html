@@ -1,0 +1,154 @@
+<#include "./admin_common.html" />
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>试卷题目选择</title>
+    <script src="${basePath}/static/js/examMng/right-btn.js"></script>
+    <link rel="stylesheet" href="${basePath}/static/css/examMng/examMng.css"/>
+    <link rel="stylesheet" type="text/css" href="${basePath}/static/css/examMng/core.css">
+</head>
+<body>
+
+<!--body begin-->
+<div class="main-container">
+    <div class="container info-add body-box">
+        <div class="view-container">
+            <div class="container-title">
+                <span class="font-weight">${typeName}</span>
+                <span class="fbt">（共${typeCount}道）</span>
+            </div>
+            <div class="view-content">
+                <#if list??>
+                    <#list list as q>
+
+                        <div class="view-box ${(q_index%2==0)?string('blue-box','border-top-none')}">
+                            <div class="view-title">
+                                <label class="input-check">
+                                    <input type="checkbox" value="">
+                                </label>
+                                <div class="word">
+                                    <span>${q.content}</span>
+                                </div>
+                                <div class="rtitle">
+                                    <!--<div class="ico-btn" href="#"><i class="glyphicon glyphicon-th-list"></i>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <!--<div class="bjbtn" style="display: none;">
+                                <div class="bjbtn_top"></div>
+                                <div class="bjbtn_content">
+                                    <a href="javascript:location.href='${basePath}/question/toAdd?pointId=${point.id}&questionId=${q.id}'"><i
+                                            class="glyphicon glyphicon-pencil"></i>编辑</a>
+                                    <a href="#close-cn" data-toggle="modal" val="${q.id}"><i
+                                            class="glyphicon glyphicon-trash"></i>删除</a>
+                                </div>
+                            </div>-->
+                            <#if q.type lt 3 >
+                                <div class="view-choose-box">
+                                    <#assign options=q.options?eval />
+                                    <#list options as o>
+                                        <div class="radio">
+                                            <label class="choose">
+                                                <input type="radio" name="optionsRadios1" id="optionsRadios2"
+                                                       value="option2" disabled>
+                                                <p><span>${o.code}</span>&nbsp;${o.text}</p>
+                                            </label>
+                                        </div>
+                                    </#list>
+
+                                </div>
+                            </#if>
+                            <div class="answer-box">
+                                <span class="right-line"></span>
+                                <span>正确答案：<b>${q.answer}</b></span>
+                            </div>
+                        </div>
+
+                    </#list>
+                </#if>
+
+                <div style="height: 60px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--删除按钮弹窗-->
+    <div id="close-cn" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!--删除header开始-->
+                <div class="modal-header">
+                    <div class="table-header border-top-radius">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <span class="white">&times;</span>
+                        </button>
+                        删除
+                    </div>
+                </div>
+                <!--删除header结束-->
+                <!--删除body开始-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        点击确定按钮会删除当前题库知识点信息，您确定要删除么吗？
+                    </div>
+                </div>
+                <!--删除body结束-->
+                <!--删除footer开始-->
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-success" data-dismiss="modal" id="sure-close">
+                        <i class="icon-ok"></i>确定
+                    </button>
+                    <button class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="icon-remove"></i>取消
+                    </button>
+                </div>
+                <!--删除footer结束-->
+            </div>
+        </div>
+    </div>
+    <!--删除按钮弹窗-->
+
+    <!--footer begin-->
+    <!--footer end-->
+</div>
+<!--body end-->
+
+<script>
+    $(function () {
+
+        $("a[href='#close-cn']").click(function () {
+            console.log($(this).attr("val"));
+            $("#sure-close").attr("val", $(this).attr("val"));
+        });
+
+        $("#sure-close").click(function () {
+            $.post("${basePath}/question/del", {
+                pointId: '${point.id}',
+                questionId: $(this).attr("val"),
+                type: '${type}'
+            }, function (data) {
+                if (data.success) {
+                    layer.msg("删除题目成功", {
+                        icon: 1,
+                        time: 1000
+                    });
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    layer.msg(data.msg, {
+                        icon: 2,
+                        time: 1000
+                    });
+                }
+            })
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -14,4 +14,6 @@ public interface PointService {
     int delPoint(Integer pointId,Integer itemId);
 
     List<Point> selectPointList(Map<String, Object> params);
+
+    List<Point> selectListByItemIds(List<Integer> list);
 }
