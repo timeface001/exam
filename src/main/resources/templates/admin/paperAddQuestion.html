@@ -467,11 +467,8 @@
         $(function () {
 
 
-            $("#layui-layer-iframe1").on("load", function (event) {//判断 iframe是否加载完成  这一步很重要
-                $("#layui-layer-iframe1").contents().on("click", function () {//添加点击事件
-                    alert("选中啊");
-                });
-            });
+            console.log(1);
+
 
 
         })
@@ -520,7 +517,14 @@
                 shade: false,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['893px', '600px'],
-                content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type
+                content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type,
+                success: function (resp) {
+                    $("#layui-layer-iframe1").on("load", function (event) {//判断 iframe是否加载完成  这一步很重要
+                        $("#layui-layer-iframe1").contents().on("click", function () {//添加点击事件
+                            alert("选中啊");
+                        });
+                    });
+                }
             });
         }
 
