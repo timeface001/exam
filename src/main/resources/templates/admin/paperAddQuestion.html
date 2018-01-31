@@ -465,15 +465,13 @@
 
 
         $(function () {
-            /* layer.open({
-                 type: 2,
-                 title: '很多时候',
-                 shadeClose: true,
-                 shade: false,
-                 maxmin: true, //开启最大化最小化按钮
-                 area: ['893px', '600px'],
-                 content: '${basePath}/paper/selectPaperQuestion?pointId=1&type=1'
-             });*/
+
+
+            $("#layui-layer-iframe1").on("load", function (event) {//判断 iframe是否加载完成  这一步很重要
+                $("#layui-layer-iframe1").contents().on("click", function () {//添加点击事件
+                    alert("选中啊");
+                });
+            });
 
 
         })
@@ -491,8 +489,7 @@
                     return
                 }
                 var json = data.data;
-                console.log(json);
-                console.log(typeof json);
+
 
                 for (var i = 0; i < json.length; i++) {
                     $(".knowsmain").append("<li>" +
@@ -526,7 +523,6 @@
                 content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type
             });
         }
-
 
 
     </script>
