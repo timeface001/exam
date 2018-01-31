@@ -27,7 +27,7 @@
                         <div class="view-box ${(q_index%2==0)?string('blue-box','border-top-none')}">
                             <div class="view-title">
                                 <label class="input-check">
-                                    <input type="checkbox" value="">
+                                    <input type="checkbox" value="${q.id}">
                                 </label>
                                 <div class="word">
                                     <span>${q.content}</span>
@@ -70,7 +70,12 @@
                     </#list>
                 </#if>
 
-                <div style="height: 60px;"></div>
+                <div class="btnbox" style="padding-left: 38%;">
+                    <a class="btn btn-success" href="javascript:void(0);"><i
+                            class="glyphicon glyphicon-arrow-left" style="margin-left:0;"></i>确定</a>
+                    <a class="btn btn-info" href="javascript:void(0);">取消<i
+                            class="glyphicon glyphicon-arrow-right" style="margin-right:0;"></i></a>
+                </div>
             </div>
         </div>
     </div>

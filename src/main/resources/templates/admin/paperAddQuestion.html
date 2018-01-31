@@ -464,15 +464,6 @@
         }
 
 
-        $(function () {
-
-
-            console.log(1);
-
-
-
-        })
-
 
         var items = '${paper.items}';
         var type = 0;
@@ -509,8 +500,11 @@
 
         };
 
+        var selectJson={};
+
         function selectQuestion(pointId, type) {
             layer.open({
+                id:"selectQuestion",
                 type: 2,
                 title: '选择题目',
                 shadeClose: true,
@@ -518,12 +512,14 @@
                 maxmin: true, //开启最大化最小化按钮
                 area: ['893px', '600px'],
                 content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type,
-                success: function (resp) {
-                    $("#layui-layer-iframe1").on("load", function (event) {//判断 iframe是否加载完成  这一步很重要
-                        $("#layui-layer-iframe1").contents().on("click", function () {//添加点击事件
-                            alert("选中啊");
-                        });
+                success: function (layero, index) {
+                    $("#layui-layer-iframe1").contents().on("click",".input-check input", function () {//添加点击事件
+console.log($(this).prop("checked"));
+console.log($(this).val())
                     });
+                    console.log($("#layui-layer-iframe1"));
+
+
                 }
             });
         }
