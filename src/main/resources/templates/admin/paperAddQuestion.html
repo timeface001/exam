@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="${basePath}/static/js/layer/layer.css">
 
     <script type="text/javascript" src="${basePath}/static/js/layui/layui.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/map.js"></script>
     <link rel="stylesheet" type="text/css" href="${basePath}/static/js/layui/css/layui.css">
 </head>
 <body>
@@ -500,7 +501,11 @@
 
         };
 
-        var selectJson={};
+        var selectMap = new MapList();
+        selectMap.put(1, [1, 2, 3]);
+        console.log(selectMap);
+        selectMap.removeItem(1, 1);
+        console.log(selectMap);
 
         function selectQuestion(pointId, type) {
             layer.open({
@@ -514,10 +519,11 @@
                 content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type,
                 success: function (layero, index) {
                     $("#layui-layer-iframe1").contents().on("click",".input-check input", function () {//添加点击事件
-console.log($(this).prop("checked"));
-console.log($(this).val())
+                        if ($(this).prop("checked")) {
+                            selectMap.put()
+                        }
+
                     });
-                    console.log($("#layui-layer-iframe1"));
 
 
                 }
