@@ -482,12 +482,12 @@
 
                 for (var i = 0; i < json.length; i++) {
                     $(".knowsmain").append("<li>" +
-                        "<div class='onebox'>" +
+                        "<div class='onebox' id='point_" + json[i].id + "'>" +
                         "<input type='checkbox' class='fxkbox' name='zsd_cb'/>" +
-                        "<span onclick=selectQuestion(" + json[i].id + "," + type + ")>" + json[i].name + "（" + json[i].questionCount + "道题可选）</span>" +
+                        "<span onclick=selectQuestion(" + json[i].id + "," + type + "," + "'point_" + json[i].id + "')>" + json[i].name + "（" + json[i].questionCount + "道题可选）</span>" +
                         "</div>" +
                         "<div class='twobox'>" +
-                        "<input type='text' class='srkbox' placeholder='0' readonly='readonly'/>" +
+                        "已选<input type='text' style='text-align:center;' class='srkbox' placeholder='0' readonly='readonly'/>" +
                         "<span>题</span>" +
                         "</div>" +
                         "<div class='score'>" +
@@ -501,14 +501,12 @@
 
         };
 
-        var selectMap = new MapList();
-        selectMap.put(1, [1, 2, 3]);
-        console.log(selectMap);
-        selectMap.removeItem(1, 1);
-        console.log(selectMap);
+        var selectQ = new MapList();
 
-        function selectQuestion(pointId, type) {
-            layer.open({
+        var selectIndex = null;
+
+        function selectQuestion(pointId, type, id) {
+            selectIndex = layer.open({
                 id:"selectQuestion",
                 type: 2,
                 title: '选择题目',
@@ -518,12 +516,40 @@
                 area: ['893px', '600px'],
                 content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type,
                 success: function (layero, index) {
-                    $("#layui-layer-iframe1").contents().on("click",".input-check input", function () {//添加点击事件
-                        if ($(this).prop("checked")) {
-                            selectMap.put()
+
+                    //选题弹框中的取消
+                    $("#layui-layer-iframe1").contents().on("click", ".btnbox .btn-info", function () {//添加确认事件
+                        layer.close(index);
+                        selectIndex = null;
+                    });
+
+                    //选题弹框中的确认
+                    $("#layui-layer-iframe1").contents().on("click", ".btnbox .btn-success", function () {//添加确认事件
+
+                        var arr = $("#layui-layer-iframe1").contents().find(".input-check input");
+                        if (arr != null && arr.length > 0) {
+                            selectQ.clear(type);
+                            for (var i = 0; i < arr.length; i++) {
+                                if ($(arr[i]).prop("checked")) {
+                                    selectQ.set(type, $(arr[i]).val());
+                                }
+                            }
+
+                        }
+
+                        layer.close(index);
+                        selectIndex = null;
+
+                        //知识点弹框的选择数量
+                        if (selectQ.isNotEmpty(type)) {
+
                         }
 
                     });
+
+                    point_1
+
+
 
 
                 }
