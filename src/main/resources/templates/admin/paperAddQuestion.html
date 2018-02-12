@@ -517,14 +517,15 @@
                 content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type,
                 success: function (layero, index) {
 
+
                     //选题弹框中的取消
-                    $("#layui-layer-iframe1").contents().on("click", ".btnbox .btn-info", function () {//添加确认事件
+                    $("#layui-layer-iframe" + index).contents().on("click", ".btnbox .btn-info", function () {//添加确认事件
                         layer.close(index);
                         selectIndex = null;
                     });
 
                     //选题弹框中的确认
-                    $("#layui-layer-iframe1").contents().on("click", ".btnbox .btn-success", function () {//添加确认事件
+                    $("#layui-layer-iframe" + index).contents().on("click", ".btnbox .btn-success", function () {//添加确认事件
 
                         var arr = $("#layui-layer-iframe1").contents().find(".input-check input");
                         if (arr != null && arr.length > 0) {
@@ -542,18 +543,28 @@
 
                         //知识点弹框的选择数量
                         if (selectQ.isNotEmpty(type)) {
-
+                            $("#" + id).next().find("input").val(selectQ.get(type).length);
                         }
+
+                        console.log(selectQ.get(type));
+                        //更新题目
+                        $.post("${basePath}/paper/updateQuestion", {
+                            questionIds: selectQ.get(type),
+                            paperId: '${paper.id}'
+                        }, function (data) {
+
+                        });
 
                     });
 
-                    point_1
 
 
 
 
                 }
             });
+
+            console.log(selectIndex);
         }
 
 

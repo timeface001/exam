@@ -5,6 +5,7 @@ import com.fs.ntes.domain.ext.MemberExtMapper;
 import com.fs.ntes.domain.stronger.MemberStg;
 import com.fs.ntes.service.MemberService;
 import com.fs.ntes.service.RoleService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberStg selectStgByUsername(String username) {
+        if (StringUtils.isBlank(username)) {
+            return null;
+        }
         Member member= memberExtMapper.selectByUsername(username);
 
         if (Objects.isNull(member)) {

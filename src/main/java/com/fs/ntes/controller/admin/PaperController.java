@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
@@ -80,5 +81,12 @@ public class PaperController extends BaseController {
     @ResponseBody
     public RespResult selectPoints(String items) {
         return RespGenerator.generateSuccess(pointService.selectListByItemIds(Arrays.stream(items.split(",")).filter(StringUtils::isNoneBlank).map(Integer::valueOf).collect(Collectors.toList())));
+    }
+
+    @RequestMapping("/updateQuestion")
+    @ResponseBody
+    public RespResult updateQuestion(@RequestParam(value = "questionIds[]") Integer[] questionIds, Integer paperId) {
+        paperService.updateQuestionRelation(questionIds, paperId);
+        return RespGenerator.generateSuccess();
     }
 }

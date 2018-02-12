@@ -4,8 +4,6 @@ import com.fs.ntes.domain.Paper;
 import com.fs.ntes.dto.PageRequest;
 import com.github.pagehelper.Page;
 
-import java.util.List;
-
 public interface PaperService {
 
     int save(Paper paper);
@@ -14,4 +12,5 @@ public interface PaperService {
 
     Paper selectOneById(Integer paperId);
 
+    boolean updateQuestionRelation(Integer[] questionIds, Integer paperId);
 }

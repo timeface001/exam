@@ -2,6 +2,7 @@ package com.fs.ntes.service.impl;
 
 import com.fs.ntes.domain.Paper;
 import com.fs.ntes.domain.ext.PaperExtMapper;
+import com.fs.ntes.domain.ext.RelationsExtMapper;
 import com.fs.ntes.dto.PageRequest;
 import com.fs.ntes.service.PaperService;
 import com.github.pagehelper.Page;
@@ -9,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @Service
@@ -16,6 +18,9 @@ public class PaperServiceImpl implements PaperService {
 
     @Autowired
     private PaperExtMapper paperExtMapper;
+
+    @Autowired
+    private RelationsExtMapper relationsExtMapper;
 
     @Override
     public int save(Paper paper) {
@@ -37,5 +42,11 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Paper selectOneById(Integer paperId) {
         return paperExtMapper.selectByPrimaryKey(paperId);
+    }
+
+    @Override
+    public boolean updateQuestionRelation(Integer[] questionIds, Integer paperId) {
+
+        return questionIds != null && questionIds.length > 0 && relationsExtMapper.updateQuestion(Arrays.asList(questionIds), paperId) == questionIds.length;
     }
 }
