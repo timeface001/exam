@@ -2,19 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.ntes.domain.ext.RelationsExtMapper">
 
-    <update id="updateQuestion" parameterType="java.util.Map">
-        /*DELETE FROM relations WHERE initial_id=#{paperId};*/
-        INSERT INTO relations(initial_id,refer_id,refer_type) VALUES (#{paperId},#{paperId},2)
-        <!--<foreach collection="questionIds" item="itemId" open="" close="" separator="," index="index">
-            (#{paperId},#{paperId},2)
-        </foreach>-->
-        <!--INSERT INTO relations(initial_id,refer_id,refer_type) VALUES
-        <foreach collection="questionIds" item="item" open="(" close=")" separator="," index="index">
-            #{paperId},(SELECT point_id FROM relations WHERE id=#{item}),1
-        </foreach>;
+    <!--试卷和题目关联-->
+    <update id="paperQuestionRelation" parameterType="java.util.Map">
+        DELETE FROM relations WHERE initial_id=#{paperId} and refer_type=2 AND refer_id IN (SELECT id FROM question
+        where `status`=0 AND point_id=#{pointId});
         INSERT INTO relations(initial_id,refer_id,refer_type) VALUES
-        <foreach collection="questionIds" item="item" open="(" close=")" separator="," index="index">
-            #{paperId},(SELECT item_id FROM relations WHERE id=#{item}),0
-        </foreach>;-->
+        <foreach collection="questionIds" item="item" open="" close="" separator="," index="index">
+            (#{paperId},#{item},2)
+        </foreach>
+
     </update>
+
+    <update id="paperItemRelation" parameterType="java.util.Map">
+        INSERT INTO relations(initial_id,refer_id,refer_type) VALUES
+        <foreach collection="itemIds" item="item" open="" close="" separator="," index="index">
+            (#{paperId},#{item},0)
+        </foreach>
+    </update>
+
+    <update id="paperPointRelation" parameterType="java.util.Map">
+        INSERT INTO relations(initial_id,refer_id,refer_type) VALUES
+        <foreach collection="pointIds" item="item" open="" close="" separator="," index="index">
+            (#{paperId},#{item},1)
+        </foreach>
+    </update>
+
+    <delete id="delRelations" parameterType="java.util.Map">
+        DELETE FROM relations WHERE id>0
+        <if test="initialId !=null">
+            AND initial_id=#{initialId}
+        </if>
+        <if test="referType !=null">
+            and refer_type=#{referType}
+        </if>
+        <if test="referId !=null">
+            and refer_id=#{referId}
+        </if>
+    </delete>
+
 </mapper>

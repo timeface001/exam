@@ -36,4 +36,13 @@
         </foreach>
         AND a.`status`=0 AND a.question_count>0
     </select>
+
+    <select id="selectPointIdsByQuestionIds" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT point_id FROM question WHERE id in
+        <foreach collection="questionIds" index="index" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND `status`=0
+        GROUP BY point_id
+    </select>
 </mapper>

@@ -19,9 +19,6 @@ public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperExtMapper paperExtMapper;
 
-    @Autowired
-    private RelationsExtMapper relationsExtMapper;
-
     @Override
     public int save(Paper paper) {
         int i;
@@ -44,9 +41,4 @@ public class PaperServiceImpl implements PaperService {
         return paperExtMapper.selectByPrimaryKey(paperId);
     }
 
-    @Override
-    public boolean updateQuestionRelation(Integer[] questionIds, Integer paperId) {
-
-        return questionIds != null && questionIds.length > 0 && relationsExtMapper.updateQuestion(Arrays.asList(questionIds), paperId) == questionIds.length;
-    }
 }

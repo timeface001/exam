@@ -9,10 +9,7 @@ import com.fs.ntes.dto.PageList;
 import com.fs.ntes.dto.PageRequest;
 import com.fs.ntes.dto.RespGenerator;
 import com.fs.ntes.dto.RespResult;
-import com.fs.ntes.service.ItemService;
-import com.fs.ntes.service.PaperService;
-import com.fs.ntes.service.PointService;
-import com.fs.ntes.service.QuestionService;
+import com.fs.ntes.service.*;
 import com.fs.ntes.utils.GeneralUtils;
 import com.github.pagehelper.Page;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +37,8 @@ public class PaperController extends BaseController {
     private PointService pointService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private RelationsService relationsService;
 
     @RequestMapping("/list")
     public String list(PageRequest page) {
@@ -85,8 +84,8 @@ public class PaperController extends BaseController {
 
     @RequestMapping("/updateQuestion")
     @ResponseBody
-    public RespResult updateQuestion(@RequestParam(value = "questionIds[]") Integer[] questionIds, Integer paperId) {
-        paperService.updateQuestionRelation(questionIds, paperId);
+    public RespResult updateQuestion(@RequestParam(value = "questionIds[]") Integer[] questionIds, Integer pointId, @RequestParam(value = "itemIds[]") Integer[] itemIds, Integer paperId) {
+        relationsService.updatePaperQuestion(paperId, pointId, Arrays.asList(questionIds));
         return RespGenerator.generateSuccess();
     }
 }

@@ -1,5 +1,6 @@
 package com.fs.ntes.domain.ext;
 
+import com.fs.ntes.domain.Point;
 import com.fs.ntes.domain.Question;
 import com.fs.ntes.domain.mapper.QuestionMapper;
 import org.apache.ibatis.annotations.Param;

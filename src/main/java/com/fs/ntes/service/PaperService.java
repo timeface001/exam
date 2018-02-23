@@ -12,5 +12,4 @@ public interface PaperService {
 
     Paper selectOneById(Integer paperId);
 
-    boolean updateQuestionRelation(Integer[] questionIds, Integer paperId);
 }

@@ -3,6 +3,7 @@ package com.fs.ntes.utils;
 import com.fs.ntes.domain.Point;
 import org.springframework.util.ClassUtils;
 
+import java.util.Collection;
 import java.util.Objects;
 
 public class GeneralUtils {
@@ -27,5 +28,13 @@ public class GeneralUtils {
             default:
                 return 0;
         }
+    }
+
+    public static boolean isNullOrEmpty(Collection collection) {
+        return Objects.isNull(collection) || collection.isEmpty();
+    }
+
+    public static boolean isNotNullOrEmpty(Collection collection) {
+        return !isNullOrEmpty(collection);
     }
 }

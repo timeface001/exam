@@ -546,13 +546,22 @@
                             $("#" + id).next().find("input").val(selectQ.get(type).length);
                         }
 
-                        console.log(selectQ.get(type));
+
+                        if (selectQ.get(type).length > 0) {
+                            $("#" + id).find("input[name='zsd_cb']").prop("checked", true);
+                        }
+
+
                         //更新题目
                         $.post("${basePath}/paper/updateQuestion", {
                             questionIds: selectQ.get(type),
+                            pointId: id.split("_")[1],
+                            itemIds: '${paper.items}'.split(","),
                             paperId: '${paper.id}'
                         }, function (data) {
-
+                            if (data.success) {
+                                //知识点默认勾选
+                            }
                         });
 
                     });

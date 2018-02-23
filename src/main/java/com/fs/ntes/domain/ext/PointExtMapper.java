@@ -15,4 +15,7 @@ public interface PointExtMapper extends PointMapper {
     int updateQuestionCount(@Param("pointId") Integer pointId,@Param("type") int questionType,@Param("count") Integer count);
 
     List<Point> selectListByItemIds(@Param("itemIds") List<Integer> list);
+
+    List<Integer> selectPointIdsByQuestionIds(@Param("questionIds") List<Integer> questionIds);
+
 }
