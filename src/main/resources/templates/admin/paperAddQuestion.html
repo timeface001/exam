@@ -514,9 +514,8 @@
                 shade: false,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['893px', '600px'],
-                content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type,
+                content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type + "&paperId=" + '${paper.id}',
                 success: function (layero, index) {
-
 
                     //选题弹框中的取消
                     $("#layui-layer-iframe" + index).contents().on("click", ".btnbox .btn-info", function () {//添加确认事件

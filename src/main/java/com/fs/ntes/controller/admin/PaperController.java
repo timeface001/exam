@@ -5,10 +5,8 @@ import com.fs.ntes.domain.Item;
 import com.fs.ntes.domain.Paper;
 import com.fs.ntes.domain.Point;
 import com.fs.ntes.domain.em.QuestionType;
-import com.fs.ntes.dto.PageList;
-import com.fs.ntes.dto.PageRequest;
-import com.fs.ntes.dto.RespGenerator;
-import com.fs.ntes.dto.RespResult;
+import com.fs.ntes.dto.*;
+import com.fs.ntes.dto.exchange.ExchangeUtils;
 import com.fs.ntes.service.*;
 import com.fs.ntes.utils.GeneralUtils;
 import com.github.pagehelper.Page;
@@ -66,9 +64,10 @@ public class PaperController extends BaseController {
     }
 
     @RequestMapping("/selectPaperQuestion")
-    public String selectPaperQuestion(Integer pointId, Integer type) {
+    public String selectPaperQuestion(Integer pointId, Integer type, Integer paperId) {
         Point point = pointService.selectOneById(pointId);
-        setAttribute("list", questionService.selectListByPointId(pointId, type));
+        final List<Integer> questionIds = relationsService.selectQuestionIdsByPaperId(paperId, pointId);
+        setAttribute("list", ExchangeUtils.getList(questionService.selectListByPointId(pointId, type), v -> new PaperQuestionSelectDto(GeneralUtils.isNotNullOrEmpty(questionIds) && questionIds.contains(v.getId()), v)));
         setAttribute("point", point);
         setAttribute("typeName", QuestionType.getTypeDesc(type));
         setAttribute("type", type);

@@ -14,4 +14,6 @@ public interface RelationsExtMapper extends RelationsMapper {
     int paperPointRelation(@Param("pointIds") List<Integer> pointIds, @Param("paperId") Integer paperId);
 
     int delRelations(@Param("initialId") Integer initialId, @Param("referId") Integer referId, @Param("referType") Integer referType);
+
+    List<Integer> selectQuestionIdsByPaperIdAndPointId(@Param("paperId") Integer paperId, @Param("pointId") Integer pointId);
 }

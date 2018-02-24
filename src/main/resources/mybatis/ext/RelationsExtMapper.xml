@@ -28,7 +28,7 @@
     </update>
 
     <delete id="delRelations" parameterType="java.util.Map">
-        DELETE FROM relations WHERE id>0
+        DELETE FROM relations WHERE initial_id>0
         <if test="initialId !=null">
             AND initial_id=#{initialId}
         </if>
@@ -39,5 +39,9 @@
             and refer_id=#{referId}
         </if>
     </delete>
+
+    <select id="selectQuestionIdsByPaperIdAndPointId" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT r.refer_id from relations r LEFT JOIN question q on r.refer_id=q.id  where r.initial_id=#{paperId} AND q.point_id=#{pointId}
+    </select>
 
 </mapper>

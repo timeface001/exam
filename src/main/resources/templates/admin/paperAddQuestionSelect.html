@@ -27,28 +27,21 @@
                         <div class="view-box ${(q_index%2==0)?string('blue-box','border-top-none')}">
                             <div class="view-title">
                                 <label class="input-check">
-                                    <input type="checkbox" value="${q.id}">
+                                    <input type="checkbox" value="${q.question.id}"/>
+                                    ${q.choose}
                                 </label>
                                 <div class="word">
-                                    <span>${q.content}</span>
+                                    <span>${q.question.content}</span>
                                 </div>
                                 <div class="rtitle">
                                     <!--<div class="ico-btn" href="#"><i class="glyphicon glyphicon-th-list"></i>
                                     </div>-->
                                 </div>
                             </div>
-                            <!--<div class="bjbtn" style="display: none;">
-                                <div class="bjbtn_top"></div>
-                                <div class="bjbtn_content">
-                                    <a href="javascript:location.href='${basePath}/question/toAdd?pointId=${point.id}&questionId=${q.id}'"><i
-                                            class="glyphicon glyphicon-pencil"></i>编辑</a>
-                                    <a href="#close-cn" data-toggle="modal" val="${q.id}"><i
-                                            class="glyphicon glyphicon-trash"></i>删除</a>
-                                </div>
-                            </div>-->
-                            <#if q.type lt 3 >
+
+                            <#if q.question.type lt 3 >
                                 <div class="view-choose-box">
-                                    <#assign options=q.options?eval />
+                                    <#assign options=q.question.options?eval />
                                     <#list options as o>
                                         <div class="radio">
                                             <label class="choose">
@@ -63,7 +56,7 @@
                             </#if>
                             <div class="answer-box">
                                 <span class="right-line"></span>
-                                <span>正确答案：<b>${q.answer}</b></span>
+                                <span>正确答案：<b>${q.question.answer}</b></span>
                             </div>
                         </div>
 

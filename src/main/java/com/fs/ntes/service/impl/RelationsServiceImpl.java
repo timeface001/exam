@@ -35,4 +35,9 @@ public class RelationsServiceImpl implements RelationsService {
         //relationsExtMapper.paperPointRelation(pointIds, paperId);
         return true;
     }
+
+    @Override
+    public List<Integer> selectQuestionIdsByPaperId(Integer paperId, Integer pointId) {
+        return relationsExtMapper.selectQuestionIdsByPaperIdAndPointId(paperId, pointId);
+    }
 }
