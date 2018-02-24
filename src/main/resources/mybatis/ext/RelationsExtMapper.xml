@@ -6,10 +6,12 @@
     <update id="paperQuestionRelation" parameterType="java.util.Map">
         DELETE FROM relations WHERE initial_id=#{paperId} and refer_type=2 AND refer_id IN (SELECT id FROM question
         where `status`=0 AND point_id=#{pointId});
-        INSERT INTO relations(initial_id,refer_id,refer_type) VALUES
-        <foreach collection="questionIds" item="item" open="" close="" separator="," index="index">
-            (#{paperId},#{item},2)
-        </foreach>
+        <if test="questionIds!=null and questionIds.size>0">
+            INSERT INTO relations(initial_id,refer_id,refer_type) VALUES
+            <foreach collection="questionIds" item="item" open="" close="" separator="," index="index">
+                (#{paperId},#{item},2)
+            </foreach>
+        </if>
 
     </update>
 
@@ -42,6 +44,11 @@
 
     <select id="selectQuestionIdsByPaperIdAndPointId" parameterType="java.util.Map" resultType="java.lang.Integer">
         SELECT r.refer_id from relations r LEFT JOIN question q on r.refer_id=q.id  where r.initial_id=#{paperId} AND q.point_id=#{pointId}
+    </select>
+
+    <select id="countPointSelect" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM relations r LEFT JOIN question q on r.refer_id=q.id WHERE r.initial_id=#{paperId} AND
+        type=2 AND q.point_id=#{pointId}
     </select>
 
 </mapper>

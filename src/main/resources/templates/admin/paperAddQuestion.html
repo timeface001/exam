@@ -482,12 +482,12 @@
 
                 for (var i = 0; i < json.length; i++) {
                     $(".knowsmain").append("<li>" +
-                        "<div class='onebox' id='point_" + json[i].id + "'>" +
+                        "<div class='onebox' id='point_" + json[i].point.id + "'>" +
                         "<input type='checkbox' class='fxkbox' name='zsd_cb'/>" +
-                        "<span onclick=selectQuestion(" + json[i].id + "," + type + "," + "'point_" + json[i].id + "')>" + json[i].name + "（" + json[i].questionCount + "道题可选）</span>" +
+                        "<span onclick=selectQuestion(" + json[i].point.id + "," + type + "," + "'point_" + json[i].point.id + "')>" + json[i].point.name + "（" + (json[i].point.questionCount - json[i].selectCount) + "道题可选）</span>" +
                         "</div>" +
                         "<div class='twobox'>" +
-                        "已选<input type='text' style='text-align:center;' class='srkbox' placeholder='0' readonly='readonly'/>" +
+                        "已选<input type='text' style='text-align:center;' class='srkbox' value='" + json[i].selectCount + "' readonly='readonly'/>" +
                         "<span>题</span>" +
                         "</div>" +
                         "<div class='score'>" +
@@ -517,6 +517,7 @@
                 content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type + "&paperId=" + '${paper.id}',
                 success: function (layero, index) {
 
+                    console.log("弹框index:" + index);
                     //选题弹框中的取消
                     $("#layui-layer-iframe" + index).contents().on("click", ".btnbox .btn-info", function () {//添加确认事件
                         layer.close(index);
@@ -526,7 +527,7 @@
                     //选题弹框中的确认
                     $("#layui-layer-iframe" + index).contents().on("click", ".btnbox .btn-success", function () {//添加确认事件
 
-                        var arr = $("#layui-layer-iframe1").contents().find(".input-check input");
+                        var arr = $("#layui-layer-iframe" + index).contents().find(".input-check input");
                         if (arr != null && arr.length > 0) {
                             selectQ.clear(type);
                             for (var i = 0; i < arr.length; i++) {
@@ -553,7 +554,7 @@
 
                         //更新题目
                         $.post("${basePath}/paper/updateQuestion", {
-                            questionIds: selectQ.get(type),
+                            questionIds: selectQ.get(type).join(","),
                             pointId: id.split("_")[1],
                             itemIds: '${paper.items}'.split(","),
                             paperId: '${paper.id}'
@@ -572,7 +573,6 @@
                 }
             });
 
-            console.log(selectIndex);
         }
 
 

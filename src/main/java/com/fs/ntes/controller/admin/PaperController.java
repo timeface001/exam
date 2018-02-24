@@ -77,14 +77,15 @@ public class PaperController extends BaseController {
 
     @RequestMapping("/selectPoint")
     @ResponseBody
-    public RespResult selectPoints(String items) {
-        return RespGenerator.generateSuccess(pointService.selectListByItemIds(Arrays.stream(items.split(",")).filter(StringUtils::isNoneBlank).map(Integer::valueOf).collect(Collectors.toList())));
+    public RespResult selectPoints(String items, Integer paperId) {
+        return RespGenerator.generateSuccess(ExchangeUtils.getList(pointService.selectListByItemIds(Arrays.stream(items.split(",")).filter(StringUtils::isNoneBlank).map(Integer::valueOf).collect(Collectors.toList())), v -> new PaperPointSelectDto(v, relationsService.countPointSelect(paperId, v.getId()))
+        ));
     }
 
     @RequestMapping("/updateQuestion")
     @ResponseBody
-    public RespResult updateQuestion(@RequestParam(value = "questionIds[]") Integer[] questionIds, Integer pointId, @RequestParam(value = "itemIds[]") Integer[] itemIds, Integer paperId) {
-        relationsService.updatePaperQuestion(paperId, pointId, Arrays.asList(questionIds));
+    public RespResult updateQuestion(String questionIds, Integer pointId, @RequestParam(value = "itemIds[]") Integer[] itemIds, Integer paperId) {
+        relationsService.updatePaperQuestion(paperId, pointId, GeneralUtils.spilt(questionIds));
         return RespGenerator.generateSuccess();
     }
 }

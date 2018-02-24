@@ -27,8 +27,13 @@
                         <div class="view-box ${(q_index%2==0)?string('blue-box','border-top-none')}">
                             <div class="view-title">
                                 <label class="input-check">
-                                    <input type="checkbox" value="${q.question.id}"/>
-                                    ${q.choose}
+                                    <#if q.choose >
+                                        <input type="checkbox" value="${q.question.id}" checked=""/>
+                                        <#else>
+                                            <input type="checkbox" value="${q.question.id}"/>
+                                    </#if>
+
+
                                 </label>
                                 <div class="word">
                                     <span>${q.question.content}</span>

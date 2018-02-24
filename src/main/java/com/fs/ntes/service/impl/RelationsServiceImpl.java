@@ -40,4 +40,9 @@ public class RelationsServiceImpl implements RelationsService {
     public List<Integer> selectQuestionIdsByPaperId(Integer paperId, Integer pointId) {
         return relationsExtMapper.selectQuestionIdsByPaperIdAndPointId(paperId, pointId);
     }
+
+    @Override
+    public Integer countPointSelect(Integer paperId, Integer pointId) {
+        return relationsExtMapper.countPointSelect(paperId, pointId);
+    }
 }
