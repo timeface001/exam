@@ -98,7 +98,7 @@
                                             <div class="col-lg-6 col-md-6 nopadleft">
                                                 <div class="input-group input-group-lg deploytype ">
                                                     <span class="input-group-addon zjj">数量</span>
-                                                    <input type="text" class="form-control" value="请输入所选试题类型总数"
+                                                    <input type="text" class="form-control" placeholder="请输入所选试题类型总数"
                                                            onBlur="textBlur(this)" onFocus="textFocus(this)">
                                                     <div class="input-group-addon">题</div>
                                                 </div>
@@ -106,7 +106,7 @@
                                             <div class="col-lg-6 col-md-6 nopadright">
                                                 <div class="input-group input-group-lg deploytype">
                                                     <span class="input-group-addon zjj">分值</span>
-                                                    <input type="text" class="form-control" value="请输入该类型试题分值"
+                                                    <input type="text" class="form-control" placeholder="请输入该类型试题分值"
                                                            onBlur="textBlur(this)" onFocus="textFocus(this)">
                                                     <div class="input-group-addon">分/题</div>
                                                 </div>
@@ -158,7 +158,8 @@
                 <!--知识点选择header结束-->
                 <!--知识点选择body开始-->
                 <div class="modal-body knowsbody">
-                    <div class="text-left knowsbody-nav">判断题：<span>总数20道，可用分数20分，已用1题，已用1分。</span></div>
+                    <div class="text-left knowsbody-nav" id="knowsmainDesc">判断题：<span>总数20道，可用分数20分，已用1题，已用1分。</span>
+                    </div>
                     <div class="knowsbody-main">
                         <ul class="knowsmain">
 
@@ -391,6 +392,8 @@
                     }
                     $('#close-cn').modal('hide');
                 }
+
+                selectPoints(0);
             });
 
             $(".zsd_qd").click(function () {
@@ -469,21 +472,34 @@
         var items = '${paper.items}';
         var type = 0;
 
-        selectPoints(0);
+        //selectPoints(0);
 
         function selectPoints(type) {
             $(".knowsman").empty();
-            $.post("${basePath}/paper/selectPoint", {items: items}, function (data) {
+            $.post("${basePath}/paper/selectPoint", {
+                items: items,
+                paperId: '${paper.id}',
+                type: type
+            }, function (data) {
                 if (data.data == null) {
                     return
                 }
-                var json = data.data;
+                var json = data.data.list;
+
+                var singleScore = getSingleScore();
+
+                $("#knowsmainDesc").html(data.data.typeName + "：<span>总数" + data.data.totalCount + "道，可用分数" + data.data.totalCount * singleScore + "分，已用" + data.data.selectCount + "题，已用" + data.data.selectCount * singleScore + "分。</span>");
 
 
+                $(".knowsmain").html("");
+                var pointTotalQuestionCount = 0, pointTotalQuestionSelectCount = 0;
                 for (var i = 0; i < json.length; i++) {
+                    pointTotalQuestionCount += json[i].point.questionCount;
+                    pointTotalQuestionSelectCount += json[i].point.selectCount;
+                    var status = json[i].choose ? "checked" : "";
                     $(".knowsmain").append("<li>" +
                         "<div class='onebox' id='point_" + json[i].point.id + "'>" +
-                        "<input type='checkbox' class='fxkbox' name='zsd_cb'/>" +
+                        "<input type='checkbox' class='fxkbox' name='zsd_cb' " + status + "  />" +
                         "<span onclick=selectQuestion(" + json[i].point.id + "," + type + "," + "'point_" + json[i].point.id + "')>" + json[i].point.name + "（" + (json[i].point.questionCount - json[i].selectCount) + "道题可选）</span>" +
                         "</div>" +
                         "<div class='twobox'>" +
@@ -491,7 +507,7 @@
                         "<span>题</span>" +
                         "</div>" +
                         "<div class='score'>" +
-                        "<span>0分</span>" +
+                        "<span>" + json[i].selectCount * singleScore + "分</span>" +
                         "</div>" +
                         "</li>");
                 }
@@ -505,6 +521,10 @@
 
         var selectIndex = null;
 
+        function getSingleScore() {
+            return $("#deployadd").children().eq(0).find(".line-right").children().eq(1).children().eq(1).children().eq(0).children().eq(1).val();
+        }
+
         function selectQuestion(pointId, type, id) {
             selectIndex = layer.open({
                 id:"selectQuestion",
@@ -517,7 +537,6 @@
                 content: "${basePath}/paper/selectPaperQuestion?pointId=" + pointId + "&type=" + type + "&paperId=" + '${paper.id}',
                 success: function (layero, index) {
 
-                    console.log("弹框index:" + index);
                     //选题弹框中的取消
                     $("#layui-layer-iframe" + index).contents().on("click", ".btnbox .btn-info", function () {//添加确认事件
                         layer.close(index);

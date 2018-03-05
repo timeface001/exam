@@ -17,5 +17,5 @@ public interface RelationsExtMapper extends RelationsMapper {
 
     List<Integer> selectQuestionIdsByPaperIdAndPointId(@Param("paperId") Integer paperId, @Param("pointId") Integer pointId);
 
-    Integer countPointSelect(@Param("paperId") Integer paperId, @Param("pointId") Integer pointId);
+    Integer countPointSelect(@Param("paperId") Integer paperId, @Param("pointId") Integer pointId, @Param("type") Integer type);
 }

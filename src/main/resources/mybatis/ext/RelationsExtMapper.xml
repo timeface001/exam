@@ -47,8 +47,11 @@
     </select>
 
     <select id="countPointSelect" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1) FROM relations r LEFT JOIN question q on r.refer_id=q.id WHERE r.initial_id=#{paperId} AND
-        type=2 AND q.point_id=#{pointId}
+        SELECT count(1) FROM relations r LEFT JOIN question q on r.refer_id=q.id WHERE r.initial_id=#{paperId}
+        AND q.point_id=#{pointId}
+        <if test="type!=null">
+            AND q.type=#{type}
+        </if>
     </select>
 
 </mapper>

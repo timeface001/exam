@@ -77,9 +77,12 @@ public class PaperController extends BaseController {
 
     @RequestMapping("/selectPoint")
     @ResponseBody
-    public RespResult selectPoints(String items, Integer paperId) {
-        return RespGenerator.generateSuccess(ExchangeUtils.getList(pointService.selectListByItemIds(Arrays.stream(items.split(",")).filter(StringUtils::isNoneBlank).map(Integer::valueOf).collect(Collectors.toList())), v -> new PaperPointSelectDto(v, relationsService.countPointSelect(paperId, v.getId()))
-        ));
+    public RespResult selectPoints(String items, Integer paperId, Integer type) {
+        PaperPointCountDto result = new PaperPointCountDto();
+
+        result.setTypeName(QuestionType.getTypeDesc(type));
+        result.setList(ExchangeUtils.getList(pointService.selectListByItemIds(Arrays.stream(items.split(",")).filter(StringUtils::isNoneBlank).map(Integer::valueOf).collect(Collectors.toList())), v -> new PaperPointSelectDto(v, relationsService.countPointSelect(paperId, v.getId(), type), type)));
+        return RespGenerator.generateSuccess(result);
     }
 
     @RequestMapping("/updateQuestion")

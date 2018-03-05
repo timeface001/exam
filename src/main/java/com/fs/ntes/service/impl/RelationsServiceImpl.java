@@ -42,7 +42,7 @@ public class RelationsServiceImpl implements RelationsService {
     }
 
     @Override
-    public Integer countPointSelect(Integer paperId, Integer pointId) {
-        return relationsExtMapper.countPointSelect(paperId, pointId);
+    public Integer countPointSelect(Integer paperId, Integer pointId, Integer type) {
+        return relationsExtMapper.countPointSelect(paperId, pointId, type);
     }
 }

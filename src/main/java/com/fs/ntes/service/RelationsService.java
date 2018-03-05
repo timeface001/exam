@@ -10,5 +10,5 @@ public interface RelationsService {
 
     List<Integer> selectQuestionIdsByPaperId(Integer paperId, Integer pointId);
 
-    Integer countPointSelect(Integer paperId, Integer pointId);
+    Integer countPointSelect(Integer paperId, Integer pointId, Integer type);
 }

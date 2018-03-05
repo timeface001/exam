@@ -1,8 +1,10 @@
 package com.fs.ntes.dto;
 
 import com.fs.ntes.domain.Point;
+import com.fs.ntes.utils.GeneralUtils;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class PaperPointSelectDto implements Serializable {
 
@@ -46,9 +48,13 @@ public class PaperPointSelectDto implements Serializable {
         this.selectCount = selectCount;
     }
 
-    public PaperPointSelectDto(Point point, Integer selectCount) {
+    public PaperPointSelectDto(Point point, Integer selectCount, Integer type) {
         this.point = point;
         this.selectCount = selectCount;
+        this.totalCount = 0;
+        if (Objects.nonNull(point)) {
+            this.totalCount = GeneralUtils.questionTypeCount(point, type);
+        }
         this.choose = selectCount > 0;
     }
 
