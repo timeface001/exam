@@ -4,6 +4,7 @@ import com.fs.ntes.controller.BaseController;
 import com.fs.ntes.domain.Item;
 import com.fs.ntes.domain.Paper;
 import com.fs.ntes.domain.Point;
+import com.fs.ntes.domain.Question;
 import com.fs.ntes.domain.em.QuestionType;
 import com.fs.ntes.dto.*;
 import com.fs.ntes.dto.exchange.ExchangeUtils;
@@ -87,8 +88,16 @@ public class PaperController extends BaseController {
 
     @RequestMapping("/updateQuestion")
     @ResponseBody
-    public RespResult updateQuestion(String questionIds, Integer pointId, @RequestParam(value = "itemIds[]") Integer[] itemIds, Integer paperId) {
-        relationsService.updatePaperQuestion(paperId, pointId, GeneralUtils.spilt(questionIds));
+    public RespResult updateQuestion(String questionIds, Integer pointId, @RequestParam(value = "itemIds[]") Integer[] itemIds, Integer paperId, Integer type) {
+
+        List<Integer> questionIdList;
+        if (StringUtils.isBlank(questionIds)) {
+            questionIdList = questionService.selectListByPointId(pointId, type).stream().map(Question::getId).collect(Collectors.toList());
+        } else {
+            questionIdList = GeneralUtils.spilt(questionIds);
+        }
+        relationsService.updatePaperQuestion(paperId, pointId, questionIdList);
         return RespGenerator.generateSuccess();
     }
+
 }

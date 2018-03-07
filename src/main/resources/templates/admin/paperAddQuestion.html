@@ -99,7 +99,7 @@
                                                 <div class="input-group input-group-lg deploytype ">
                                                     <span class="input-group-addon zjj">数量</span>
                                                     <input type="text" class="form-control" placeholder="请输入所选试题类型总数"
-                                                           onBlur="textBlur(this)" onFocus="textFocus(this)">
+                                                           onBlur="textBlur(this,0)" onFocus="textFocus(this)">
                                                     <div class="input-group-addon">题</div>
                                                 </div>
                                             </div>
@@ -107,7 +107,7 @@
                                                 <div class="input-group input-group-lg deploytype">
                                                     <span class="input-group-addon zjj">分值</span>
                                                     <input type="text" class="form-control" placeholder="请输入该类型试题分值"
-                                                           onBlur="textBlur(this)" onFocus="textFocus(this)">
+                                                           onBlur="textBlur(this,0)" onFocus="textFocus(this)">
                                                     <div class="input-group-addon">分/题</div>
                                                 </div>
                                             </div>
@@ -116,7 +116,7 @@
                                             <span class="input-group-addon zsd">知识点</span>
                                             <textarea id="zsd_text" readonly="readonly" class="form-control konwsbox"
                                                       data-toggle="modal" data-target="#close-cn"
-                                                      onBlur="textBlur(this)" onFocus="textFocus(this)">请选择该类试题涵盖的知识点及所占分数</textarea>
+                                                      onBlur="textBlur(this,1)" onFocus="textFocus(this)">请选择该类试题涵盖的知识点及所占分数</textarea>
 
                                     </div>
                                 </div>
@@ -194,6 +194,8 @@
 
         var choosenums = 0; //已经使用了多少道题
         var choosescore = 0; //已经使用了多少分
+        var typeArr = [0, 1, 2];
+        var questionType = 0;
         //打开模态窗口
         $('#close-cn').modal({backdrop: 'static', keyboard: false, show: false});
 
@@ -219,21 +221,21 @@
                     '<div class="col-lg-6 col-md-6 nopadleft">' +
                     '<div class="input-group input-group-lg deploytype ">' +
                     '<span class="input-group-addon zjj">数量</span>' +
-                    '<input type="text" class="form-control" placeholder="请输入所选试题类型总数">' +
+                    '<input type="text" class="form-control" onBlur="textBlur(this,0)" placeholder="请输入所选试题类型总数">' +
                     '<div class="input-group-addon">题</div>' +
                     '</div>' +
                     '</div>' +
                     '<div class="col-lg-6 col-md-6 nopadright">' +
                     '<div class="input-group input-group-lg deploytype">' +
                     '<span class="input-group-addon zjj">分值</span>' +
-                    '<input type="text" class="form-control" placeholder="请输入该类型试题分值">' +
+                    '<input type="text" class="form-control" onBlur="textBlur(this,0)" placeholder="请输入该类型试题分值">' +
                     '<div class="input-group-addon">分/题</div>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
                     '<div class="input-group input-group-lg deploytype">' +
                     '<span class="input-group-addon zsd" >知识点</span>' +
-                    '<input type="text" class="form-control konwsbox" data-toggle="modal" data-target="#close-cn" placeholder="请选择该类试题涵盖的知识点及所占分数">' +
+                    '<input type="text" class="form-control konwsbox" onBlur="textBlur(this,1)" data-toggle="modal" data-target="#close-cn" placeholder="请选择该类试题涵盖的知识点及所占分数">' +
                     '</div>' +
                     '</div>' +
                     '<div class="col-lg-1 col-md-1">' +
@@ -249,18 +251,20 @@
                     $(this).parent().parent().parent().remove();
                 });
 
-                ////////////////////////////////////////////////////////////////////////////////
                 //获取 一道题 的分值
                 //获取 试题总数量
                 $(".konwsbox").click(function () {
 
+                    questionType = $(this).parent().parent().children().eq(0).find("select").val();
                     score = 0; //一道题的分值
                     scorenums = 0; //试题总数量
 
                     choosenums = 0; //已经使用了多少道题
                     choosescore = 0; //已经使用了多少分
-                    score = $("#deployadd").children().eq(0).find(".line-right").children().eq(1).children().eq(1).children().eq(0).children().eq(1).val();
-                    scorenums = $("#deployadd").children().eq(0).find(".line-right").children().eq(1).children().eq(0).children().eq(0).children().eq(1).val();
+
+                    var num = $(this).parent().parent().parent().index();
+                    score = $("#deployadd").children().eq(num).find(".line-right").children().eq(1).children().eq(1).children().eq(0).children().eq(1).val();
+                    scorenums = $("#deployadd").children().eq(num).find(".line-right").children().eq(1).children().eq(0).children().eq(0).children().eq(1).val();
 
                     $(".knowsbody").children().eq(0).find("span").text("总数" + scorenums + "道，可用分数" + scorenums * score + "分，已用" + choosenums + "题，已用" + choosescore + "分。");
                 });
@@ -272,7 +276,8 @@
 
             ////////////////////////////////////////////////////////////////////////////////
             //获取 一道题 的分值
-            $(".konwsbox").click(function () {
+            $(".konwsbox").on("click", function () {
+                questionType = $(this).parent().parent().children().eq(0).find("select").val();
                 score = 0; //一道题的分值
                 scorenums = 0; //试题总数量
 
@@ -282,7 +287,9 @@
                 score = $("#deployadd").children().eq(num).find(".line-right").children().eq(1).children().eq(1).children().eq(0).children().eq(1).val();
                 scorenums = $("#deployadd").children().eq(num).find(".line-right").children().eq(1).children().eq(0).children().eq(0).children().eq(1).val();
 
-                $(".knowsbody").children().eq(0).find("span").text("总数" + scorenums + "道，可用分数" + scorenums * score + "分，已用" + choosenums + "题，已用" + choosescore + "分。");
+                console.log($("#deployadd").children().eq(num));
+                console.log(num);
+                console.log(score);
             });
 
             //当输入试题数量后计算当前选择了多少题，共多少分
@@ -375,13 +382,15 @@
 
             //当点击知识点输入框时，需要判断 数量 和 分值  如果为空则提示输入
             $('#close-cn').on('shown.bs.modal', function () {
+                console.log(score);
+                console.log(scorenums);
                 // 执行一些动作...
                 var reg = /^[0-9]*[1-9][0-9]*$/;// 这里是 正则表达式，大小写英文字母都可以
                 if (reg.test(score) == true && reg.test(scorenums) == true) {
                     //先检索checkbox所有true，全部改为false
-                    $("input[name='zsd_cb']").each(function () {
+                    /*$("input[name='zsd_cb']").each(function () {
                         $(this).prop("checked", false);
-                    });
+                    });*/
                 } else {
 //						var num = $(this).parent().parent().parent().index();
                     if (reg.test(score) != true) {
@@ -393,18 +402,17 @@
                     $('#close-cn').modal('hide');
                 }
 
-                selectPoints(0);
+                selectPoints(questionType);
             });
 
             $(".zsd_qd").click(function () {
                 //当点击弹窗确定按钮时，隐藏弹窗并把选择的数据放在知识点input中
                 var nums = $(".knowsmain li").length;
-                for (var i = 0; i < nums; i++) {
-                    if ($(".knowsmain").children().eq(i).find(".twobox").find(".srkbox").val() == "0") {
-                        $(".knowsmain").children().eq(i).find(".onebox").find(".fxkbox").prop("checked", false);
-                        $(".knowsmain").children().eq(i).find(".twobox").find(".srkbox").attr("readonly", "readonly");
-                    }
-                }
+                /* for (var i = 0; i < nums; i++) {
+                     if ($(".knowsmain").children().eq(i).find(".twobox").find(".srkbox").val() == "0" && $(this).prop("checked")) {
+                         $(".knowsmain").children().eq(i).find(".onebox").find("span").text();
+                     }
+                 }*/
 
                 var zsd_str = "";
                 $("input[name='zsd_cb']").each(function () {
@@ -435,6 +443,8 @@
             $(".zsd_qx").click(function () {
                 $('#close-cn').modal('hide');
             });
+
+
         });
 
 
@@ -445,14 +455,27 @@
                 el.style.color = '#333';
 
             }
+
+            el.style.color = '#333';
         }
 
-        function textBlur(el) {
+        function textBlur(el, type) {
 //			    if (el.value == '') { el.value = el.defaultValue; el.style.color = '#999'; }
 
-            score = $("#deployadd").children().eq(0).find(".line-right").children().eq(1).children().eq(1).children().eq(0).children().eq(1).val();
-            scorenums = $("#deployadd").children().eq(0).find(".line-right").children().eq(1).children().eq(0).children().eq(0).children().eq(1).val();
+            console.log(el);
+            var num = $(el).parent().parent().parent().parent().index();
+            if (type == 1) {//知识点输入框
+
+                num = $(el).parent().parent().parent().index();
+            }
+            console.log("type:" + type + "num:" + num);
+
+            score = $("#deployadd").children().eq(num).find(".line-right").children().eq(1).children().eq(1).children().eq(0).children().eq(1).val();
+            scorenums = $("#deployadd").children().eq(num).find(".line-right").children().eq(1).children().eq(0).children().eq(0).children().eq(1).val();
             var reg = /^[0-9]*[1-9][0-9]*$/;// 这里是 正则表达式
+
+            console.log("******************");
+            console.log(score);
 
             if (reg.test(scorenums) != true) {
                 $("#deployadd").children().eq(0).find(".line-right").children().eq(1).children().eq(0).children().eq(0).children().eq(1).val("请输入所选试题类型总数").css("color", "red");
@@ -486,7 +509,7 @@
                 }
                 var json = data.data.list;
 
-                var singleScore = getSingleScore();
+                var singleScore = score;
 
                 $("#knowsmainDesc").html(data.data.typeName + "：<span>总数" + data.data.totalCount + "道，可用分数" + data.data.totalCount * singleScore + "分，已用" + data.data.selectCount + "题，已用" + data.data.selectCount * singleScore + "分。</span>");
 
@@ -497,10 +520,13 @@
                     pointTotalQuestionCount += json[i].point.questionCount;
                     pointTotalQuestionSelectCount += json[i].point.selectCount;
                     var status = json[i].choose ? "checked" : "";
+                    if (json[i].totalCount == 0) {
+                        status = "disabled";
+                    }
                     $(".knowsmain").append("<li>" +
                         "<div class='onebox' id='point_" + json[i].point.id + "'>" +
-                        "<input type='checkbox' class='fxkbox' name='zsd_cb' " + status + "  />" +
-                        "<span onclick=selectQuestion(" + json[i].point.id + "," + type + "," + "'point_" + json[i].point.id + "')>" + json[i].point.name + "（" + (json[i].point.questionCount - json[i].selectCount) + "道题可选）</span>" +
+                        "<input type='checkbox' class='fxkbox' name='zsd_cb' " + status + " values='" + json[i].point.id + "," + type + "' />" +
+                        "<span onclick=selectQuestion(" + json[i].point.id + "," + type + "," + "'point_" + json[i].point.id + "')>" + json[i].point.name + "（" + (json[i].totalCount - json[i].selectCount) + "道题可选）</span>" +
                         "</div>" +
                         "<div class='twobox'>" +
                         "已选<input type='text' style='text-align:center;' class='srkbox' value='" + json[i].selectCount + "' readonly='readonly'/>" +
@@ -510,6 +536,25 @@
                         "<span>" + json[i].selectCount * singleScore + "分</span>" +
                         "</div>" +
                         "</li>");
+
+                    $("input[name='zsd_cb']").click(function () {
+                        if ($(this).prop("checked")) {
+                            $.post("${basePath}/paper/updateQuestion", {
+                                questionIds: [],
+                                pointId: $(this).attr("values").split(",")[0],
+                                itemIds: '${paper.items}'.split(","),
+                                paperId: '${paper.id}',
+                                type: $(this).attr("values").split(",")[1]
+
+                            }, function (data) {
+                                if (data.success) {
+                                    //知识点默认勾选
+                                }
+                            });
+                        } else {
+
+                        }
+                    });
                 }
 
 
@@ -576,7 +621,8 @@
                             questionIds: selectQ.get(type).join(","),
                             pointId: id.split("_")[1],
                             itemIds: '${paper.items}'.split(","),
-                            paperId: '${paper.id}'
+                            paperId: '${paper.id}',
+
                         }, function (data) {
                             if (data.success) {
                                 //知识点默认勾选
